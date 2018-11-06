@@ -9,6 +9,7 @@
 class Augment_Types {
 
 	private static $instance;
+	private $current_type = null;
 
 
 	public static function instance() {
@@ -24,8 +25,26 @@ class Augment_Types {
 
 	private function __construct() {
 
+		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
+
+	}
+
+
+	public function init() {
+
+		if ( empty( $_GET ) ) {
+			return;
+		}
+
+		if ( ! isset( $_GET['page'] ) ) {
+			return;
+		}
+
+		if ( substr( $_GET['page'], 0, 8 ) == 'at-sort_' ) {
+			$this->current_type = get_post_type_object( str_replace( 'at-sort_', '', $_GET['page'] ) );
+		}
 
 	}
 
