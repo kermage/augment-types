@@ -95,10 +95,24 @@ class Augment_Types {
 
 	public function create() {
 
+		$args = array(
+			'post_type'      =>  $this->current_type->name,
+			'posts_per_page' => -1,
+		);
+
+		$query = new WP_Query( $args );
+
 		?>
 
 		<div class="wrap">
 			<h1><?php echo get_admin_page_title(); ?></h1>
+
+			<ul class="at-sortable">
+				<?php while( $query->have_posts() ) : ?>
+					<?php $query->the_post(); ?>
+					<li id="post-<?php the_ID(); ?>"><?php the_title(); ?></li>
+				<?php endwhile; ?>
+			</ul>
 		</div>
 
 		<?php
