@@ -35,6 +35,10 @@ class Augment_Types {
 
 		foreach( $types as $type ) {
 
+			if ( $type == 'attachment' ) {
+				continue;
+			}
+
 			$params['id']     = 'at-sort_' . $type;
 			$params['parent'] = 'edit.php?post_type=' . $type;
 
