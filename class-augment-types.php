@@ -41,7 +41,11 @@ class Augment_Types {
 			}
 
 			$params['id']     = 'at-sort_' . $type;
-			$params['parent'] = 'edit.php?post_type=' . $type;
+			$params['parent'] = 'edit.php';
+
+			if ( $type !== 'post' ) {
+				$params['parent'] .= '?post_type=' . $type;
+			}
 
 			$this->page( $params );
 
