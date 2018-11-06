@@ -25,6 +25,7 @@ class Augment_Types {
 	private function __construct() {
 
 		add_action( 'admin_menu', array( $this, 'menu' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
 	}
 
@@ -78,6 +79,33 @@ class Augment_Types {
 		</div>
 
 		<?php
+
+	}
+
+
+	public function scripts_styles() {
+
+		if ( ! $this->is_valid_screen() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_style( 'at-style', AT_URL . 'assets/augment-types.css', array(), AT_VERSION );
+		wp_enqueue_script( 'at-script', AT_URL . 'assets/augment-types.js', array(), AT_VERSION, true );
+
+	}
+
+
+	private function is_valid_screen() {
+
+		$screen = get_current_screen();
+
+		if ( strpos( $screen->id, '_page_at-sort_' ) !== false ) {
+			return true;
+		}
+
+		return false;
 
 	}
 
