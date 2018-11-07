@@ -29,6 +29,7 @@ class Augment_Types {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 		add_action( 'wp_ajax_at_update_order', array( $this, 'update_order' ) );
+		add_action( 'pre_get_posts', array( $this, 'set_order' ) );
 
 	}
 
@@ -170,6 +171,18 @@ class Augment_Types {
 		}
 
 		wp_die();
+
+	}
+
+
+	public function set_order( $query ) {
+
+		$meta = array(
+			'menu_order' => 'ASC',
+			'post_date'  => 'DESC'
+		);
+
+		$query->set( 'orderby', $meta );
 
 	}
 
