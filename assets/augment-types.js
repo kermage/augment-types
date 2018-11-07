@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var $container = $( '.at-sortable' );
+	var $container = $( '#the-list' );
 
 	if ( ! $container.length ) {
 		return;

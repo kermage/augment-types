@@ -149,6 +149,10 @@ class Augment_Types {
 			return true;
 		}
 
+		if ( 'edit' === $screen->base ) {
+			return true;
+		}
+
 		return false;
 
 	}
