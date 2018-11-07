@@ -28,6 +28,7 @@ class Augment_Types {
 		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
+		add_action( 'wp_ajax_at_update_order', array( $this, 'update_order' ) );
 
 	}
 
@@ -143,6 +144,22 @@ class Augment_Types {
 		}
 
 		return false;
+
+	}
+
+
+	public function update_order() {
+
+		parse_str( $_POST['items'], $data );
+
+		foreach ( $data['post'] as $index => $post ) {
+			wp_update_post( array(
+				'ID' => $post,
+				'menu_order' => $index,
+			) );
+		}
+
+		wp_die();
 
 	}
 
