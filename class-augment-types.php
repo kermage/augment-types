@@ -153,6 +153,48 @@ class Augment_Types {
 	}
 
 
+	private function filters( $type ) {
+
+		$taxonomies = get_object_taxonomies( $type, 'objects' );
+
+		?>
+
+		<form action="<?php echo admin_url( 'edit.php' ); ?>" class="at-filters">
+			<input type="hidden" name="page" value="at-sort_<?php echo $type; ?>">
+
+			<?php foreach ( $taxonomies as $name => $taxonomy ) : ?>
+				<?php
+					$options = get_terms( array(
+						'taxonomy' => $name,
+						'fields'   => 'id=>name',
+					) );
+
+					$filter = isset( $_GET[ $name ] ) ? $_GET[ $name ] : null;
+				?>
+
+				<label>
+					<span><?php echo $taxonomy->label ?></span>
+
+					<select name="<?php echo $name; ?>">
+						<option value="0" selected>Show all</option>
+						<?php foreach ( $options as $value => $label ) : ?>
+							<?php $selected = $filter === strval( $value ) ? ' selected' : ''; ?>
+							<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
+								<?php echo $label; ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+				</label>
+			<?php endforeach; ?>
+
+			<input type="submit" value="Submit">
+		</form>
+
+		<?php
+
+	}
+
+
 	public function scripts_styles() {
 
 		if ( ! $this->is_valid_screen() ) {
