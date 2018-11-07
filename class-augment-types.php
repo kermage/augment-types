@@ -177,6 +177,10 @@ class Augment_Types {
 
 	public function set_order( $query ) {
 
+		if ( $query->get( 'orderby' ) ) {
+			return false;
+		}
+
 		$meta = array(
 			'menu_order' => 'ASC',
 			'post_date'  => 'DESC'
