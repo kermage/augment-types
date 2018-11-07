@@ -161,11 +161,15 @@ class Augment_Types {
 			return true;
 		}
 
-		if ( 'edit' === $screen->base ) {
-			return true;
+		if ( 'edit' !== $screen->base ) {
+			return false;
 		}
 
-		return false;
+		if ( isset( $_GET['orderby'] ) ) {
+			return false;
+		}
+
+		return true;
 
 	}
 
