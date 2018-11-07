@@ -112,12 +112,14 @@ class Augment_Types {
 		<div class="wrap">
 			<h1><?php echo get_admin_page_title(); ?></h1>
 
-			<ul class="at-sortable">
-				<?php while( $query->have_posts() ) : ?>
-					<?php $query->the_post(); ?>
-					<li id="post-<?php the_ID(); ?>"><?php the_title(); ?></li>
-				<?php endwhile; ?>
-			</ul>
+			<table class="wp-list-table widefat fixed striped">
+				<tbody id="the-list">
+					<?php while( $query->have_posts() ) : ?>
+						<?php $query->the_post(); ?>
+						<tr id="post-<?php the_ID(); ?>"><td><?php the_title(); ?></td></tr>
+					<?php endwhile; ?>
+				</tbody>
+			</table>
 		</div>
 
 		<?php
