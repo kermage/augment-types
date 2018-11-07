@@ -119,6 +119,7 @@ class Augment_Types {
 						<div class="postbox">
 							<h2 class="hndle">Type Filters</h2>
 							<div class="inside">
+								<?php $this->filters( $this->current_type->name ); ?>
 							</div>
 						</div>
 					</div>
@@ -187,7 +188,7 @@ class Augment_Types {
 				</label>
 			<?php endforeach; ?>
 
-			<input type="submit" value="Submit">
+			<input type="submit" value="Submit" class="button button-primary button-large">
 		</form>
 
 		<?php

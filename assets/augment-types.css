@@ -14,3 +14,18 @@
 .wp-list-table .ui-sortable tr.ui-sortable-placeholder {
 	display: block;
 }
+
+.at-filters label {
+	display: block;
+	margin: 1em 0;
+}
+
+.at-filters span {
+	display: block;
+	margin-bottom: 0.5em;
+	font-weight: 600;
+}
+
+.at-filters select {
+	width: 100%;
+}
