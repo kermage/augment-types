@@ -113,25 +113,39 @@ class Augment_Types {
 		<div class="wrap">
 			<h1><?php echo get_admin_page_title(); ?></h1>
 
-			<table class="wp-list-table widefat fixed striped at-sort">
-				<thead>
-					<tr>
-						<th scope="col">Title</th>
-						<th class="column-links" scope="col">Edit</th>
-						<th class="column-links" scope="col">View</th>
-					</tr>
-				</thead>
-				<tbody id="the-list">
-					<?php while( $query->have_posts() ) : ?>
-						<?php $query->the_post(); ?>
-						<tr id="post-<?php the_ID(); ?>">
-							<td><?php the_title(); ?></td>
-							<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_edit_post_link(), __( 'Edit' ) ); ?></td>
-							<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_permalink(), __( 'View' ) ); ?></td>
-						</tr>
-					<?php endwhile; ?>
-				</tbody>
-			</table>
+			<div id="poststuff">
+				<div id="post-body" class="metabox-holder columns-2">
+					<div id="postbox-container-1" class="postbox-container">
+						<div class="postbox">
+							<h2 class="hndle">Type Filters</h2>
+							<div class="inside">
+							</div>
+						</div>
+					</div>
+
+					<div id="postbox-container-2" class="postbox-container">
+						<table class="wp-list-table widefat fixed striped at-sort">
+							<thead>
+								<tr>
+									<th scope="col">Title</th>
+									<th class="column-links" scope="col">Edit</th>
+									<th class="column-links" scope="col">View</th>
+								</tr>
+							</thead>
+							<tbody id="the-list">
+								<?php while( $query->have_posts() ) : ?>
+									<?php $query->the_post(); ?>
+									<tr id="post-<?php the_ID(); ?>">
+										<td><?php the_title(); ?></td>
+										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_edit_post_link(), __( 'Edit' ) ); ?></td>
+										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_permalink(), __( 'View' ) ); ?></td>
+									</tr>
+								<?php endwhile; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<?php
