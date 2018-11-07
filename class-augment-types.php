@@ -99,6 +99,10 @@ class Augment_Types {
 		$args = array(
 			'post_type'      =>  $this->current_type->name,
 			'posts_per_page' => -1,
+			'orderby'        => array(
+				'menu_order' => 'ASC',
+				'post_date'  => 'DESC'
+			),
 		);
 
 		$query = new WP_Query( $args );
