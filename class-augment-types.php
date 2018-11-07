@@ -104,7 +104,21 @@ class Augment_Types {
 				'menu_order' => 'ASC',
 				'post_date'  => 'DESC'
 			),
+			'tax_query'      => array(),
 		);
+
+		$taxonomies = get_object_taxonomies( $this->current_type->name, 'names' );
+
+		foreach ( $taxonomies as $taxonomy ) {
+			if ( ! isset( $_GET[ $taxonomy ] ) ) {
+				continue;
+			}
+
+			$args['tax_query'][] = array(
+				'taxonomy' => $taxonomy,
+				'terms'    => $_GET[ $taxonomy ],
+			);
+		}
 
 		$query = new WP_Query( $args );
 
