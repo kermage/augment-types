@@ -1,3 +1,7 @@
+.at-sort th {
+	font-weight: 600;
+}
+
 .wp-list-table .ui-sortable tr {
 	cursor: move;
 }
