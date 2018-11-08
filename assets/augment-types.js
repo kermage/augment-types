@@ -1,12 +1,12 @@
+/* global ajaxurl */
+
 (function( $ ) {
 
 	'use strict';
 
 	var $container = $( '#the-list' );
+	var $filters   = $( '#the-filters' );
 
-	if ( ! $container.length ) {
-		return;
-	}
 
 	$container.sortable( {
 		axis: 'y',
@@ -25,7 +25,7 @@
 
 			return ui;
 		},
-		update : function( e, ui ) {
+		update : function() {
 			$.ajax( {
 				type : 'POST',
 				url : ajaxurl,
@@ -37,13 +37,8 @@
 		},
 	});
 
-	var $filters = $( '#the-filters' );
 
-	if ( ! $filters.length ) {
-		return;
-	}
-
-	$filters.on( 'submit', function( e ) {
+	$filters.on( 'submit', function() {
 		$( this ).find( 'input, select' )
 			.filter( function() {
 				return ( this.value === '0' );

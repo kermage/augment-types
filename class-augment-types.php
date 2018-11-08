@@ -5,6 +5,8 @@
  * @since 0.1.0
  */
 
+// phpcs:disable WordPress.Security.EscapeOutput
+// phpcs:disable WordPress.Security.NonceVerification
 
 class Augment_Types {
 
@@ -44,7 +46,7 @@ class Augment_Types {
 			return;
 		}
 
-		if ( substr( $_GET['page'], 0, 8 ) == 'at-sort_' ) {
+		if ( substr( $_GET['page'], 0, 8 ) === 'at-sort_' ) {
 			$this->current_type = get_post_type_object( str_replace( 'at-sort_', '', $_GET['page'] ) );
 		}
 
@@ -53,23 +55,21 @@ class Augment_Types {
 
 	public function menu() {
 
-		$types  = get_post_types();
+		$types = get_post_types();
 
-		foreach( $types as $type ) {
-
-			if ( $type == 'attachment' ) {
+		foreach ( $types as $type ) {
+			if ( 'attachment' === $type ) {
 				continue;
 			}
 
 			$params['id']     = 'at-sort_' . $type;
 			$params['parent'] = 'edit.php';
 
-			if ( $type !== 'post' ) {
+			if ( 'post' !== $type ) {
 				$params['parent'] .= '?post_type=' . $type;
 			}
 
 			$this->page( $params );
-
 		}
 
 	}
@@ -97,17 +97,18 @@ class Augment_Types {
 
 	public function create() {
 
+		$type = $this->current_type->name;
 		$args = array(
-			'post_type'      =>  $this->current_type->name,
+			'post_type'      => $type,
 			'posts_per_page' => -1,
 			'orderby'        => array(
 				'menu_order' => 'ASC',
-				'post_date'  => 'DESC'
+				'post_date'  => 'DESC',
 			),
 			'tax_query'      => array(),
 		);
 
-		$taxonomies = get_object_taxonomies( $this->current_type->name, 'names' );
+		$taxonomies = get_object_taxonomies( $type, 'names' );
 
 		foreach ( $taxonomies as $taxonomy ) {
 			if ( ! isset( $_GET[ $taxonomy ] ) ) {
@@ -133,7 +134,7 @@ class Augment_Types {
 						<div class="postbox">
 							<h2 class="hndle">Type Filters</h2>
 							<div class="inside">
-								<?php $this->filters( $this->current_type->name ); ?>
+								<?php $this->filters( $type ); ?>
 							</div>
 						</div>
 					</div>
@@ -148,7 +149,7 @@ class Augment_Types {
 								</tr>
 							</thead>
 							<tbody id="the-list">
-								<?php while( $query->have_posts() ) : ?>
+								<?php while ( $query->have_posts() ) : ?>
 									<?php $query->the_post(); ?>
 									<tr id="post-<?php the_ID(); ?>">
 										<td><?php the_title(); ?></td>
@@ -175,26 +176,26 @@ class Augment_Types {
 		?>
 
 		<form action="<?php echo admin_url( 'edit.php' ); ?>" id="the-filters" class="at-filters">
-			<input type="hidden" name="post_type" value="<?php echo $type !== 'post' ? $type : '0'; ?>">
+			<input type="hidden" name="post_type" value="<?php echo 'post' !== $type ? $type : '0'; ?>">
 			<input type="hidden" name="page" value="at-sort_<?php echo $type; ?>">
 
 			<?php foreach ( $taxonomies as $name => $taxonomy ) : ?>
 				<?php
-					$options = get_terms( array(
+					$args    = array(
 						'taxonomy' => $name,
 						'fields'   => 'id=>name',
-					) );
-
-					$filter = isset( $_GET[ $name ] ) ? $_GET[ $name ] : null;
+					);
+					$options = get_terms( $args );
+					$filter  = isset( $_GET[ $name ] ) ? $_GET[ $name ] : null;
 				?>
 
 				<label>
-					<span><?php echo $taxonomy->label ?></span>
+					<span><?php echo $taxonomy->label; ?></span>
 
 					<select name="<?php echo $name; ?>">
 						<option value="0" selected>Show all</option>
 						<?php foreach ( $options as $value => $label ) : ?>
-							<?php $selected = $filter === strval( $value ) ? ' selected' : ''; ?>
+							<?php $selected = strval( $value ) === $filter ? ' selected' : ''; ?>
 							<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
 								<?php echo $label; ?>
 							</option>
@@ -256,13 +257,13 @@ class Augment_Types {
 			$order[] = get_post_field( 'menu_order', $post );
 		}
 
-		sort( $order );
-
 		foreach ( $data['post'] as $index => $post ) {
-			wp_update_post( array(
-				'ID' => $post,
+			$args = array(
+				'ID'         => $post,
 				'menu_order' => $order[ $index ],
-			) );
+			);
+
+			wp_update_post( $args );
 		}
 
 		wp_die();
@@ -278,7 +279,7 @@ class Augment_Types {
 
 		$meta = array(
 			'menu_order' => 'ASC',
-			'post_date'  => 'DESC'
+			'post_date'  => 'DESC',
 		);
 
 		$query->set( 'orderby', $meta );
