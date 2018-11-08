@@ -44,7 +44,7 @@
 	}
 
 	$filters.on( 'submit', function( e ) {
-		$( this ).find( 'select' )
+		$( this ).find( 'input, select' )
 			.filter( function() {
 				return ( this.value === '0' );
 			})
