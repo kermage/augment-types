@@ -257,6 +257,8 @@ class Augment_Types {
 			$order[] = get_post_field( 'menu_order', $post );
 		}
 
+		sort( $order );
+
 		foreach ( $data['post'] as $index => $post ) {
 			$args = array(
 				'ID'         => $post,
