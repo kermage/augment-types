@@ -249,10 +249,18 @@ class Augment_Types {
 
 		parse_str( $_POST['items'], $data );
 
+		$order = array();
+
+		foreach ( $data['post'] as $post ) {
+			$order[] = get_post_field( 'menu_order', $post );
+		}
+
+		sort( $order );
+
 		foreach ( $data['post'] as $index => $post ) {
 			wp_update_post( array(
 				'ID' => $post,
-				'menu_order' => $index,
+				'menu_order' => $order[ $index ],
 			) );
 		}
 
