@@ -174,7 +174,7 @@ class Augment_Types {
 
 		?>
 
-		<form action="<?php echo admin_url( 'edit.php' ); ?>" class="at-filters">
+		<form action="<?php echo admin_url( 'edit.php' ); ?>" id="the-filters" class="at-filters">
 			<input type="hidden" name="page" value="at-sort_<?php echo $type; ?>">
 
 			<?php foreach ( $taxonomies as $name => $taxonomy ) : ?>
