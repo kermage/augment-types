@@ -263,7 +263,7 @@ class Augment_Types {
 		$temp = array_filter( $temp );
 		$temp = array_unique( $temp );
 
-		if ( ( count( $data['post'] ) - 1 ) !== count( $temp ) ) {
+		if ( ( count( $data['post'] ) - 1 ) > count( $temp ) ) {
 			$order = array_keys( $data['post'] );
 		}
 
