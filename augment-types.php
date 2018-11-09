@@ -43,3 +43,7 @@ if ( ! defined( 'AT_PATH' ) ) {
 
 // Load the main Augment Types class
 require_once AT_PATH . 'class-' . basename( __FILE__ );
+
+// Instantiate the Augment Types updater
+require_once AT_PATH . 'class-external-update-manager.php';
+new External_Update_Manager( __FILE__, 'https://raw.githubusercontent.com/kermage/augment-types/wp-update/data.json' );
