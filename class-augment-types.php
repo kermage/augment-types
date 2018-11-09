@@ -259,6 +259,14 @@ class Augment_Types {
 
 		sort( $order );
 
+		$temp = $order;
+		$temp = array_filter( $temp );
+		$temp = array_unique( $temp );
+
+		if ( ( count( $data['post'] ) - 1 ) !== count( $temp ) ) {
+			$order = array_keys( $data['post'] );
+		}
+
 		foreach ( $data['post'] as $index => $post ) {
 			$args = array(
 				'ID'         => $post,

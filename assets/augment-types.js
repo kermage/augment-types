@@ -8,6 +8,18 @@
 	var $filters   = $( '#the-filters' );
 
 
+	function at_order_callback() {
+		$.ajax( {
+			type : 'POST',
+			url : ajaxurl,
+			data : {
+				action: 'at_update_order',
+				items: $container.sortable( 'serialize' ),
+			},
+		});
+	}
+
+
 	$container.sortable( {
 		axis: 'y',
 		containment: '.wp-list-table',
@@ -25,15 +37,8 @@
 
 			return ui;
 		},
-		update : function() {
-			$.ajax( {
-				type : 'POST',
-				url : ajaxurl,
-				data : {
-					action: 'at_update_order',
-					items: $container.sortable( 'serialize' ),
-				},
-			});
+		update: function() {
+			at_order_callback();
 		},
 	});
 
@@ -44,6 +49,8 @@
 				return ( this.value === '0' );
 			})
 			.prop( 'name', '' );
+
+		at_order_callback();
 	} );
 
 }( jQuery ));
