@@ -27,6 +27,7 @@ class Augment_Types {
 		spl_autoload_register( array( $this, 'autoload' ) );
 
 		AT_Sort::instance();
+		AT_Feature::instance();
 
 	}
 
