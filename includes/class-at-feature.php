@@ -28,6 +28,7 @@ class AT_Feature {
 		add_filter( 'manage_page_posts_columns', array( $this, 'header' ) );
 		add_action( 'manage_posts_custom_column', array( $this, 'content' ), 10, 2 );
 		add_action( 'manage_page_posts_custom_column', array( $this, 'content' ), 10, 2 );
+		add_action( 'admin_footer-edit.php', array( $this, 'style' ) );
 
 	}
 
@@ -54,6 +55,21 @@ class AT_Feature {
 		} else {
 			echo '<img src="' . esc_attr( includes_url( '/images/media/' ) ) . 'default.png" />';
 		}
+
+	}
+
+
+	public function style() {
+
+		?>
+
+		<style type="text/css">
+			.fixed .column-at-feature {
+				width: 10%;
+			}
+		</style>
+
+		<?php
 
 	}
 
