@@ -66,6 +66,13 @@ class AT_Feature {
 		<style type="text/css">
 			.fixed .column-at-feature {
 				width: 10%;
+				text-align: center;
+			}
+
+			@media screen and ( max-width: 1100px ) and ( min-width: 782px ), ( max-width: 480px ) {
+				.fixed .column-at-feature {
+					width: 14%;
+				}
 			}
 		</style>
 
