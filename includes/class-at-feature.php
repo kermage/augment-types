@@ -48,13 +48,7 @@ class AT_Feature {
 			return;
 		}
 
-		$thumbnail_id = get_post_thumbnail_id( $post_ID );
-
-		if ( $thumbnail_id ) {
-			echo wp_get_attachment_image( $thumbnail_id, array( 64, 64 ) );
-		} else {
-			echo '<img src="' . esc_attr( includes_url( '/images/media/' ) ) . 'default.png" />';
-		}
+		echo wp_get_attachment_image( get_post_thumbnail_id( $post_ID ), array( 64, 64 ), true );
 
 	}
 
