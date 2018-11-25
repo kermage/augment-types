@@ -27,6 +27,7 @@ class AT_Archive {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_footer-post.php', array( $this, 'post_js' ) );
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_js' ) );
+		add_filter( 'display_post_states', array( $this, 'post_states' ), 10, 2 );
 
 	}
 
@@ -76,6 +77,19 @@ class AT_Archive {
 		</script>
 
 		<?php
+
+	}
+
+
+	public function post_states( $states, $post ) {
+
+		if ( 'at-archive' !== $post->post_status ) {
+			return $states;
+		}
+
+		$states['at-archive'] = __( 'Archived', 'augment-types' );
+
+		return $states;
 
 	}
 
