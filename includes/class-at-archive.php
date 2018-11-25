@@ -61,6 +61,7 @@ class AT_Archive {
 			<?php if ( 'at-archive' === $post->post_status ) : ?>
 				$( '#post_status' ).val( 'at-archive' );
 				$( '#post-status-display' ).text( '<?php esc_html_e( 'Archived', 'augment-types' ); ?>' );
+				$( '#save-post' ).val( '<?php esc_html_e( 'Save Archive', 'augment-types' ); ?>' );
 			<?php endif; ?>
 			} );
 		</script>
