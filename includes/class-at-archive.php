@@ -57,7 +57,9 @@ class AT_Archive {
 
 		<script>
 			jQuery( document ).ready( function( $ ) {
+			<?php if ( 'draft' !== $post->post_status && 'pending' !== $post->post_status ) : ?>
 				$( '#post_status' ).append( '<option value="at-archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
+			<?php endif; ?>
 			<?php if ( 'at-archive' === $post->post_status ) : ?>
 				$( '#post_status' ).val( 'at-archive' );
 				$( '#post-status-display' ).text( '<?php esc_html_e( 'Archived', 'augment-types' ); ?>' );
