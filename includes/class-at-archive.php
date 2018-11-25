@@ -52,6 +52,10 @@ class AT_Archive {
 		<script>
 			jQuery( document ).ready( function( $ ) {
 				$( '#post_status' ).append( '<option value="at-archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
+			<?php if ( 'at-archive' === $post->post_status ) : ?>
+				$( '#post_status' ).val( 'at-archive' );
+				$( '#post-status-display' ).text( '<?php esc_html_e( 'Archived', 'augment-types' ); ?>' );
+			<?php endif; ?>
 			} );
 		</script>
 
