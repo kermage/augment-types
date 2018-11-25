@@ -49,6 +49,10 @@ class AT_Archive {
 
 		global $post;
 
+		if ( 'attachment' === $post->post_type ) {
+			return;
+		}
+
 		?>
 
 		<script>
@@ -67,6 +71,12 @@ class AT_Archive {
 
 
 	public function edit_js() {
+
+		global $typenow;
+
+		if ( 'attachment' === $typenow ) {
+			return;
+		}
 
 		?>
 
