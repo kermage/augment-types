@@ -26,6 +26,7 @@ class AT_Archive {
 
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_footer-post.php', array( $this, 'post_js' ) );
+		add_action( 'admin_footer-edit.php', array( $this, 'edit_js' ) );
 
 	}
 
@@ -56,6 +57,21 @@ class AT_Archive {
 				$( '#post_status' ).val( 'at-archive' );
 				$( '#post-status-display' ).text( '<?php esc_html_e( 'Archived', 'augment-types' ); ?>' );
 			<?php endif; ?>
+			} );
+		</script>
+
+		<?php
+
+	}
+
+
+	public function edit_js() {
+
+		?>
+
+		<script>
+			jQuery( document ).ready( function( $ ) {
+				$( 'select[name="_status"]' ).append( '<option value="at-archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
 			} );
 		</script>
 
