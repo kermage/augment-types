@@ -25,6 +25,7 @@ class AT_Archive {
 	private function __construct() {
 
 		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'admin_footer-post.php', array( $this, 'post_js' ) );
 
 	}
 
@@ -38,6 +39,23 @@ class AT_Archive {
 		);
 
 		register_post_status( 'at-archive', $args );
+
+	}
+
+
+	public function post_js() {
+
+		global $post;
+
+		?>
+
+		<script>
+			jQuery( document ).ready( function( $ ) {
+				$( '#post_status' ).append( '<option value="at-archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
+			} );
+		</script>
+
+		<?php
 
 	}
 
