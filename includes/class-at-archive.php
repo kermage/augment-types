@@ -83,7 +83,7 @@ class AT_Archive {
 
 	public function post_states( $states, $post ) {
 
-		if ( 'at-archive' !== $post->post_status ) {
+		if ( 'at-archive' !== $post->post_status || 'at-archive' === get_query_var( 'post_status' ) ) {
 			return $states;
 		}
 
