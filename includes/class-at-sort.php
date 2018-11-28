@@ -249,7 +249,7 @@ class AT_Sort {
 			return false;
 		}
 
-		if ( 'page' === $screen->post_type ) {
+		if ( is_post_type_hierarchical( $screen->post_type ) ) {
 			return false;
 		}
 
