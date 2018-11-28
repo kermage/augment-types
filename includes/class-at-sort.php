@@ -201,7 +201,7 @@ class AT_Sort {
 				?>
 
 				<label>
-					<span><?php echo $taxonomy->label; ?></span>
+					<span><?php echo $taxonomy->labels->singular_name; ?></span>
 
 					<select name="<?php echo $name; ?>">
 						<option value="0" selected>Show all</option>
