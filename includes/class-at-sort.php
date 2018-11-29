@@ -55,18 +55,20 @@ class AT_Sort {
 
 	public function menu() {
 
-		$types = get_post_types();
+		$args  = array( 'public' => true );
+		$types = get_post_types( $args, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( 'attachment' === $type ) {
+			if ( 'attachment' === $type->name ) {
 				continue;
 			}
 
-			$params['id']     = 'at-sort_' . $type;
+			$params['id']     = 'at-sort_' . $type->name;
 			$params['parent'] = 'edit.php';
+			$params['title']  = sprintf( __( 'Sort %s', 'augment-types' ), $type->label );
 
-			if ( 'post' !== $type ) {
-				$params['parent'] .= '?post_type=' . $type;
+			if ( 'post' !== $type->name ) {
+				$params['parent'] .= '?post_type=' . $type->name;
 			}
 
 			$this->page( $params );
@@ -81,9 +83,9 @@ class AT_Sort {
 			// Parent Slug
 			$params['parent'],
 			// Page Title
-			__( 'Sort Types', 'augment-types' ),
+			$params['title'],
 			// Menu Title
-			__( 'Sort Types', 'augment-types' ),
+			$params['title'],
 			// Capability
 			'manage_options',
 			// Menu Slug
