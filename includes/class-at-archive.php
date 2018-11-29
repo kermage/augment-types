@@ -37,6 +37,7 @@ class AT_Archive {
 		$args = array(
 			'label'       => __( 'Archived' ),
 			'public'      => true,
+			/* translators: %s: item count */
 			'label_count' => _n_noop( 'Archived <span class="count">(%s)</span>', 'Archived <span class="count">(%s)</span>' ),
 		);
 
