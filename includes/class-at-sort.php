@@ -186,11 +186,6 @@ class AT_Sort {
 
 		$filter = isset( $_GET['post_status'] ) ? $_GET['post_status'] : null;
 
-		if ( empty( $taxonomies ) ) {
-			echo 'NO FILTERS';
-			return;
-		}
-
 		?>
 
 		<form action="<?php echo admin_url( 'edit.php' ); ?>" id="the-filters" class="at-filters">
