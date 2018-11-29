@@ -100,6 +100,7 @@ class AT_Sort {
 		$type = $this->current_type->name;
 		$args = array(
 			'post_type'      => $type,
+			'post_status'    => 'any',
 			'posts_per_page' => -1,
 			'orderby'        => array(
 				'menu_order' => 'ASC',
@@ -107,6 +108,10 @@ class AT_Sort {
 			),
 			'tax_query'      => array(),
 		);
+
+		if ( isset( $_GET['post_status'] ) ) {
+			$args['post_status'] = $_GET['post_status'];
+		}
 
 		$taxonomies = get_object_taxonomies( $type, 'names' );
 
@@ -174,6 +179,12 @@ class AT_Sort {
 	private function filters( $type ) {
 
 		$taxonomies = get_object_taxonomies( $type, 'objects' );
+		$statuses   = array(
+			'publish' => 'Published',
+			'at-archive' => 'Archived',
+		);
+
+		$filter = isset( $_GET['post_status'] ) ? $_GET['post_status'] : null;
 
 		if ( empty( $taxonomies ) ) {
 			echo 'NO FILTERS';
@@ -185,6 +196,20 @@ class AT_Sort {
 		<form action="<?php echo admin_url( 'edit.php' ); ?>" id="the-filters" class="at-filters">
 			<input type="hidden" name="post_type" value="<?php echo 'post' !== $type ? $type : '0'; ?>">
 			<input type="hidden" name="page" value="at-sort_<?php echo $type; ?>">
+
+			<label>
+				<span>Status</span>
+
+				<select name="post_status">
+					<option value="0" selected>Show all</option>
+					<?php foreach ( $statuses as $value => $label ) : ?>
+						<?php $selected = $filter === $value ? ' selected' : ''; ?>
+						<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
+							<?php echo $label; ?>
+						</option>
+					<?php endforeach; ?>
+				</select>
+			</label>
 
 			<?php foreach ( $taxonomies as $name => $taxonomy ) : ?>
 				<?php
