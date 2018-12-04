@@ -50,7 +50,9 @@ class AT_Feature {
 			return;
 		}
 
-		echo wp_get_attachment_image( get_post_thumbnail_id( $post_ID ), array( 64, 64 ), true );
+		$thumbnail_id = get_post_thumbnail_id( $post_ID );
+
+		echo wp_get_attachment_image( $thumbnail_id, array( 64, 64 ), true, array( 'data-id' => $thumbnail_id ) );
 
 	}
 
@@ -70,7 +72,37 @@ class AT_Feature {
 					width: 14%;
 				}
 			}
+
+			.inline-edit-col .at-feature-image {
+				margin-top: 0.8em;
+			}
 		</style>
+
+		<script type="text/javascript">
+			jQuery( function( $ ) {
+				var $wp_inline_edit = inlineEditPost.edit;
+
+				inlineEditPost.edit = function( id ) {
+					$wp_inline_edit.apply( this, arguments );
+
+					var $post_id = 0;
+
+					if ( 'object' === typeof( id ) ) {
+						$post_id = parseInt( this.getId( id ) );
+					}
+
+					if ( ! $post_id ) {
+						return;
+					}
+
+					var $edit_row = $( '#edit-' + $post_id );
+					var $post_row = $( '#post-' + $post_id );
+					var $featured_image = $( '.column-at-feature', $post_row ).find( 'img' );
+
+					$( '.at-feature-image', $edit_row ).html( $featured_image.clone() );
+				};
+			} );
+		</script>
 
 		<?php
 
