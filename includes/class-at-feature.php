@@ -52,7 +52,7 @@ class AT_Feature {
 
 		$thumbnail_id = get_post_thumbnail_id( $post_ID );
 
-		echo wp_get_attachment_image( $thumbnail_id, array( 64, 64 ), true, array( 'data-id' => $thumbnail_id ) );
+		echo wp_get_attachment_image( $thumbnail_id, 'thumbnail', true, array( 'data-id' => $thumbnail_id ) );
 
 	}
 
@@ -65,6 +65,12 @@ class AT_Feature {
 			.fixed .column-at-feature {
 				width: 10%;
 				text-align: center;
+			}
+
+			.column-at-feature img {
+				max-width: 64px;
+				width: 100%;
+				height: auto;
 			}
 
 			@media screen and ( max-width: 1100px ) and ( min-width: 782px ), ( max-width: 480px ) {
