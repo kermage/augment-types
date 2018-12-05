@@ -56,7 +56,6 @@ class AT_Feature {
 	}
 
 
-
 	public function form( $column, $type ) {
 
 		if ( 'at-feature' !== $column ) {
@@ -66,13 +65,19 @@ class AT_Feature {
 		$template = '<fieldset class="inline-edit-col-right">
 			<div class="inline-edit-col">
 				<span class="title">%1$s</span>
-				<div class="at-feature-image"></div>
+				<div class="at-feature-image">
+					<a href="#" class="at-feature-set">%2$s</a>
+					<input type="hidden" name="_thumbnail_id" value="" />
+					<a href="#" class="at-feature-remove">%3$s</a>
+				</div>
 			</div>
 		</fieldset>';
 
 		$title  = __( 'Featured Image', 'augment-types' );
+		$set    = __( 'Set featured image', 'augment-types' );
+		$remove = __( 'Remove featured image', 'augment-types' );
 
-		printf( $template, esc_html( $title ) );
+		printf( $template, esc_html( $title ), esc_html( $set ), esc_html( $remove ) );
 
 	}
 
@@ -83,6 +88,7 @@ class AT_Feature {
 			return;
 		}
 
+		wp_enqueue_media();
 		wp_enqueue_style( 'at-feature-style', AT_URL . 'assets/at-feature.css', array(), AT_VERSION );
 		wp_enqueue_script( 'at-feature-script', AT_URL . 'assets/at-feature.js', array(), AT_VERSION, true );
 

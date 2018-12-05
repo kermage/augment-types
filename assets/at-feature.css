@@ -17,4 +17,10 @@
 
 .inline-edit-col .at-feature-image {
 	margin-top: 0.8em;
+	max-width: 150px;
+	text-align: center;
+}
+
+.inline-edit-col .at-feature-image img {
+	margin-bottom: 0.8em;
 }
