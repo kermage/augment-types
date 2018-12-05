@@ -28,9 +28,8 @@ class AT_Feature {
 		add_filter( 'manage_page_posts_columns', array( $this, 'header' ) );
 		add_action( 'manage_posts_custom_column', array( $this, 'content' ), 10, 2 );
 		add_action( 'manage_page_posts_custom_column', array( $this, 'content' ), 10, 2 );
-		add_action( 'admin_footer-edit.php', array( $this, 'style' ) );
 		add_action( 'quick_edit_custom_box', array( $this, 'form' ), 10, 2 );
-		add_action( 'load-edit.php', array( $this, 'page' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
 	}
 
@@ -57,63 +56,6 @@ class AT_Feature {
 	}
 
 
-	public function style() {
-
-		?>
-
-		<style type="text/css">
-			.fixed .column-at-feature {
-				width: 10%;
-				text-align: center;
-			}
-
-			.column-at-feature img {
-				max-width: 64px;
-				width: 100%;
-				height: auto;
-			}
-
-			@media screen and ( max-width: 1100px ) and ( min-width: 782px ), ( max-width: 480px ) {
-				.fixed .column-at-feature {
-					width: 14%;
-				}
-			}
-
-			.inline-edit-col .at-feature-image {
-				margin-top: 0.8em;
-			}
-		</style>
-
-		<script type="text/javascript">
-			jQuery( function( $ ) {
-				var $wp_inline_edit = inlineEditPost.edit;
-
-				inlineEditPost.edit = function( id ) {
-					$wp_inline_edit.apply( this, arguments );
-
-					var $post_id = 0;
-
-					if ( 'object' === typeof( id ) ) {
-						$post_id = parseInt( this.getId( id ) );
-					}
-
-					if ( ! $post_id ) {
-						return;
-					}
-
-					var $edit_row = $( '#edit-' + $post_id );
-					var $post_row = $( '#post-' + $post_id );
-					var $featured_image = $( '.column-at-feature', $post_row ).find( 'img' );
-
-					$( '.at-feature-image', $edit_row ).html( $featured_image.clone() );
-				};
-			} );
-		</script>
-
-		<?php
-
-	}
-
 
 	public function form( $column, $type ) {
 
@@ -135,9 +77,27 @@ class AT_Feature {
 	}
 
 
-	public function page() {
+	public function scripts_styles() {
 
-		wp_enqueue_media();
+		if ( ! $this->is_valid_screen() ) {
+			return;
+		}
+
+		wp_enqueue_style( 'at-feature-style', AT_URL . 'assets/at-feature.css', array(), AT_VERSION );
+		wp_enqueue_script( 'at-feature-script', AT_URL . 'assets/at-feature.js', array(), AT_VERSION, true );
+
+	}
+
+
+	private function is_valid_screen() {
+
+		$screen = get_current_screen();
+
+		if ( 'edit' !== $screen->base ) {
+			return false;
+		}
+
+		return true;
 
 	}
 
