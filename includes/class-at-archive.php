@@ -113,4 +113,13 @@ class AT_Archive {
 
 	}
 
+
+	public function set_status( $query ) {
+
+		if ( $query->get( 'at-archive' ) ) {
+			$query->set( 'post_status', 'at-archive' );
+		}
+
+	}
+
 }
