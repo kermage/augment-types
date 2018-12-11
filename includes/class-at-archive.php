@@ -116,6 +116,10 @@ class AT_Archive {
 
 	public function set_status( $query ) {
 
+		if ( is_admin() ) {
+			return false;
+		}
+
 		if ( $query->get( 'at-archive' ) ) {
 			$query->set( 'post_status', 'at-archive' );
 		}
