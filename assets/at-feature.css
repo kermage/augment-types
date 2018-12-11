@@ -15,6 +15,16 @@
 	}
 }
 
+#wpbody-content .inline-edit-row .inline-edit-at-feature {
+	margin-top: 2em;
+}
+
+@media screen and ( min-width: 783px ) {
+	#wpbody-content .inline-edit-row .inline-edit-col-left {
+		margin-bottom: 4em;
+	}
+}
+
 .inline-edit-col .at-feature-image {
 	margin-top: 0.8em;
 	max-width: 150px;
