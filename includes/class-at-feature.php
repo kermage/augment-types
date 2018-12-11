@@ -62,7 +62,7 @@ class AT_Feature {
 			return;
 		}
 
-		$template = '<fieldset class="inline-edit-col-right">
+		$template = '<fieldset class="inline-edit-col-right inline-edit-at-feature">
 			<div class="inline-edit-col">
 				<span class="title">%1$s</span>
 				<div class="at-feature-image">
