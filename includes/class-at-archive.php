@@ -28,6 +28,7 @@ class AT_Archive {
 		add_action( 'admin_footer-post.php', array( $this, 'post_js' ) );
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_js' ) );
 		add_filter( 'display_post_states', array( $this, 'post_states' ), 10, 2 );
+		add_action( 'pre_get_posts', array( $this, 'set_status' ) );
 
 	}
 
@@ -42,6 +43,9 @@ class AT_Archive {
 		);
 
 		register_post_status( 'at-archive', $args );
+
+		add_rewrite_tag( '%at-archive%', '([^&]+)' );
+		add_rewrite_rule( '^([^/]+)/archive/?$', 'index.php?post_type=$matches[1]&at-archive=true', 'top' );
 
 	}
 
