@@ -46,6 +46,7 @@ class AT_Archive {
 
 		add_rewrite_tag( '%at-archive%', '([^&]+)' );
 		add_rewrite_rule( '^([^/]+)/archive/?$', 'index.php?post_type=$matches[1]&at-archive=true', 'top' );
+		add_rewrite_rule( '^([^/]+)/archive/page/([0-9]+)/?$', 'index.php?post_type=$matches[1]&paged=$matches[2]&at-archive=true', 'top' );
 
 	}
 
