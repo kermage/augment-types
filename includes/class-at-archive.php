@@ -120,8 +120,12 @@ class AT_Archive {
 			return false;
 		}
 
-		if ( $query->get( 'at-archive' ) ) {
-			$query->set( 'post_status', 'at-archive' );
+		if ( $query->is_archive() ) {
+			if ( $query->get( 'at-archive' ) ) {
+				$query->set( 'post_status', 'at-archive' );
+			} else {
+				$query->set( 'post_status', 'publish' );
+			}
 		}
 
 	}
