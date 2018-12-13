@@ -9,7 +9,7 @@
  * @package External Update Manager
  * @link    https://github.com/kermage/External-Update-Manager
  * @author  Gene Alyson Fortunado Torcende
- * @version 1.6.0
+ * @version 1.8.0
  * @license GPL-3.0
  */
 
@@ -44,9 +44,11 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			if ( 'plugin' === $this->item_type ) {
 				add_filter( 'plugins_api', array( $this, 'set_plugin_info' ), 10, 3 );
 				add_filter( 'plugin_row_meta', array( $this, 'add_view_details' ), 10, 2 );
+				add_action( 'in_plugin_update_message-' . $this->item_key, array( $this, 'plugin_update_message' ), 10, 2 );
 			}
 
 			add_filter( 'upgrader_source_selection', array( $this, 'fix_directory_name' ), 10, 4 );
+			add_action( 'admin_notices', array( $this, 'show_update_message' ) );
 
 			$this->maybe_delete_transient();
 		}
@@ -165,8 +167,13 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			$url      = add_query_arg( $request, $this->update_url );
 			$options  = array( 'timeout' => 10 );
 			$response = wp_remote_get( $url, $options );
-			$code     = wp_remote_retrieve_response_code( $response );
-			$body     = wp_remote_retrieve_body( $response );
+
+			if ( is_wp_error( $response ) || ! is_array( $response ) ) {
+				return false;
+			}
+
+			$code = wp_remote_retrieve_response_code( $response );
+			$body = wp_remote_retrieve_body( $response );
 
 			if ( 200 === $code ) {
 				return json_decode( $body );
@@ -213,8 +220,8 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 		public function fix_directory_name( $source, $remote_source, $upgrader, $hook_extra = null ) {
 			global $wp_filesystem;
 
-			if ( isset( $hook_extra['theme'] ) && $hook_extra['theme'] === $this->item_key ||
-				isset( $hook_extra['plugin'] ) && $hook_extra['plugin'] === $this->item_key ) {
+			if ( ( isset( $hook_extra['theme'] ) && $hook_extra['theme'] === $this->item_key ) ||
+				( isset( $hook_extra['plugin'] ) && $hook_extra['plugin'] === $this->item_key ) ) {
 				$corrected_source = trailingslashit( $remote_source ) . $this->item_slug . '/';
 
 				if ( $source === $corrected_source ) {
@@ -232,6 +239,75 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			}
 
 			return $source;
+		}
+
+		public function show_update_message() {
+			global $pagenow;
+
+			if ( 'update-core.php' === $pagenow ||
+				( 'theme' === $this->item_type && 'themes.php' === $pagenow ) ||
+				( 'plugin' === $this->item_type && 'plugins.php' === $pagenow ) ) {
+				return false;
+			}
+
+			$remote_data = $this->get_remote_data();
+
+			if ( ! is_object( $remote_data ) ) {
+				return false;
+			}
+
+			if ( version_compare( $this->item_version, $remote_data->new_version, '>=' ) ) {
+				return false;
+			}
+
+			wp_enqueue_script( 'plugin-install' );
+
+			if ( 'theme' === $this->item_type ) {
+				$details_args = array( 'TB_iframe' => 'true' );
+				$details_url  = $remote_data->url;
+			} else {
+				$details_args = array(
+					'tab'       => 'plugin-information',
+					'plugin'    => $this->item_slug,
+					'section'   => 'changelog',
+					'TB_iframe' => 'true',
+				);
+				$details_url  = self_admin_url( 'plugin-install.php' );
+			}
+
+			$details_url = add_query_arg( $details_args, $details_url );
+			$update_args = array(
+				'action'         => 'upgrade-' . $this->item_type,
+				$this->item_type => rawurlencode( $this->item_key ),
+				'_wpnonce'       => wp_create_nonce( 'upgrade-' . $this->item_type . '_' . $this->item_key ),
+			);
+			$update_url  = add_query_arg( $update_args, self_admin_url( 'update.php' ) );
+
+			echo '<div class="notice notice-info is-dismissible"><p><strong>';
+			/* translators: 1: plugin name, 2: details URL, 3: additional link attributes, 4: version number, 5: update URL, 6: additional link attributes */
+			printf( __( 'There is a new version of %1$s available. <a href="%2$s" %3$s>View version %4$s details</a> or <a href="%5$s" %6$s>update now</a>.' ),
+				$this->item_name,
+				esc_url( $details_url ),
+				sprintf( 'class="thickbox open-plugin-details-modal" aria-label="%s"',
+					/* translators: 1: plugin name, 2: version number */
+					esc_attr( sprintf( __( 'View %1$s version %2$s details' ), $this->item_name, $remote_data->new_version ) )
+				),
+				$remote_data->new_version,
+				esc_url( $update_url ),
+				sprintf( 'class="update-link" aria-label="%s"',
+					/* translators: %s: plugin name */
+					esc_attr( sprintf( __( 'Update %s now' ), $this->item_name ) )
+				)
+			);
+			echo '</strong></p>';
+			echo '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
+			echo '</div>';
+		}
+
+		public function plugin_update_message( $plugin_data, $response ) {
+			if ( ! empty( $plugin_data['upgrade_notice'] ) ) {
+				echo '<br>' . esc_html( $plugin_data['upgrade_notice'] );
+			}
 		}
 
 	}
