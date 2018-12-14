@@ -42,6 +42,7 @@
 				var key = e.key || e.keyCode;
 
 				if ( 'Escape' === key || 27 === key ) {
+					$container.sortable( 'option', 'locked', true );
 					$container.sortable( 'cancel' );
 				}
 			});
@@ -59,7 +60,11 @@
 			return ui;
 		},
 		update: function() {
-			at_order_callback();
+			if ( ! $container.sortable( 'option', 'locked' ) ) {
+				at_order_callback();
+			}
+
+			$container.sortable( 'option', 'locked', false );
 		},
 	});
 
