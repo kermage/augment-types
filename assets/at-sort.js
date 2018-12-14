@@ -17,10 +17,16 @@
 				items: $container.sortable( 'serialize' ),
 			},
 			beforeSend: function() {
-				$container.sortable( 'disable' );
+				$container
+					.sortable( 'disable' )
+					.parents( '.wp-list-table' )
+					.addClass( 'sorting' );
 			},
 			complete: function() {
-				$container.sortable( 'enable' );
+				$container
+					.sortable( 'enable' )
+					.parents( '.wp-list-table' )
+					.removeClass( 'sorting' );
 			},
 		});
 	}
