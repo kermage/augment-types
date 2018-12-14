@@ -16,6 +16,12 @@
 				action: 'at_update_order',
 				items: $container.sortable( 'serialize' ),
 			},
+			beforeSend: function() {
+				$container.sortable( 'disable' );
+			},
+			complete: function() {
+				$container.sortable( 'enable' );
+			},
 		});
 	}
 
