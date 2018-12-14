@@ -55,7 +55,7 @@ class AT_Sort {
 
 	public function menu() {
 
-		$args  = array( 'public' => true );
+		$args  = array( 'show_ui' => true );
 		$types = get_post_types( $args, 'objects' );
 
 		foreach ( $types as $type ) {
