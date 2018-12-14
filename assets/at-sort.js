@@ -37,6 +37,15 @@
 		containment: '.wp-list-table',
 		placeholder: 'ui-sortable-placeholder',
 		tolerance: 'pointer',
+		create: function() {
+			$( document ).on( 'keydown', function( e ) {
+				var key = e.key || e.keyCode;
+
+				if ( 'Escape' === key || 27 === key ) {
+					$container.sortable( 'cancel' );
+				}
+			});
+		},
 		start: function( e, ui ) {
 			ui.placeholder.width( ui.item.width() );
 			ui.placeholder.height( ui.item.height() );
