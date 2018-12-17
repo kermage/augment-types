@@ -126,7 +126,10 @@ class AT_Archive {
 				$query->set( 'post_status', 'at-archive' );
 			} else {
 				if ( ! $query->get( 'post_status' ) ) {
-					$query->set( 'post_status', 'publish' );
+					$argument = array( 'publicly_queryable' => true );
+					$statuses = get_post_stati( $argument );
+
+					$query->set( 'post_status', $statuses );
 				}
 			}
 		}
