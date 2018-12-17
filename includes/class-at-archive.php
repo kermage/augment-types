@@ -126,7 +126,7 @@ class AT_Archive {
 				$query->set( 'post_status', 'at-archive' );
 			} else {
 				if ( ! $query->get( 'post_status' ) ) {
-					$argument = array( 'publicly_queryable' => true );
+					$argument = array( 'exclude_from_search' => false );
 					$statuses = get_post_stati( $argument );
 
 					unset( $statuses['at-archive'] );
