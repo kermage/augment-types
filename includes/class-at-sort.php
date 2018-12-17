@@ -161,7 +161,7 @@ class AT_Sort {
 									<?php $query->the_post(); ?>
 									<tr id="post-<?php the_ID(); ?>">
 										<td><?php echo get_post_field( 'menu_order', get_the_ID() ); ?></td>
-										<td><?php the_title(); ?></td>
+										<td><?php the_title() . _post_states( get_post() ); ?></td>
 										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_edit_post_link(), __( 'Edit' ) ); ?></td>
 										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_permalink(), __( 'View' ) ); ?></td>
 									</tr>
