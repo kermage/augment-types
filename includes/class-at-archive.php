@@ -30,6 +30,7 @@ class AT_Archive {
 		add_filter( 'display_post_states', array( $this, 'post_states' ), 10, 2 );
 		add_action( 'pre_get_posts', array( $this, 'set_status' ) );
 		add_filter( 'wp_unique_post_slug_is_bad_flat_slug', array( $this, 'reserve_slug' ), 10, 3 );
+		add_filter( 'wp_unique_post_slug_is_bad_hierarchical_slug', array( $this, 'reserve_slug' ), 10, 4 );
 
 	}
 
@@ -139,10 +140,14 @@ class AT_Archive {
 	}
 
 
-	public function reserve_slug( $is_bad, $slug, $post_type ) {
+	public function reserve_slug( $is_bad, $slug, $post_type, $post_parent = null ) {
 
 		if ( 'archive' === $slug ) {
-			return true;
+			if ( is_null( $post_parent ) ) {
+				return true;
+			} elseif ( ! $post_parent ) {
+				return true;
+			}
 		}
 
 		return $is_bad;
