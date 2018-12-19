@@ -29,6 +29,7 @@ class AT_Archive {
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_js' ) );
 		add_filter( 'display_post_states', array( $this, 'post_states' ), 10, 2 );
 		add_action( 'pre_get_posts', array( $this, 'set_status' ) );
+		add_filter( 'wp_unique_post_slug_is_bad_flat_slug', array( $this, 'reserve_slug' ), 10, 3 );
 
 	}
 
@@ -134,6 +135,17 @@ class AT_Archive {
 				}
 			}
 		}
+
+	}
+
+
+	public function reserve_slug( $is_bad, $slug, $post_type ) {
+
+		if ( 'archive' === $slug ) {
+			return true;
+		}
+
+		return $is_bad;
 
 	}
 
