@@ -24,12 +24,19 @@ class AT_Feature {
 
 	private function __construct() {
 
+		add_action( 'admin_init', array( $this, 'init' ) );
+		add_action( 'quick_edit_custom_box', array( $this, 'form' ), 10, 2 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
+
+	}
+
+
+	public function init() {
+
 		add_filter( 'manage_posts_columns', array( $this, 'header' ) );
 		add_filter( 'manage_page_posts_columns', array( $this, 'header' ) );
 		add_action( 'manage_posts_custom_column', array( $this, 'content' ), 10, 2 );
 		add_action( 'manage_page_posts_custom_column', array( $this, 'content' ), 10, 2 );
-		add_action( 'quick_edit_custom_box', array( $this, 'form' ), 10, 2 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
 	}
 
