@@ -130,14 +130,12 @@ class AT_Archive {
 		if ( $query->is_archive() ) {
 			if ( $query->get( 'at-archive' ) ) {
 				$query->set( 'post_status', 'at-archive' );
-			} else {
-				if ( ! $query->get( 'post_status' ) ) {
-					$argument = array( 'exclude_from_search' => false );
-					$statuses = get_post_stati( $argument );
+			} elseif ( ! $query->get( 'post_status' ) ) {
+				$argument = array( 'exclude_from_search' => false );
+				$statuses = get_post_stati( $argument );
 
-					unset( $statuses['at-archive'] );
-					$query->set( 'post_status', $statuses );
-				}
+				unset( $statuses['at-archive'] );
+				$query->set( 'post_status', $statuses );
 			}
 		}
 
