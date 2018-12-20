@@ -61,6 +61,10 @@ class AT_Archive {
 			return;
 		}
 
+		if ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) ) {
+			return;
+		}
+
 		?>
 
 		<script>
