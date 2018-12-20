@@ -33,10 +33,13 @@ class AT_Feature {
 
 	public function init() {
 
-		add_filter( 'manage_posts_columns', array( $this, 'header' ) );
-		add_filter( 'manage_page_posts_columns', array( $this, 'header' ) );
-		add_action( 'manage_posts_custom_column', array( $this, 'content' ), 10, 2 );
-		add_action( 'manage_page_posts_custom_column', array( $this, 'content' ), 10, 2 );
+		$args  = array( 'public' => true );
+		$types = get_post_types( $args );
+
+		foreach ( $types as $type ) {
+			add_filter( 'manage_' . $type . '_posts_columns', array( $this, 'header' ) );
+			add_action( 'manage_' . $type . '_posts_custom_column', array( $this, 'content' ), 10, 2 );
+		}
 
 	}
 
