@@ -37,6 +37,10 @@ class AT_Feature {
 		$types = get_post_types( $args );
 
 		foreach ( $types as $type ) {
+			if ( ! post_type_supports( $type, 'thumbnail' ) ) {
+				continue;
+			}
+
 			add_filter( 'manage_' . $type . '_posts_columns', array( $this, 'header' ) );
 			add_action( 'manage_' . $type . '_posts_custom_column', array( $this, 'content' ), 10, 2 );
 		}
@@ -71,6 +75,10 @@ class AT_Feature {
 	public function form( $column, $type ) {
 
 		if ( 'at-feature' !== $column ) {
+			return;
+		}
+
+		if ( ! post_type_supports( $type, 'thumbnail' ) ) {
 			return;
 		}
 
@@ -112,6 +120,10 @@ class AT_Feature {
 		$screen = get_current_screen();
 
 		if ( 'edit' !== $screen->base ) {
+			return false;
+		}
+
+		if ( ! post_type_supports( $screen->post_type, 'thumbnail' ) ) {
 			return false;
 		}
 
