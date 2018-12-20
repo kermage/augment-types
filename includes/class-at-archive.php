@@ -137,6 +137,11 @@ class AT_Archive {
 			}
 		}
 
+		if ( $query->get( 'at-archive' ) && ! $query->get( 'post_type' ) ) {
+			$query->set( 'name', 'at-archive' );
+			$query->set_404();
+		}
+
 	}
 
 
