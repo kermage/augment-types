@@ -25,6 +25,7 @@ class AT_Archive {
 	private function __construct() {
 
 		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'wp_loaded', array( $this, 'rewrites' ) );
 		add_action( 'admin_footer-post.php', array( $this, 'post_js' ) );
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_js' ) );
 		add_filter( 'display_post_states', array( $this, 'post_states' ), 10, 2 );
@@ -46,9 +47,22 @@ class AT_Archive {
 
 		register_post_status( 'at-archive', $args );
 
+	}
+
+
+	public function rewrites() {
+
 		add_rewrite_tag( '%at-archive%', '([^&]+)' );
-		add_rewrite_rule( '^([^/]+)/archive/?$', 'index.php?post_type=$matches[1]&at-archive=true', 'top' );
-		add_rewrite_rule( '^([^/]+)/archive/page/([0-9]+)/?$', 'index.php?post_type=$matches[1]&paged=$matches[2]&at-archive=true', 'top' );
+
+		$args  = array( 'public' => true );
+		$types = get_post_types( $args, 'objects' );
+
+		foreach ( $types as $type ) {
+			$slug = $type->rewrite['slug'];
+
+			add_rewrite_rule( '^' . $slug . '/archive/?$', 'index.php?post_type=' . $type->name . '&at-archive=true', 'top' );
+			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
+		}
 
 	}
 
