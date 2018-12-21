@@ -58,6 +58,10 @@ class AT_Archive {
 		$types = get_post_types( $args, 'objects' );
 
 		foreach ( $types as $type ) {
+			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) ) {
+				continue;
+			}
+
 			$slug = $type->rewrite['slug'];
 
 			add_rewrite_rule( '^' . $slug . '/archive/?$', 'index.php?post_type=' . $type->name . '&at-archive=true', 'top' );
