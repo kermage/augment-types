@@ -1,8 +1,8 @@
 {
-  "new_version"  : "0.9.0",
+  "new_version"  : "1.0.0-beta",
   "url"          : "https://github.com/kermage/augment-types",
-  "package"      : "https://github.com/kermage/augment-types/archive/v0.9.0.zip",
-  "last_updated" : "2018-12-20",
+  "package"      : "https://github.com/kermage/augment-types/releases/download/v1.0.0-beta/augment-types.zip",
+  "last_updated" : "2018-12-21",
   "author_name"  : "Gene Alyson Fortunado Torcende",
   "author_url"   : "mailto:genealyson.torcende@gmail.com",
   "requires"     : "4.6.0",
