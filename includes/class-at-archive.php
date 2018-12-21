@@ -79,6 +79,12 @@ class AT_Archive {
 			return;
 		}
 
+		$object = get_post_type_object( $post->post_type );
+
+		if ( ! $object->public ) {
+			return;
+		}
+
 		if ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) ) {
 			return;
 		}
@@ -110,6 +116,12 @@ class AT_Archive {
 		global $typenow;
 
 		if ( 'attachment' === $typenow ) {
+			return;
+		}
+
+		$object = get_post_type_object( $typenow );
+
+		if ( ! $object->public ) {
 			return;
 		}
 
