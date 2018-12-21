@@ -183,7 +183,7 @@ class AT_Sort {
 		$taxonomies = get_object_taxonomies( $type, 'objects' );
 		$statuses   = array(
 			'publish' => 'Published',
-			'at-archive' => 'Archived',
+			'archive' => 'Archived',
 		);
 
 		$filter = isset( $_GET['post_status'] ) ? $_GET['post_status'] : null;

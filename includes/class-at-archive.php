@@ -45,7 +45,7 @@ class AT_Archive {
 			'label_count' => _n_noop( 'Archived <span class="count">(%s)</span>', 'Archived <span class="count">(%s)</span>' ),
 		);
 
-		register_post_status( 'at-archive', $args );
+		register_post_status( 'archive', $args );
 
 	}
 
@@ -94,12 +94,12 @@ class AT_Archive {
 		<script>
 			jQuery( document ).ready( function( $ ) {
 			<?php if ( 'draft' !== $post->post_status && 'pending' !== $post->post_status ) : ?>
-				$( '#post_status' ).append( '<option value="at-archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
+				$( '#post_status' ).append( '<option value="archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
 			<?php endif; ?>
-			<?php if ( 'at-archive' === $post->post_status ) : ?>
+			<?php if ( 'archive' === $post->post_status ) : ?>
 				postL10n['saveDraft'] = "<?php esc_html_e( 'Save Archive', 'augment-types' ); ?>";
 				postL10n['savingText'] = "<?php esc_html_e( 'Saving Archive...', 'augment-types' ); ?>";
-				$( '#post_status' ).val( 'at-archive' );
+				$( '#post_status' ).val( 'archive' );
 				$( '#post-status-display' ).text( '<?php esc_html_e( 'Archived', 'augment-types' ); ?>' );
 				$( '#save-post' ).val( '<?php esc_html_e( 'Save Archive', 'augment-types' ); ?>' );
 			<?php endif; ?>
@@ -129,7 +129,7 @@ class AT_Archive {
 
 		<script>
 			jQuery( document ).ready( function( $ ) {
-				$( 'select[name="_status"]' ).append( '<option value="at-archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
+				$( 'select[name="_status"]' ).append( '<option value="archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
 			} );
 		</script>
 
@@ -140,7 +140,7 @@ class AT_Archive {
 
 	public function post_states( $states, $post ) {
 
-		if ( 'at-archive' !== $post->post_status || 'at-archive' === get_query_var( 'post_status' ) ) {
+		if ( 'archive' !== $post->post_status || 'archive' === get_query_var( 'post_status' ) ) {
 			return $states;
 		}
 
@@ -159,12 +159,12 @@ class AT_Archive {
 
 		if ( $query->is_archive() ) {
 			if ( $query->get( 'at-archive' ) ) {
-				$query->set( 'post_status', 'at-archive' );
+				$query->set( 'post_status', 'archive' );
 			} elseif ( ! $query->get( 'post_status' ) ) {
 				$argument = array( 'public' => true );
 				$statuses = get_post_stati( $argument );
 
-				unset( $statuses['at-archive'] );
+				unset( $statuses['archive'] );
 				$query->set( 'post_status', $statuses );
 			}
 		}
