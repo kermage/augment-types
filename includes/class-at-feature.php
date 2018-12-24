@@ -64,9 +64,11 @@ class AT_Feature {
 		}
 
 		$thumbnail_id = get_post_thumbnail_id( $post_ID );
+		$image_sizes  = wp_get_additional_image_sizes();
+		$thumb_size   = isset( $image_sizes['post-thumbnail'] ) ? 'post-thumbnail' : array( 266, 266 );
 
 		echo '<a href="#" class="editinline">';
-		echo wp_get_attachment_image( $thumbnail_id, 'thumbnail', true, array( 'data-id' => $thumbnail_id ) );
+		echo wp_get_attachment_image( $thumbnail_id, $thumb_size, true, array( 'data-id' => $thumbnail_id ) );
 		echo '</a>';
 
 	}
