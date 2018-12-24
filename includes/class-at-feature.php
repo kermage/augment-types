@@ -33,7 +33,7 @@ class AT_Feature {
 
 	public function init() {
 
-		$args  = array( 'public' => true );
+		$args  = array( 'show_ui' => true );
 		$types = get_post_types( $args );
 
 		foreach ( $types as $type ) {
