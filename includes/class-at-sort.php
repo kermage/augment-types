@@ -139,7 +139,7 @@ class AT_Sort {
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="postbox-container-1" class="postbox-container">
 						<div class="postbox">
-							<h2 class="hndle">Type Filters</h2>
+							<h2 class="hndle"><?php _e( 'Type Filters', 'augment-types' ); ?></h2>
 							<div class="inside">
 								<?php $this->filters( $type ); ?>
 							</div>
@@ -150,10 +150,10 @@ class AT_Sort {
 						<table class="wp-list-table widefat fixed striped at-sort">
 							<thead>
 								<tr>
-									<th class="column-links" scope="col">Order</th>
-									<th scope="col">Title</th>
-									<th class="column-links" scope="col">Edit</th>
-									<th class="column-links" scope="col">View</th>
+									<th class="column-links" scope="col"><?php _e( 'Order' ); ?></th>
+									<th scope="col"><?php _e( 'Title' ); ?></th>
+									<th class="column-links" scope="col"><?php _e( 'Edit' ); ?></th>
+									<th class="column-links" scope="col"><?php _e( 'View' ); ?></th>
 								</tr>
 							</thead>
 							<tbody id="the-list">
@@ -194,10 +194,10 @@ class AT_Sort {
 			<input type="hidden" name="page" value="at-sort_<?php echo $type; ?>">
 
 			<label>
-				<span>Status</span>
+				<span><?php _e( 'Status' ); ?></span>
 
 				<select name="post_status">
-					<option value="0" selected>Show all</option>
+					<option value="0" selected><?php _e( 'All' ); ?></option>
 					<?php foreach ( $statuses as $value => $label ) : ?>
 						<?php $selected = $filter === $value ? ' selected' : ''; ?>
 						<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
@@ -225,7 +225,7 @@ class AT_Sort {
 					<span><?php echo $taxonomy->labels->singular_name; ?></span>
 
 					<select name="<?php echo $name; ?>">
-						<option value="0" selected>Show all</option>
+						<option value="0" selected><?php _e( 'All' ); ?></option>
 						<?php foreach ( $options as $value => $label ) : ?>
 							<?php $selected = strval( $value ) === $filter ? ' selected' : ''; ?>
 							<option value="<?php echo $value; ?>"<?php echo $selected; ?>>

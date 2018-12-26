@@ -39,7 +39,7 @@ class AT_Archive {
 	public function init() {
 
 		$args = array(
-			'label'       => __( 'Archived' ),
+			'label'       => __( 'Archived', 'augment-types' ),
 			'public'      => true,
 			/* translators: %s: item count */
 			'label_count' => _n_noop( 'Archived <span class="count">(%s)</span>', 'Archived <span class="count">(%s)</span>' ),
