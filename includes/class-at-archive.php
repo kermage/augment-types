@@ -52,6 +52,10 @@ class AT_Archive {
 
 	public function rewrites() {
 
+		if ( false === strpos( get_option( 'permalink_structure' ), '%postname%' ) ) {
+			return;
+		}
+
 		add_rewrite_tag( '%at-archive%', '([^&]+)' );
 
 		$args  = array( 'public' => true );
