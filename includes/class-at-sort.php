@@ -181,10 +181,9 @@ class AT_Sort {
 	private function filters( $type ) {
 
 		$taxonomies = get_object_taxonomies( $type, 'objects' );
-		$statuses   = array(
-			'publish' => 'Published',
-			'archive' => 'Archived',
-		);
+		$statuses   = get_post_statuses();
+
+		$statuses['archive'] = __( 'Archived', 'augment-types' );
 
 		$filter = isset( $_GET['post_status'] ) ? $_GET['post_status'] : null;
 
