@@ -165,10 +165,11 @@ class AT_Archive {
 			if ( $query->get( 'at-archive' ) ) {
 				$query->set( 'post_status', 'archive' );
 			} elseif ( ! $query->get( 'post_status' ) ) {
-				$argument = array(
-					'public'  => true,
-					'private' => true,
-				);
+				$argument = array( 'public' => true );
+
+				if ( is_user_logged_in() ) {
+					$argument['private'] = true;
+				}
 
 				$statuses = get_post_stati( $argument, 'names', 'or' );
 
