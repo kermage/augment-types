@@ -105,7 +105,7 @@ class AT_Sort {
 			'post_status'    => 'any',
 			'posts_per_page' => -1,
 			'orderby'        => array(
-				'menu_order' => 'ASC',
+				'menu_order' => 'DESC',
 				'post_date'  => 'DESC',
 			),
 			'tax_query'      => array(),
@@ -324,7 +324,7 @@ class AT_Sort {
 		}
 
 		$meta = array(
-			'menu_order' => 'ASC',
+			'menu_order' => 'DESC',
 			'post_date'  => 'DESC',
 		);
 
