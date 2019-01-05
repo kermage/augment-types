@@ -8,6 +8,15 @@
 	var $filters   = $( '#the-filters' );
 
 
+	function update_order_number() {
+		var $items = $container.find( 'tr td:first-child' );
+
+		$items.each( function( $index ) {
+			$( this ).html( $items.length - $index - 1 );
+		});
+	}
+
+
 	function at_order_callback() {
 		$.ajax( {
 			type : 'POST',
@@ -23,6 +32,8 @@
 					.addClass( 'sorting' );
 			},
 			complete: function() {
+				update_order_number();
+
 				$container
 					.sortable( 'enable' )
 					.parents( '.wp-list-table' )
