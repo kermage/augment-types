@@ -150,7 +150,6 @@ class AT_Sort {
 						<table class="wp-list-table widefat fixed striped at-sort">
 							<thead>
 								<tr>
-									<th class="column-links" scope="col"><?php _e( 'Order' ); ?></th>
 									<th scope="col"><?php _e( 'Title' ); ?></th>
 									<th class="column-links" scope="col"><?php _e( 'Edit' ); ?></th>
 									<th class="column-links" scope="col"><?php _e( 'View' ); ?></th>
@@ -160,7 +159,6 @@ class AT_Sort {
 								<?php while ( $query->have_posts() ) : ?>
 									<?php $query->the_post(); ?>
 									<tr id="post-<?php the_ID(); ?>">
-										<td><?php echo get_post_field( 'menu_order', get_the_ID() ); ?></td>
 										<td><?php the_title() . isset( $_GET['post_status'] ) ? '' : _post_states( get_post() ); ?></td>
 										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_edit_post_link(), __( 'Edit' ) ); ?></td>
 										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_permalink(), __( 'View' ) ); ?></td>
