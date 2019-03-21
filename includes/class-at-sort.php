@@ -139,7 +139,7 @@ class AT_Sort {
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="postbox-container-1" class="postbox-container">
 						<div class="postbox">
-							<h2 class="hndle"><?php _e( 'Type Filters', 'augment-types' ); ?></h2>
+							<h2 class="hndle"><?php printf( __( 'Filter %s', 'augment-types' ), $this->current_type->label ); ?></h2>
 							<div class="inside">
 								<?php $this->filters( $type ); ?>
 							</div>
