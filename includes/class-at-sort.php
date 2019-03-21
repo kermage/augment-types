@@ -320,7 +320,7 @@ class AT_Sort {
 	public function set_order( $query ) {
 
 		if ( $query->get( 'orderby' ) ) {
-			return false;
+			return $query;
 		}
 
 		$meta = array(
@@ -329,6 +329,8 @@ class AT_Sort {
 		);
 
 		$query->set( 'orderby', $meta );
+
+		return $query;
 
 	}
 
