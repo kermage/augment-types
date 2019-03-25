@@ -287,7 +287,7 @@ class AT_Sort {
 			$order[] = get_post_field( 'menu_order', $post );
 		}
 
-		rsort( $order );
+		sort( $order );
 
 		$temp = $order;
 		$temp = array_filter( $temp );
