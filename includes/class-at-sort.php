@@ -104,10 +104,6 @@ class AT_Sort {
 			'post_type'      => $type,
 			'post_status'    => 'any',
 			'posts_per_page' => -1,
-			'orderby'        => array(
-				'menu_order' => 'DESC',
-				'post_date'  => 'DESC',
-			),
 			'tax_query'      => array(),
 		);
 
