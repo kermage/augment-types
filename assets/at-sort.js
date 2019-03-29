@@ -7,31 +7,6 @@
 	var $container = $( '#the-list' );
 	var $filters   = $( '#the-filters' );
 
-
-	function at_order_callback() {
-		$.ajax( {
-			type : 'POST',
-			url : ajaxurl,
-			data : {
-				action: 'at_update_order',
-				items: $container.sortable( 'serialize' ),
-			},
-			beforeSend: function() {
-				$container
-					.sortable( 'disable' )
-					.parents( '.wp-list-table' )
-					.addClass( 'sorting' );
-			},
-			complete: function() {
-				$container
-					.sortable( 'enable' )
-					.parents( '.wp-list-table' )
-					.removeClass( 'sorting' );
-			},
-		});
-	}
-
-
 	$container.sortable( {
 		axis: 'y',
 		containment: '.wp-list-table',
@@ -67,12 +42,35 @@
 				return ( this.value === '0' );
 			})
 			.prop( 'name', '' );
-
 	} );
 
 	$( '#at-save-order' ).on( 'click', function( e ) {
 		e.preventDefault();
-		at_order_callback();
+
+		var $this = $( this );
+
+		$.ajax( {
+			type : 'POST',
+			url : ajaxurl,
+			data : {
+				action: 'at_update_order',
+				items: $container.sortable( 'serialize' ),
+			},
+			beforeSend: function() {
+				$this.attr( 'disabled', true );
+				$container
+					.sortable( 'disable' )
+					.parents( '.wp-list-table' )
+					.addClass( 'sorting' );
+			},
+			complete: function() {
+				$this.attr( 'disabled', false );
+				$container
+					.sortable( 'enable' )
+					.parents( '.wp-list-table' )
+					.removeClass( 'sorting' );
+			},
+		});
 	} );
 
 }( jQuery ));
