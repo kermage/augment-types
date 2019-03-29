@@ -68,6 +68,10 @@
 			})
 			.prop( 'name', '' );
 
+	} );
+
+	$( '#at-save-order' ).on( 'click', function( e ) {
+		e.preventDefault();
 		at_order_callback();
 	} );
 

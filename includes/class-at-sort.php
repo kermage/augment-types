@@ -135,6 +135,13 @@ class AT_Sort {
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="postbox-container-1" class="postbox-container">
 						<div class="postbox">
+							<h2 class="hndle"><?php printf( __( 'Sort %s <i>( %s )</i>', 'augment-types' ), $this->current_type->label, $query->found_posts ); ?></h2>
+							<div id="major-publishing-actions">
+								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
+							</div>
+						</div>
+
+						<div class="postbox">
 							<h2 class="hndle"><?php printf( __( 'Filter %s', 'augment-types' ), $this->current_type->label ); ?></h2>
 							<div class="inside">
 								<?php $this->filters( $type ); ?>
