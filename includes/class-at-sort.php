@@ -326,8 +326,8 @@ class AT_Sort {
 		}
 
 		$meta = array(
-			'menu_order',
-			'post_date' => 'DESC',
+			'menu_order' => 'ASC',
+			'post_date'  => 'DESC',
 		);
 
 		$query->set( 'orderby', $meta );
