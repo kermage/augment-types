@@ -138,6 +138,7 @@ class AT_Sort {
 							<h2 class="hndle"><?php printf( __( 'Sort %s <i>( %s )</i>', 'augment-types' ), $this->current_type->label, $query->found_posts ); ?></h2>
 							<div id="major-publishing-actions">
 								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
+								<span class="spinner"></span>
 							</div>
 						</div>
 

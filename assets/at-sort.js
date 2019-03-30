@@ -58,6 +58,7 @@
 			},
 			beforeSend: function() {
 				$this.attr( 'disabled', true );
+				$this.siblings( '.spinner' ).addClass( 'is-active' );
 				$container
 					.sortable( 'disable' )
 					.parents( '.wp-list-table' )
@@ -65,6 +66,7 @@
 			},
 			complete: function() {
 				$this.attr( 'disabled', false );
+				$this.siblings( '.spinner' ).removeClass( 'is-active' );
 				$container
 					.sortable( 'enable' )
 					.parents( '.wp-list-table' )
