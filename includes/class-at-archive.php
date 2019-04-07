@@ -162,7 +162,7 @@ class AT_Archive {
 		}
 
 		if ( $query->is_archive() ) {
-			if ( $query->get( 'at-archive' ) ) {
+			if ( get_query_var( 'at-archive' ) ) {
 				$query->set( 'post_status', 'archive' );
 			} elseif ( ! $query->get( 'post_status' ) ) {
 				$argument = array( 'public' => true );
