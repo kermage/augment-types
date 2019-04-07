@@ -158,7 +158,7 @@ class AT_Archive {
 	public function set_status( $query ) {
 
 		if ( is_admin() ) {
-			return false;
+			return $query;
 		}
 
 		if ( $query->is_archive() ) {
@@ -182,6 +182,8 @@ class AT_Archive {
 			$query->set( 'name', '0' );
 			$query->set_404();
 		}
+
+		return $query;
 
 	}
 
