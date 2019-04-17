@@ -161,7 +161,7 @@ class AT_Archive {
 			return $query;
 		}
 
-		if ( $query->is_archive() ) {
+		if ( $query->is_archive() || $query->is_home() ) {
 			if ( get_query_var( 'at-archive' ) && get_query_var( 'post_type' ) === $query->get( 'post_type' ) ) {
 				$query->set( 'post_status', 'archive' );
 			} elseif ( ! $query->get( 'post_status' ) ) {
