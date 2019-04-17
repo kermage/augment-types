@@ -72,6 +72,12 @@ class AT_Archive {
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
 		}
 
+		$slug = get_permalink( get_option( 'page_for_posts' ) );
+		$slug = str_replace( home_url( '/' ), '', $slug );
+
+		add_rewrite_rule( '^' . $slug . 'archive/?$', 'index.php?post_type=post&at-archive=true', 'top' );
+		add_rewrite_rule( '^' . $slug . 'archive/page/([0-9]+)/?$', 'index.php?post_type=post&paged=$matches[1]&at-archive=true', 'top' );
+
 	}
 
 
