@@ -16,6 +16,13 @@
 
 		media_frame.on( 'select', function() {
 			var selection = media_frame.state().get( 'selection' ).first().toJSON();
+			var img_size = selection.sizes.thumbnail;
+
+			if ( img_size === undefined ) {
+				img_size = selection.sizes.full;
+			}
+
+			$this.html( '<img src="' + img_size.url + '" />' )
 
 			$this.html( '<img src="' + selection.sizes.thumbnail.url + '" />' )
 				.next().val( selection.id )
