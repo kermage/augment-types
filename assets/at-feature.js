@@ -23,8 +23,6 @@
 			}
 
 			$this.html( '<img src="' + img_size.url + '" />' )
-
-			$this.html( '<img src="' + selection.sizes.thumbnail.url + '" />' )
 				.next().val( selection.id )
 				.next().show();
 		});
