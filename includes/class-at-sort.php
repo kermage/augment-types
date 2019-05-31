@@ -87,7 +87,7 @@ class AT_Sort {
 			// Menu Title
 			$params['title'],
 			// Capability
-			'manage_options',
+			'moderate_comments',
 			// Menu Slug
 			$params['id'],
 			// Content Function
