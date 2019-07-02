@@ -321,7 +321,7 @@ class AT_Sort {
 
 	public function set_order( $query ) {
 
-		if ( $query->get( 'orderby' ) ) {
+		if ( $query->get( 'orderby' ) || $query->is_search() ) {
 			return $query;
 		}
 
