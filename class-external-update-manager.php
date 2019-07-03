@@ -9,7 +9,7 @@
  * @package External Update Manager
  * @link    https://github.com/kermage/External-Update-Manager
  * @author  Gene Alyson Fortunado Torcende
- * @version 1.8.2
+ * @version 1.9.0
  * @license GPL-3.0
  */
 
@@ -21,19 +21,17 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 	 */
 	class External_Update_Manager {
 
-		private $full_path;
 		private $update_url;
+		private $update_data;
 		private $item_type;
 		private $item_slug;
 		private $item_key;
 		private $item_name;
 		private $item_version = '';
 		private $transient    = 'eum_';
-		private $update_data  = null;
 		private $has_update   = false;
 
 		public function __construct( $full_path, $update_url ) {
-			$this->full_path  = $full_path;
 			$this->update_url = $update_url;
 			$this->get_file_details( $full_path );
 			$this->transient .= $this->item_type . '_' . $this->item_slug;
@@ -48,7 +46,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			}
 
 			add_filter( 'upgrader_source_selection', array( $this, 'fix_directory_name' ), 10, 4 );
-			add_action( 'admin_notices', array( $this, 'show_update_message' ) );
+			add_action( 'plugins_loaded', array( $this, 'do_notices' ) );
 
 			$this->maybe_delete_transient();
 		}
@@ -110,6 +108,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 		}
 
 		public function set_plugin_info( $data, $action = '', $args = null ) {
+			/** @var stdClass $args */
 			if ( 'plugin_information' !== $action || $args->slug !== $this->item_slug ) {
 				return $data;
 			}
@@ -168,7 +167,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			$options  = array( 'timeout' => 10 );
 			$response = wp_remote_get( $url, $options );
 
-			if ( is_wp_error( $response ) || ! is_array( $response ) ) {
+			if ( ! is_array( $response ) || is_wp_error( $response ) ) {
 				return false;
 			}
 
@@ -176,7 +175,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			$body = wp_remote_retrieve_body( $response );
 
 			if ( 200 === $code ) {
-				return json_decode( $body );
+				return json_decode( $body, false );
 			}
 
 			return false;
@@ -212,12 +211,13 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 		}
 
 		private function maybe_delete_transient() {
-			if ( 'update-core.php' === $GLOBALS['pagenow'] && isset( $_GET['force-check'] ) ) { // WPCS: CSRF ok.
+			if ( isset( $_GET['force-check'] ) && 'update-core.php' === $GLOBALS['pagenow'] ) { // phpcs:ignore WordPress.Security.NonceVerification
 				delete_site_transient( $this->transient );
 			}
 		}
 
-		public function fix_directory_name( $source, $remote_source, $upgrader, $hook_extra = null ) {
+		public function fix_directory_name( $source, $remote_source, $upgrader = null, $hook_extra = null ) {
+			/** @var WP_Filesystem_Base $wp_filesystem */
 			global $wp_filesystem;
 
 			if ( ( isset( $hook_extra['theme'] ) && $hook_extra['theme'] === $this->item_key ) ||
@@ -230,15 +230,21 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 
 				if ( $wp_filesystem->move( $source, $corrected_source ) ) {
 					return $corrected_source;
-				} else {
-					return new WP_Error(
-						'rename-failed',
-						'Unable to rename the update to match the existing directory.'
-					);
 				}
+
+				return new WP_Error(
+					'rename-failed',
+					'Unable to rename the update to match the existing directory.'
+				);
 			}
 
 			return $source;
+		}
+
+		public function do_notices() {
+			if ( current_user_can( 'install_plugins' ) ) {
+				add_action( 'admin_notices', array( $this, 'show_update_message' ) );
+			}
 		}
 
 		public function show_update_message() {
@@ -247,17 +253,17 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			if ( 'update-core.php' === $pagenow ||
 				( 'theme' === $this->item_type && 'themes.php' === $pagenow ) ||
 				( 'plugin' === $this->item_type && 'plugins.php' === $pagenow ) ) {
-				return false;
+				return;
 			}
 
 			$remote_data = $this->get_remote_data();
 
 			if ( ! is_object( $remote_data ) ) {
-				return false;
+				return;
 			}
 
 			if ( version_compare( $this->item_version, $remote_data->new_version, '>=' ) ) {
-				return false;
+				return;
 			}
 
 			wp_enqueue_script( 'plugin-install' );
@@ -283,6 +289,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			);
 			$update_url  = add_query_arg( $update_args, self_admin_url( 'update.php' ) );
 
+			/* phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped */
 			echo '<div class="notice notice-info is-dismissible"><p><strong>';
 			/* translators: 1: plugin name, 2: details URL, 3: additional link attributes, 4: version number, 5: update URL, 6: additional link attributes */
 			printf( __( 'There is a new version of %1$s available. <a href="%2$s" %3$s>View version %4$s details</a> or <a href="%5$s" %6$s>update now</a>.' ),
@@ -300,6 +307,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 				)
 			);
 			echo '</strong></p></div>';
+			/* phpcs:enable */
 		}
 
 		public function plugin_update_message( $plugin_data ) {
