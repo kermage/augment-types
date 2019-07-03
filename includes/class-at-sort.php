@@ -111,7 +111,7 @@ class AT_Sort {
 			$args['post_status'] = $_GET['post_status'];
 		}
 
-		$taxonomies = get_object_taxonomies( $type, 'names' );
+		$taxonomies = get_object_taxonomies( $type );
 
 		foreach ( $taxonomies as $taxonomy ) {
 			if ( ! isset( $_GET[ $taxonomy ] ) ) {
