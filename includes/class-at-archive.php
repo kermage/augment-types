@@ -197,7 +197,7 @@ class AT_Archive {
 	public function reserve_slug( $is_bad, $slug, $post_type, $post_parent = null ) {
 
 		if ( 'archive' === $slug ) {
-			if ( is_null( $post_parent ) ) {
+			if ( null === $post_parent ) {
 				return true;
 			} elseif ( ! $post_parent ) {
 				return true;
