@@ -7,7 +7,7 @@
 	$( 'body' ).on( 'click', '.at-feature-set', function( e ) {
 		e.preventDefault();
 
-		var $this = $( this );
+		var $this       = $( this );
 		var media_frame = wp.media( {
 			title: 'Featured Image',
 			library : { type : 'image' },
@@ -16,7 +16,7 @@
 
 		media_frame.on( 'select', function() {
 			var selection = media_frame.state().get( 'selection' ).first().toJSON();
-			var img_size = selection.sizes.thumbnail;
+			var img_size  = selection.sizes.thumbnail;
 
 			if ( img_size === undefined ) {
 				img_size = selection.sizes.full;
@@ -29,7 +29,7 @@
 
 		media_frame.on( 'open', function() {
 			var selection = media_frame.state().get( 'selection' );
-			var selected = $this.next().val();
+			var selected  = $this.next().val();
 
 			if ( selected ) {
 				selection.add( wp.media.attachment( selected ) );
@@ -49,7 +49,6 @@
 
 	var $wp_inline_edit = inlineEditPost.edit;
 
-
 	inlineEditPost.edit = function( id ) {
 		$wp_inline_edit.apply( this, arguments );
 
@@ -63,9 +62,9 @@
 			return;
 		}
 
-		var $edit_row = $( '#edit-' + $post_id );
-		var $post_row = $( '#post-' + $post_id );
-		var $featured_image = $( '.column-at-feature', $post_row ).find( 'img' );
+		var $edit_row          = $( '#edit-' + $post_id );
+		var $post_row          = $( '#post-' + $post_id );
+		var $featured_image    = $( '.column-at-feature', $post_row ).find( 'img' );
 		var $featured_image_id = $featured_image.attr( 'data-id' );
 
 		if ( $featured_image_id ) {

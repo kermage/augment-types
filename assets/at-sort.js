@@ -35,7 +35,6 @@
 		},
 	});
 
-
 	$filters.on( 'submit', function() {
 		$( this ).find( 'input, select' )
 			.filter( function() {
