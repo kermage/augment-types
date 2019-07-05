@@ -65,7 +65,8 @@ class AT_Sort {
 
 			$params['id']     = 'at-sort_' . $type->name;
 			$params['parent'] = 'edit.php';
-			$params['title']  = sprintf( __( 'Sort %s', 'augment-types' ), $type->label );
+			/* translators: 1: type label */
+			$params['title'] = sprintf( __( 'Sort %s', 'augment-types' ), $type->label );
 
 			if ( 'post' !== $type->name ) {
 				$params['parent'] .= '?post_type=' . $type->name;
@@ -135,7 +136,8 @@ class AT_Sort {
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="postbox-container-1" class="postbox-container">
 						<div class="postbox">
-							<h2 class="hndle"><?php printf( __( 'Sort %s <i>( %s )</i>', 'augment-types' ), $this->current_type->label, $query->found_posts ); ?></h2>
+							<?php /* translators: 1: type label, 2: item count */ ?>
+							<h2 class="hndle"><?php printf( __( 'Sort %1$s <i>( %2$s )</i>', 'augment-types' ), $this->current_type->label, $query->found_posts ); ?></h2>
 							<div id="major-publishing-actions">
 								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
 								<span class="spinner"></span>
@@ -143,6 +145,7 @@ class AT_Sort {
 						</div>
 
 						<div class="postbox">
+							<?php /* translators: 1: type label */ ?>
 							<h2 class="hndle"><?php printf( __( 'Filter %s', 'augment-types' ), $this->current_type->label ); ?></h2>
 							<div class="inside">
 								<?php $this->filters( $type ); ?>
