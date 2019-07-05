@@ -199,7 +199,9 @@ class AT_Archive {
 		if ( 'archive' === $slug ) {
 			if ( null === $post_parent ) {
 				return true;
-			} elseif ( ! $post_parent ) {
+			}
+
+			if ( ! $post_parent ) {
 				return true;
 			}
 		}
