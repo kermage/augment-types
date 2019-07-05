@@ -46,7 +46,7 @@ class AT_Sort {
 			return;
 		}
 
-		if ( substr( $_GET['page'], 0, 8 ) === 'at-sort_' ) {
+		if ( 0 === strpos( $_GET['page'], 'at-sort_' ) ) {
 			$this->current_type = get_post_type_object( str_replace( 'at-sort_', '', $_GET['page'] ) );
 		}
 
