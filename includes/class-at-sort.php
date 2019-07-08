@@ -232,7 +232,7 @@ class AT_Sort {
 					<select name="<?php echo $name; ?>">
 						<option value="0" selected><?php _e( 'All' ); ?></option>
 						<?php foreach ( $options as $value => $label ) : ?>
-							<?php $selected = strval( $value ) === $filter ? ' selected' : ''; ?>
+							<?php $selected = (string) $value === $filter ? ' selected' : ''; ?>
 							<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
 								<?php echo $label; ?>
 							</option>
