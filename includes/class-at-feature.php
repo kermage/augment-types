@@ -99,7 +99,7 @@ class AT_Feature {
 		$set    = __( 'Set featured image', 'augment-types' );
 		$remove = __( 'Remove featured image', 'augment-types' );
 
-		printf( $template, esc_html( $title ), esc_html( $set ), esc_html( $remove ) );
+		printf( $template, esc_html( $title ), esc_html( $set ), esc_html( $remove ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	}
 
