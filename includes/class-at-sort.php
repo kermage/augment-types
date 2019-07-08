@@ -11,7 +11,7 @@
 class AT_Sort {
 
 	private static $instance;
-	private $current_type = null;
+	private $current_type;
 
 
 	public static function instance() {
