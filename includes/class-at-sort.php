@@ -322,7 +322,7 @@ class AT_Sort {
 	}
 
 
-	public function set_order( $query ) {
+	public function set_order( WP_Query $query ) {
 
 		if ( $query->get( 'orderby' ) || $query->is_search() ) {
 			return $query;

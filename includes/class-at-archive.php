@@ -161,7 +161,7 @@ class AT_Archive {
 	}
 
 
-	public function set_status( $query ) {
+	public function set_status( WP_Query $query ) {
 
 		if ( is_admin() ) {
 			return $query;
