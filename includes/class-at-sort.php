@@ -267,7 +267,7 @@ class AT_Sort {
 
 		$screen = get_current_screen();
 
-		if ( strpos( $screen->id, '_page_at-sort_' ) !== false ) {
+		if ( null !== $screen && strpos( $screen->id, '_page_at-sort_' ) !== false ) {
 			return true;
 		}
 

@@ -91,7 +91,7 @@ class AT_Archive {
 
 		$object = get_post_type_object( $post->post_type );
 
-		if ( ! $object->public ) {
+		if ( null === $object || ! $object->public ) {
 			return;
 		}
 
@@ -131,7 +131,7 @@ class AT_Archive {
 
 		$object = get_post_type_object( $typenow );
 
-		if ( ! $object->public ) {
+		if ( null === $object || ! $object->public ) {
 			return;
 		}
 

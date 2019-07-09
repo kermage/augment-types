@@ -121,7 +121,7 @@ class AT_Feature {
 
 		$screen = get_current_screen();
 
-		if ( 'edit' !== $screen->base ) {
+		if ( null === $screen || 'edit' !== $screen->base ) {
 			return false;
 		}
 
