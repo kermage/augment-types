@@ -55,6 +55,8 @@ class AT_Excerpt {
 
 		if ( $post && $post->post_excerpt ) {
 			$excerpt = $post->post_excerpt;
+			$excerpt = html_entity_decode( $excerpt );
+			$excerpt = wp_kses_decode_entities( $excerpt );
 		}
 
 		echo '<div class="at-metabox-wrap">';
