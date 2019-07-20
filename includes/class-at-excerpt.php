@@ -24,6 +24,43 @@ class AT_Excerpt {
 
 	private function __construct() {
 
+		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
+
+	}
+
+
+	public function meta_box( $post_type ) {
+
+		if ( ! post_type_supports( $post_type, 'excerpt' ) ) {
+			return;
+		}
+
+		remove_meta_box( 'postexcerpt', $post_type, 'normal' );
+		add_meta_box(
+			'at_excerpt_editor',
+			__( 'Excerpt', 'augment-types' ),
+			array( $this, 'excerpt_editor' ),
+			$post_type,
+			'normal',
+			'high'
+		);
+
+	}
+
+	public function excerpt_editor() {
+
+		global $post;
+
+		$excerpt = '';
+
+		if ( $post && $post->post_excerpt ) {
+			$excerpt = $post->post_excerpt;
+		}
+
+		echo '<div class="at-metabox-wrap">';
+		wp_editor( $excerpt, 'excerpt' );
+		echo '</div>';
+
 	}
 
 }
