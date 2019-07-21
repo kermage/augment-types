@@ -59,8 +59,14 @@ class AT_Excerpt {
 			$excerpt = wp_kses_decode_entities( $excerpt );
 		}
 
+		$options = array(
+			'media_buttons' => false,
+			'textarea_rows' => 4,
+			'editor_height' => 200,
+		);
+
 		echo '<div class="at-metabox-wrap">';
-		wp_editor( $excerpt, 'excerpt' );
+		wp_editor( $excerpt, 'excerpt', $options );
 		echo '</div>';
 
 	}
