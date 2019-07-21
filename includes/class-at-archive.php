@@ -52,7 +52,7 @@ class AT_Archive {
 
 	public function rewrites() {
 
-		if ( false === strpos( get_option( 'permalink_structure' ), '%postname%' ) ) {
+		if ( false === strpos( get_option( 'permalink_structure', '' ), '%postname%' ) ) {
 			return;
 		}
 
@@ -72,7 +72,7 @@ class AT_Archive {
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
 		}
 
-		$slug = get_permalink( get_option( 'page_for_posts' ) );
+		$slug = get_permalink( get_option( 'page_for_posts', '' ) );
 		$slug = str_replace( home_url( '/' ), '', $slug );
 
 		add_rewrite_rule( '^' . $slug . 'archive/?$', 'index.php?post_type=post&at-archive=true', 'top' );
