@@ -24,14 +24,32 @@ class AT_Excerpt {
 
 	private function __construct() {
 
+		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
+
+	}
+
+
+	public function init() {
+
+		$args  = array( 'show_ui' => true );
+		$types = get_post_types( $args );
+
+		foreach ( $types as $type ) {
+			if ( ! post_type_supports( $type, 'excerpt' ) ) {
+				continue;
+			}
+
+			remove_post_type_support( $type, 'excerpt' );
+			add_post_type_support( $type, 'at-excerpt' );
+		}
 
 	}
 
 
 	public function meta_box( $post_type ) {
 
-		if ( ! post_type_supports( $post_type, 'excerpt' ) ) {
+		if ( ! post_type_supports( $post_type, 'at-excerpt' ) ) {
 			return;
 		}
 
