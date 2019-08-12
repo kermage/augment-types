@@ -78,7 +78,7 @@ class AT_Archive {
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
 		}
 
-		$page_for_posts = get_option( 'page_for_posts', '' );
+		$page_for_posts = get_option( 'page_for_posts', 0 );
 
 		if ( false === $page_for_posts ) {
 			return;
