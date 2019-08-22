@@ -80,11 +80,12 @@ class AT_Archive {
 
 		$page_for_posts = get_option( 'page_for_posts', 0 );
 
-		if ( false === $page_for_posts ) {
+		$slug = get_permalink( $page_for_posts );
+
+		if ( false === $slug ) {
 			return;
 		}
 
-		$slug = get_permalink( $page_for_posts );
 		$slug = str_replace( home_url( '/' ), '', $slug );
 
 		add_rewrite_rule( '^' . $slug . 'archive/?$', 'index.php?post_type=post&at-archive=true', 'top' );
