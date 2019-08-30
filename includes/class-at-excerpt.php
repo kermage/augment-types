@@ -24,7 +24,7 @@ class AT_Excerpt {
 
 	private function __construct() {
 
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', array( $this, 'init' ), 11 );
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
 
 	}
