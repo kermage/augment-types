@@ -183,17 +183,6 @@ class AT_Archive {
 		if ( $query->is_archive() || $query->is_home() ) {
 			if ( get_query_var( 'at-archive' ) && get_query_var( 'post_type' ) === $query->get( 'post_type' ) ) {
 				$query->set( 'post_status', 'archive' );
-			} elseif ( ! $query->get( 'post_status' ) ) {
-				$argument = array( 'public' => true );
-
-				if ( is_user_logged_in() ) {
-					$argument['private'] = true;
-				}
-
-				$statuses = get_post_stati( $argument, 'names', 'or' );
-
-				unset( $statuses['archive'] );
-				$query->set( 'post_status', $statuses );
 			}
 		}
 
