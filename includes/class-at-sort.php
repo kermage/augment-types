@@ -88,7 +88,7 @@ class AT_Sort {
 			// Menu Title
 			$params['title'],
 			// Capability
-			'moderate_comments',
+			'edit_others_posts',
 			// Menu Slug
 			$params['id'],
 			// Content Function
@@ -251,7 +251,7 @@ class AT_Sort {
 
 	public function scripts_styles() {
 
-		if ( ! $this->is_valid_screen() || ! current_user_can( 'moderate_comments' ) ) {
+		if ( ! $this->is_valid_screen() || ! current_user_can( 'edit_others_posts' ) ) {
 			return;
 		}
 

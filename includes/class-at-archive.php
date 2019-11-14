@@ -112,7 +112,7 @@ class AT_Archive {
 			return;
 		}
 
-		if ( ! current_user_can( 'moderate_comments' ) ) {
+		if ( ! current_user_can( 'delete_others_posts' ) ) {
 			return;
 		}
 
@@ -152,7 +152,7 @@ class AT_Archive {
 			return;
 		}
 
-		if ( ! current_user_can( 'moderate_comments' ) ) {
+		if ( ! current_user_can( 'delete_others_posts' ) ) {
 			return;
 		}
 

@@ -84,7 +84,7 @@ class AT_Feature {
 			return;
 		}
 
-		if ( ! current_user_can( 'moderate_comments' ) ) {
+		if ( ! current_user_can( 'upload_files' ) ) {
 			return;
 		}
 
