@@ -251,7 +251,7 @@ class AT_Sort {
 
 	public function scripts_styles() {
 
-		if ( ! $this->is_valid_screen() ) {
+		if ( ! $this->is_valid_screen() || ! current_user_can( 'moderate_comments' ) ) {
 			return;
 		}
 

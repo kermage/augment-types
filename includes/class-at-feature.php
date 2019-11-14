@@ -84,6 +84,10 @@ class AT_Feature {
 			return;
 		}
 
+		if ( ! current_user_can( 'moderate_comments' ) ) {
+			return;
+		}
+
 		$template = '<fieldset class="inline-edit-col-right inline-edit-at-feature">
 			<div class="inline-edit-col">
 				<span class="title">%1$s</span>

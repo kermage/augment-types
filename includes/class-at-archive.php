@@ -112,6 +112,10 @@ class AT_Archive {
 			return;
 		}
 
+		if ( ! current_user_can( 'moderate_comments' ) ) {
+			return;
+		}
+
 		?>
 
 		<script>
@@ -145,6 +149,10 @@ class AT_Archive {
 		$object = get_post_type_object( $typenow );
 
 		if ( null === $object || ! $object->public ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'moderate_comments' ) ) {
 			return;
 		}
 
