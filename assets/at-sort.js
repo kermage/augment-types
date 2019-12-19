@@ -7,6 +7,40 @@
 	var $container = $( '#the-list' );
 	var $filters   = $( '#the-filters' );
 
+
+	function at_order_callback( $this = null ) {
+		$.ajax( {
+			type : 'POST',
+			url : ajaxurl,
+			data : {
+				action: 'at_update_order',
+				items: $container.sortable( 'serialize' ),
+			},
+			beforeSend: function() {
+				if ( $this ) {
+					$this.attr( 'disabled', true );
+					$this.siblings( '.spinner' ).addClass( 'is-active' );
+				}
+
+				$container
+					.sortable( 'disable' )
+					.parents( '.wp-list-table' )
+					.addClass( 'sorting' );
+			},
+			complete: function() {
+				if ( $this ) {
+					$this.attr( 'disabled', false );
+					$this.siblings( '.spinner' ).removeClass( 'is-active' );
+				}
+
+				$container
+					.sortable( 'enable' )
+					.parents( '.wp-list-table' )
+					.removeClass( 'sorting' );
+			},
+		});
+	}
+
 	$container.sortable( {
 		axis: 'y',
 		containment: '.wp-list-table',
@@ -33,6 +67,17 @@
 
 			return ui;
 		},
+		update: function() {
+			if ( $filters.length ) {
+				return;
+			}
+
+			if ( ! $container.sortable( 'option', 'locked' ) ) {
+				at_order_callback();
+			}
+
+			$container.sortable( 'option', 'locked', false );
+		},
 	});
 
 	$filters.on( 'submit', function() {
@@ -45,33 +90,7 @@
 
 	$( '#at-save-order' ).on( 'click', function( e ) {
 		e.preventDefault();
-
-		var $this = $( this );
-
-		$.ajax( {
-			type : 'POST',
-			url : ajaxurl,
-			data : {
-				action: 'at_update_order',
-				items: $container.sortable( 'serialize' ),
-			},
-			beforeSend: function() {
-				$this.attr( 'disabled', true );
-				$this.siblings( '.spinner' ).addClass( 'is-active' );
-				$container
-					.sortable( 'disable' )
-					.parents( '.wp-list-table' )
-					.addClass( 'sorting' );
-			},
-			complete: function() {
-				$this.attr( 'disabled', false );
-				$this.siblings( '.spinner' ).removeClass( 'is-active' );
-				$container
-					.sortable( 'enable' )
-					.parents( '.wp-list-table' )
-					.removeClass( 'sorting' );
-			},
-		});
+		at_order_callback( $( this ) );
 	} );
 
 }( jQuery ));
