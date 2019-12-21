@@ -189,6 +189,10 @@ class AT_Archive {
 		}
 
 		if ( $query->is_archive() || $query->is_home() ) {
+			global $wp_post_statuses;
+
+			$wp_post_statuses['archive']->public = false;
+
 			if ( get_query_var( 'at-archive' ) && get_query_var( 'post_type' ) === $query->get( 'post_type' ) ) {
 				$query->set( 'post_status', 'archive' );
 			}
