@@ -9,7 +9,7 @@
  * @package External Update Manager
  * @link    https://github.com/kermage/External-Update-Manager
  * @author  Gene Alyson Fortunado Torcende
- * @version 1.9.1
+ * @version 1.9.2
  * @license GPL-3.0
  */
 
@@ -46,7 +46,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			}
 
 			add_filter( 'upgrader_source_selection', array( $this, 'fix_directory_name' ), 10, 4 );
-			add_action( 'plugins_loaded', array( $this, 'do_notices' ) );
+			add_action( 'admin_init', array( $this, 'do_notices' ) );
 
 			$this->maybe_delete_transient();
 		}
