@@ -31,7 +31,8 @@ class AT_Sort {
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 		add_action( 'wp_ajax_at_update_order', array( $this, 'update_order' ) );
-		add_action( 'pre_get_posts', array( $this, 'set_order' ) );
+		add_action( 'pre_get_posts', array( $this, 'set_posts_order' ) );
+		add_filter( 'terms_clauses', array( $this, 'set_terms_order' ) );
 
 	}
 
@@ -322,7 +323,7 @@ class AT_Sort {
 	}
 
 
-	public function set_order( WP_Query $query ) {
+	public function set_posts_order( WP_Query $query ) {
 
 		if ( $query->get( 'orderby' ) || $query->is_search() ) {
 			return $query;
@@ -336,6 +337,15 @@ class AT_Sort {
 		$query->set( 'orderby', $meta );
 
 		return $query;
+
+	}
+
+
+	public function set_terms_order( $clauses ) {
+
+		$clauses['orderby'] = 'ORDER BY t.term_order';
+
+		return $clauses;
 
 	}
 
