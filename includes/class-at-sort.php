@@ -272,7 +272,7 @@ class AT_Sort {
 			return true;
 		}
 
-		if ( 'edit' !== $screen->base ) {
+		if ( 'edit' !== $screen->base && 'edit-tags' !== $screen->base ) {
 			return false;
 		}
 
