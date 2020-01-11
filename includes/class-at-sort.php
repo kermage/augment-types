@@ -292,6 +292,12 @@ class AT_Sort {
 	public function update_order() {
 
 		parse_str( $_POST['items'], $data );
+		call_user_func( array( 'AT_Sort', "update_{$_POST['type']}_order" ), $data );
+
+	}
+
+
+	public function update_posts_order( $data ) {
 
 		$order = array();
 
@@ -316,6 +322,19 @@ class AT_Sort {
 			);
 
 			wp_update_post( $args );
+		}
+
+		wp_die();
+
+	}
+
+
+	public function update_tags_order( $data ) {
+
+		global $wpdb;
+
+		foreach ( $data['tag'] as $index => $tag ) {
+			$wpdb->update( $wpdb->terms, array( 'term_order' => $index + 1 ), array( 'term_id' => $tag ) );
 		}
 
 		wp_die();
