@@ -15,6 +15,8 @@
 			data : {
 				action: 'at_update_order',
 				items: $container.sortable( 'serialize' ),
+				type: $container.parents( '.wp-list-table' ).attr( 'class' )
+					.replace( 'wp-list-table widefat fixed striped ', '' )
 			},
 			beforeSend: function() {
 				if ( $this ) {
