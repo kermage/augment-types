@@ -304,7 +304,7 @@ class AT_Sort {
 		$order = array();
 
 		foreach ( $data['post'] as $post ) {
-			$order[] = get_post_field( 'menu_order', $post );
+			$order[] = $wpdb->get_var( "SELECT `menu_order` FROM $wpdb->posts WHERE ID='$post'" );
 		}
 
 		sort( $order );
