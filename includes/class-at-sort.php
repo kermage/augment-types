@@ -299,6 +299,8 @@ class AT_Sort {
 
 	public function update_posts_order( $data ) {
 
+		global $wpdb;
+
 		$order = array();
 
 		foreach ( $data['post'] as $post ) {
@@ -316,12 +318,7 @@ class AT_Sort {
 		}
 
 		foreach ( $data['post'] as $index => $post ) {
-			$args = array(
-				'ID'         => $post,
-				'menu_order' => $order[ $index ],
-			);
-
-			wp_update_post( $args );
+			$wpdb->update( $wpdb->posts, array( 'menu_order' => $order[ $index ] ), array( 'ID' => $post ) );
 		}
 
 		wp_die();
