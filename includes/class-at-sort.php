@@ -155,7 +155,7 @@ class AT_Sort {
 					</div>
 
 					<div id="postbox-container-2" class="postbox-container">
-						<table class="wp-list-table widefat fixed striped at-sort">
+						<table class="wp-list-table widefat fixed striped posts at-sort">
 							<thead>
 								<tr>
 									<th scope="col"><?php _e( 'Title' ); ?></th>

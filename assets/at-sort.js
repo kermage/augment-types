@@ -17,6 +17,7 @@
 				items: $container.sortable( 'serialize' ),
 				type: $container.parents( '.wp-list-table' ).attr( 'class' )
 					.replace( 'wp-list-table widefat fixed striped ', '' )
+					.replace( ' at-sort', '' )
 			},
 			beforeSend: function() {
 				if ( $this ) {
