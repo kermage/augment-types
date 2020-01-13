@@ -4,6 +4,10 @@
 
 	'use strict';
 
+	$( 'body' ).on( 'click', '.at-feature .editinline', function( e ) {
+		e.preventDefault();
+	});
+
 	$( 'body' ).on( 'click', '.at-feature-set', function( e ) {
 		e.preventDefault();
 
