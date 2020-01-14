@@ -359,6 +359,10 @@ class AT_Sort {
 
 	public function set_terms_order( $clauses ) {
 
+		if ( is_admin() && isset( $_GET['orderby'] ) ) {
+			return $clauses;
+		}
+
 		$clauses['orderby'] = 'ORDER BY t.term_order';
 
 		return $clauses;
