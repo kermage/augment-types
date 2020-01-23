@@ -55,12 +55,8 @@ class Augment_Types {
 
 		global $wpdb;
 
-		$check = "SHOW COLUMNS FROM $wpdb->terms LIKE `term_order`";
-
-		if ( ! $wpdb->query( $check ) ) {
-			$alter = "ALTER TABLE $wpdb->terms ADD `term_order` INT( 11 ) NOT NULL DEFAULT '0'";
-
-			$wpdb->query( $alter );
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM {$wpdb->terms} LIKE 'term_order'" ) ) {
+			$wpdb->query( "ALTER TABLE {$wpdb->terms} ADD `term_order` INT( 11 ) NOT NULL DEFAULT '0'" );
 		}
 
 	}
