@@ -51,7 +51,7 @@ class Augment_Types {
 	}
 
 
-	public function activate() {
+	public static function activate() {
 
 		global $wpdb;
 
