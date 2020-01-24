@@ -292,7 +292,7 @@ class AT_Sort {
 	public function update_order() {
 
 		parse_str( $_POST['items'], $data );
-		call_user_func( array( 'AT_Sort', "update_{$_POST['type']}_order" ), $data );
+		AT_Sort::{"update_{$_POST['type']}_order"}( $data );
 
 	}
 
