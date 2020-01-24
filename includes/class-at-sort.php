@@ -32,7 +32,7 @@ class AT_Sort {
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 		add_action( 'wp_ajax_at_update_order', array( $this, 'update_order' ) );
 		add_action( 'pre_get_posts', array( $this, 'set_posts_order' ) );
-		add_filter( 'terms_clauses', array( $this, 'set_terms_order' ) );
+		add_filter( 'terms_clauses', array( $this, 'set_terms_order' ), 10, 3 );
 
 	}
 
@@ -358,15 +358,13 @@ class AT_Sort {
 	}
 
 
-	public function set_terms_order( $clauses ) {
+	public function set_terms_order( $pieces, $taxonomies, $args ) {
 
-		if ( is_admin() && isset( $_GET['orderby'] ) ) {
-			return $clauses;
+		if ( ! ( ( is_admin() && isset( $_GET['orderby'] ) ) || ( isset( $args['ignore_term_order'] ) && true === $args['ignore_term_order'] ) ) ) {
+			$pieces['orderby'] = 'ORDER BY t.term_order';
 		}
 
-		$clauses['orderby'] = 'ORDER BY t.term_order';
-
-		return $clauses;
+		return $pieces;
 
 	}
 
