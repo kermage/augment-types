@@ -51,7 +51,28 @@ class Augment_Types {
 	}
 
 
-	public static function activate() {
+	public static function activate( $network_wide ) {
+
+		if ( function_exists( 'is_multisite' ) && is_multisite() && $network_wide ) {
+			global $wpdb;
+
+			$current = $wpdb->blogid;
+			$blogs   = $wpdb->get_col( "SELECT `blog_id` FROM {$wpdb->blogs}" );
+
+			foreach ( $blogs as $blog ) {
+				switch_to_blog( $blog );
+				self::_alter_table();
+			}
+
+			switch_to_blog( $current );
+		} else {
+			self::_alter_table();
+		}
+
+	}
+
+
+	public static function _alter_table() {
 
 		global $wpdb;
 
