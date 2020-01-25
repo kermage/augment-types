@@ -26,6 +26,8 @@ class Augment_Types {
 
 		spl_autoload_register( array( $this, 'autoload' ) );
 
+		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
+
 		AT_Sort::instance();
 		AT_Feature::instance();
 		AT_Archive::instance();
@@ -67,6 +69,21 @@ class Augment_Types {
 			switch_to_blog( $current );
 		} else {
 			self::_alter_table();
+		}
+
+	}
+
+
+	public static function new_blog( $id ) {
+
+		global $wpdb;
+
+		if ( is_plugin_active_for_network( plugin_basename( AT_FILE ) ) ) {
+			$current = $wpdb->blogid;
+
+			switch_to_blog( $id );
+			self::_alter_table();
+			switch_to_blog( $current );
 		}
 
 	}
