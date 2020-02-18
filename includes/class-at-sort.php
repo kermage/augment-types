@@ -43,7 +43,7 @@ class AT_Sort {
 			return;
 		}
 
-		if ( ! isset( $_GET['page'] ) ) {
+		if ( ! isset( $_GET['page'] ) || ! is_string( $_GET['page'] ) ) {
 			return;
 		}
 
