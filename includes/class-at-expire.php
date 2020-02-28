@@ -62,12 +62,8 @@ class AT_Expire {
 			return false;
 		}
 
-		$expiration = empty( $_POST['at-expiration'] ) ? false : $_POST['at-expiration'];
-
-		if ( $expiration ) {
-			update_post_meta( $post_id, 'at-expiration', $expiration );
-		} else {
-			delete_post_meta( $post_id, 'at-expiration' );
+		if ( isset( $_POST['at-expiration'] ) ) {
+			update_post_meta( $post_id, 'at-expiration', $_POST['at-expiration'] );
 		}
 
 	}
