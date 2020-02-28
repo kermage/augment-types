@@ -32,6 +32,7 @@ class Augment_Types {
 		AT_Feature::instance();
 		AT_Archive::instance();
 		AT_Excerpt::instance();
+		AT_Expire::instance();
 
 	}
 
