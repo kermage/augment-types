@@ -47,10 +47,13 @@ class AT_Expire {
 	public function expire_settings( $post ) {
 
 		$expiration = get_post_meta( $post->ID, 'at-expiration', true );
+		$exploded   = explode( ' ', $expiration );
 
 		echo '<div class="at-metabox-wrap">';
-		echo '<label class="label" for="at-expiration">Date</label>';
-		echo '<input type="date" name="at-expiration" id="at-expiration" value="' . esc_attr( $expiration ) . '">';
+		echo '<label class="label" for="at-expiration-date">Date</label>';
+		echo '<input type="date" name="at-expiration[date]" id="at-expiration-date" value="' . esc_attr( $exploded[0] ) . '">';
+		echo '<label class="label" for="at-expiration-time">Time</label>';
+		echo '<input type="time" name="at-expiration[time]" id="at-expiration-time" value="' . esc_attr( $exploded[1] ) . '">';
 		echo '</div>';
 
 	}
@@ -63,7 +66,7 @@ class AT_Expire {
 		}
 
 		if ( isset( $_POST['at-expiration'] ) ) {
-			update_post_meta( $post_id, 'at-expiration', $_POST['at-expiration'] );
+			update_post_meta( $post_id, 'at-expiration', implode( ' ', $_POST['at-expiration'] ) );
 		}
 
 	}
