@@ -74,7 +74,15 @@ class AT_Expire {
 
 	public function maybe_expire( $post ) {
 
+		if ( 'archive' === $post->status ) {
+			return;
+		}
+
 		$expiration = get_post_meta( $post->ID, 'at-expiration', true );
+
+		if ( ! $expiration ) {
+			return;
+		}
 
 		if ( $expiration && strtotime( 'now' ) >= strtotime( $expiration ) ) {
 			$postarr = array(
