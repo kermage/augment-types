@@ -67,7 +67,7 @@ class AT_Expire {
 		if ( isset( $_POST['at-expiration'] ) ) {
 			$expiration = '';
 
-			if ( ! empty( $_POST['at-expiration'] ) ) {
+			if ( ! empty( array_filter( $_POST['at-expiration'] ) ) ) {
 				$imploded   = implode( ' ', $_POST['at-expiration'] );
 				$difference = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 				$adjusted   = strtotime( $imploded ) - $difference;
