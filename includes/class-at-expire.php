@@ -68,6 +68,10 @@ class AT_Expire {
 			$expiration = '';
 
 			if ( ! empty( array_filter( $_POST['at-expiration'] ) ) ) {
+				if ( empty( $_POST['at-expiration']['date'] ) ) {
+					$_POST['at-expiration']['date'] = wp_date( 'Y-m-d' );
+				}
+
 				$imploded   = implode( ' ', $_POST['at-expiration'] );
 				$difference = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 				$adjusted   = strtotime( $imploded ) - $difference;
