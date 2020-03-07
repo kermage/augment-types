@@ -27,6 +27,8 @@ class AT_Expire {
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_post' ) );
 		add_action( 'the_post', array( $this, 'maybe_expire' ) );
+		add_filter( 'manage_posts_columns', array( $this, 'column_header' ) );
+		add_action( 'manage_posts_custom_column', array( $this, 'column_content' ), 10, 2 );
 
 	}
 
@@ -106,6 +108,28 @@ class AT_Expire {
 			wp_update_post( $postarr );
 			add_action( 'save_post', array( $this, 'save_post' ) );
 		}
+
+	}
+
+
+	public function column_header( $columns ) {
+
+		$columns['at-expire'] = __( 'Expiration', 'augment-types' );
+
+		return $columns;
+
+	}
+
+
+	public function column_content( $column, $post_ID ) {
+
+		if ( 'at-expire' !== $column ) {
+			return;
+		}
+
+		$expiration = get_post_meta( $post_ID, 'at-expiration', true );
+
+		echo wp_date( 'Y-m-d H:i:s', strtotime( $expiration ) );
 
 	}
 
