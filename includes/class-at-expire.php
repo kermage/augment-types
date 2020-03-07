@@ -29,6 +29,8 @@ class AT_Expire {
 		add_action( 'the_post', array( $this, 'maybe_expire' ) );
 		add_filter( 'manage_posts_columns', array( $this, 'column_header' ) );
 		add_action( 'manage_posts_custom_column', array( $this, 'column_content' ), 10, 2 );
+		add_filter( 'manage_pages_columns', array( $this, 'column_header' ) );
+		add_action( 'manage_pages_custom_column', array( $this, 'column_content' ), 10, 2 );
 
 	}
 
