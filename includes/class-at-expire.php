@@ -131,7 +131,9 @@ class AT_Expire {
 
 		$expiration = get_post_meta( $post_ID, 'at-expiration', true );
 
-		echo wp_date( 'Y-m-d H:i:s', strtotime( $expiration ) );
+		echo wp_date( get_option( 'date_format' ), strtotime( $expiration ) );
+		echo '<br>';
+		echo wp_date( get_option( 'time_format' ), strtotime( $expiration ) );
 
 	}
 
