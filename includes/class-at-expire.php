@@ -31,6 +31,7 @@ class AT_Expire {
 		add_action( 'manage_posts_custom_column', array( $this, 'column_content' ), 10, 2 );
 		add_filter( 'manage_pages_columns', array( $this, 'column_header' ) );
 		add_action( 'manage_pages_custom_column', array( $this, 'column_content' ), 10, 2 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
 	}
 
@@ -53,10 +54,14 @@ class AT_Expire {
 		$expiration = get_post_meta( $post->ID, 'at-expiration', true );
 
 		echo '<div class="at-metabox-wrap">';
+		echo '<p>';
 		echo '<label class="label" for="at-expiration-date">Date</label>';
 		echo '<input type="date" name="at-expiration[date]" id="at-expiration-date" value="' . esc_attr( wp_date( 'Y-m-d', strtotime( $expiration ) ) ) . '">';
+		echo '</p>';
+		echo '<p>';
 		echo '<label class="label" for="at-expiration-time">Time</label>';
 		echo '<input type="time" name="at-expiration[time]" id="at-expiration-time" value="' . esc_attr( wp_date( 'H:i', strtotime( $expiration ) ) ) . '">';
+		echo '</p>';
 		echo '</div>';
 
 	}
@@ -134,6 +139,30 @@ class AT_Expire {
 		echo wp_date( get_option( 'date_format' ), strtotime( $expiration ) );
 		echo '<br>';
 		echo wp_date( get_option( 'time_format' ), strtotime( $expiration ) );
+
+	}
+
+
+	public function scripts_styles() {
+
+		if ( ! $this->is_valid_screen() ) {
+			return;
+		}
+
+		wp_enqueue_style( 'at-expire-style', AT_URL . 'assets/at-expire.css', array(), AT_VERSION );
+
+	}
+
+
+	private function is_valid_screen() {
+
+		$screen = get_current_screen();
+
+		if ( null === $screen || ! in_array( $screen->base, array( 'edit', 'post' ), true ) ) {
+			return false;
+		}
+
+		return true;
 
 	}
 

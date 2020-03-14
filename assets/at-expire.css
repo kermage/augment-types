@@ -1,0 +1,18 @@
+#at_expire_settings p {
+	margin-bottom: 0;
+}
+
+#at_expire_settings input {
+	margin-left: 1em;
+}
+
+.fixed .column-at-expire {
+	width: 10%;
+	text-align: center;
+}
+
+@media screen and ( max-width: 1100px ) and ( min-width: 782px ), ( max-width: 480px ) {
+	.fixed .column-at-expire {
+		width: 14%;
+	}
+}
