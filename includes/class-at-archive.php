@@ -32,6 +32,8 @@ class AT_Archive {
 		add_action( 'pre_get_posts', array( $this, 'set_status' ) );
 		add_filter( 'wp_unique_post_slug_is_bad_flat_slug', array( $this, 'reserve_slug' ), 10, 3 );
 		add_filter( 'wp_unique_post_slug_is_bad_hierarchical_slug', array( $this, 'reserve_slug' ), 10, 4 );
+		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
+		add_action( 'save_post', array( $this, 'save_post' ) );
 
 	}
 
@@ -215,6 +217,67 @@ class AT_Archive {
 		}
 
 		return $is_bad;
+
+	}
+
+
+	public function meta_box( $post_type ) {
+
+		add_meta_box(
+			'at_archive_select',
+			__( 'Status', 'augment-types' ),
+			array( $this, 'archive_select' ),
+			$post_type,
+			'side',
+			'high'
+		);
+
+	}
+
+	public function archive_select( $post ) {
+
+		$statuses = get_post_statuses();
+
+		$statuses['archive'] = __( 'Archived', 'augment-types' );
+
+		echo '<div class="at-metabox-wrap">';
+		echo '<p id="at-status-current">Current: <strong>';
+		echo $statuses[ $post->post_status ];
+		echo '</strong></p>';
+		echo '<p>';
+		echo '<label class="label" for="at-status-select">Change</label>';
+		echo ' <select id="at-status-select" name="at-post-status">';
+		echo '<option value="" selected>&mdash; Select &mdash;</option>';
+
+		foreach ( $statuses as $value => $label ) : ?>
+			<option value="<?php echo $value; ?>">
+				<?php echo $label; ?>
+			</option>
+		<?php endforeach;
+
+		echo '</select>';
+		echo '</p>';
+		echo '</div>';
+
+	}
+
+
+	public function save_post( $post_id ) {
+
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return false;
+		}
+
+		if ( isset( $_POST['at-post-status'] ) ) {
+			$postarr = array(
+				'ID'          => $post_id,
+				'post_status' => $_POST['at-post-status'],
+			);
+
+			remove_action( 'save_post', array( $this, 'save_post' ) );
+			wp_update_post( $postarr );
+			add_action( 'save_post', array( $this, 'save_post' ) );
+		}
 
 	}
 
