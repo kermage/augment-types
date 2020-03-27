@@ -34,6 +34,7 @@ class AT_Archive {
 		add_filter( 'wp_unique_post_slug_is_bad_hierarchical_slug', array( $this, 'reserve_slug' ), 10, 4 );
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_post' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
 	}
 
@@ -278,6 +279,30 @@ class AT_Archive {
 			wp_update_post( $postarr );
 			add_action( 'save_post', array( $this, 'save_post' ) );
 		}
+
+	}
+
+
+	public function scripts_styles() {
+
+		if ( ! $this->is_valid_screen() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'at-archive-script', AT_URL . 'assets/at-archive.js', array(), AT_VERSION, true );
+
+	}
+
+
+	private function is_valid_screen() {
+
+		$screen = get_current_screen();
+
+		if ( null === $screen || 'post' !== $screen->base ) {
+			return false;
+		}
+
+		return true;
 
 	}
 
