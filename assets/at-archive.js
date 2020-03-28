@@ -6,10 +6,12 @@
 	wp.data.subscribe( function () {
 		var isSavingPost = wp.data.select('core/editor').isSavingPost();
 		var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
-		var $selectedOption = $( '#at-status-select option:selected' );
+		var $statusSelect = $( '#at-status-select' );
+		var $selectedOption = $statusSelect.find( 'option:selected' );
 
-		if ( isSavingPost && ! isAutosavingPost && $selectedOption.length ) {
+		if ( isSavingPost && ! isAutosavingPost && $statusSelect.val() && $selectedOption.length ) {
 			$( '#at-status-current strong' ).html( $selectedOption.text() );
+			$statusSelect.val( '' );
 		}
 	} );
 
