@@ -1,4 +1,7 @@
 ( function( $, wp ) {
+	if ( ! wp ) {
+		return;
+	}
 
 	wp.data.subscribe( function () {
 		var isSavingPost = wp.data.select('core/editor').isSavingPost();
