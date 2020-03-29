@@ -256,7 +256,7 @@ class AT_Archive {
 			</option>
 		<?php endforeach;
 
-		echo '</select>';
+		echo '</select> <input id="at-status-submit" type="submit" class="button" value="Save" style="vertical-align: middle;">';
 		echo '</p>';
 		echo '</div>';
 
