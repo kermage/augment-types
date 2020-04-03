@@ -43,7 +43,7 @@ class Augment_Types {
 			return;
 		}
 
-		$path = __DIR__ . DIRECTORY_SEPARATOR . 'includes';
+		$path = AT_PATH . 'includes';
 		$name = 'class-' . strtolower( str_replace( '_', '-', $class ) );
 		$file = $path . DIRECTORY_SEPARATOR . $name . '.php';
 

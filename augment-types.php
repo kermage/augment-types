@@ -34,18 +34,18 @@ if ( ! defined( 'AT_FILE' ) ) {
 }
 
 if ( ! defined( 'AT_URL' ) ) {
-	define( 'AT_URL', plugin_dir_url( __FILE__ ) );
+	define( 'AT_URL', plugin_dir_url( AT_FILE ) );
 }
 
 if ( ! defined( 'AT_PATH' ) ) {
-	define( 'AT_PATH', plugin_dir_path( __FILE__ ) );
+	define( 'AT_PATH', plugin_dir_path( AT_FILE ) );
 }
 
 // Load the main Augment Types class
-require_once AT_PATH . 'class-' . basename( __FILE__ );
+require_once AT_PATH . 'class-' . basename( AT_FILE );
 
-register_activation_hook( __FILE__, array( 'Augment_Types', 'activate' ) );
+register_activation_hook( AT_FILE, array( 'Augment_Types', 'activate' ) );
 
 // Instantiate the Augment Types updater
 require_once AT_PATH . 'class-external-update-manager.php';
-new External_Update_Manager( __FILE__, 'https://raw.githubusercontent.com/kermage/augment-types/wp-update/data.json' );
+new External_Update_Manager( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/wp-update/data.json' );
