@@ -43,9 +43,8 @@ class Augment_Types {
 			return;
 		}
 
-		$path = AT_PATH . 'includes';
 		$name = 'class-' . strtolower( str_replace( '_', '-', $class ) );
-		$file = $path . DIRECTORY_SEPARATOR . $name . '.php';
+		$file = AT_PATH . 'includes' . DIRECTORY_SEPARATOR . $name . '.php';
 
 		if ( ! class_exists( $class ) && file_exists( $file ) ) {
 			require_once $file;
