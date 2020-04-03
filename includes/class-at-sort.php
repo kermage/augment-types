@@ -164,14 +164,12 @@ class AT_Sort {
 								</tr>
 							</thead>
 							<tbody id="the-list">
-								<?php while ( $query->have_posts() ) : ?>
-									<?php $query->the_post(); ?>
-									<tr id="post-<?php the_ID(); ?>">
-										<td><?php the_title(); ?><?php isset( $_GET['post_status'] ) ? false : _post_states( get_post() ); ?></td>
-										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_edit_post_link(), __( 'Edit' ) ); ?></td>
-										<td><?php printf( '<a href="%s" target="_blank">%s</a>', get_permalink(), __( 'View' ) ); ?></td>
-									</tr>
-								<?php endwhile; ?>
+								<?php
+									$walker = new AT_Walker();
+									$output = $walker->walk( $query->posts, 0, $args );
+
+									echo wp_kses_post( $output );
+								?>
 							</tbody>
 						</table>
 					</div>
