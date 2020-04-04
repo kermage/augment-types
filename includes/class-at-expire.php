@@ -70,7 +70,7 @@ class AT_Expire {
 	public function save_post( $post_id ) {
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return false;
+			return;
 		}
 
 		if ( isset( $_POST['at-expiration'] ) ) {
