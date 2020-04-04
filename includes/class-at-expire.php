@@ -163,11 +163,7 @@ class AT_Expire {
 
 		$screen = get_current_screen();
 
-		if ( null === $screen || ! in_array( $screen->base, array( 'edit', 'post' ), true ) ) {
-			return false;
-		}
-
-		return true;
+		return ! ( null === $screen || ! in_array( $screen->base, array( 'edit', 'post' ), true ) );
 
 	}
 
