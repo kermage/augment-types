@@ -1,9 +1,13 @@
-#at_expire_settings p {
+.at-metabox-wrap p {
 	margin: 1em 0 0;
 }
 
-#at_expire_settings input {
+.at-metabox-wrap input {
 	margin-left: 1em;
+}
+
+.at-metabox-wrap button.button {
+	vertical-align: middle;
 }
 
 .fixed .column-at-expire {
