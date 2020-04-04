@@ -105,7 +105,7 @@ class AT_Expire {
 			return;
 		}
 
-		if ( $expiration && strtotime( 'now' ) >= strtotime( $expiration ) ) {
+		if ( $expiration && time() >= strtotime( $expiration ) ) {
 			$postarr = array(
 				'ID'          => $post->ID,
 				'post_status' => 'archive',
