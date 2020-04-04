@@ -65,9 +65,7 @@ class AT_Excerpt {
 
 	}
 
-	public function excerpt_editor() {
-
-		global $post;
+	public function excerpt_editor( $post ) {
 
 		$excerpt = '';
 
