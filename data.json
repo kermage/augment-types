@@ -1,12 +1,12 @@
 {
-  "new_version"  : "1.8.0",
+  "new_version"  : "1.9.0",
   "url"          : "https://github.com/kermage/augment-types",
-  "package"      : "https://github.com/kermage/augment-types/releases/download/v1.8.0/augment-types.zip",
-  "last_updated" : "2020-01-28",
+  "package"      : "https://github.com/kermage/augment-types/releases/download/v1.9.0/augment-types.zip",
+  "last_updated" : "2020-04-04",
   "author_name"  : "Gene Alyson Fortunado Torcende",
   "author_url"   : "mailto:genealyson.torcende@gmail.com",
   "requires"     : "4.6.0",
-  "tested"       : "5.3.2",
+  "tested"       : "5.4.0",
   "sections"     : {
     "description" : "Add essential functionalities to WordPress Post Types"
   }
