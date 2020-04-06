@@ -251,7 +251,8 @@ class AT_Archive {
 		echo '<option value="" selected>&mdash; Select &mdash;</option>';
 
 		foreach ( $statuses as $value => $label ) : ?>
-			<option value="<?php echo $value; ?>">
+			<?php $selected = $value === $post->post_status ? ' selected' : ''; ?>
+			<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
 				<?php echo $label; ?>
 			</option>
 		<?php endforeach;
