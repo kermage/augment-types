@@ -269,7 +269,7 @@ class AT_Archive {
 			return;
 		}
 
-		if ( isset( $_POST['at-post-status'] ) ) {
+		if ( ! empty( $_POST['at-post-status'] ) ) {
 			$postarr = array(
 				'ID'          => $post_id,
 				'post_status' => $_POST['at-post-status'],
