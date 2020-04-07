@@ -123,6 +123,7 @@ class AT_Archive {
 
 		<script>
 			jQuery( document ).ready( function( $ ) {
+				$( '.misc-pub-post-status' ).hide();
 			<?php if ( 'draft' !== $post->post_status && 'pending' !== $post->post_status ) : ?>
 				$( '#post_status' ).append( '<option value="archive"><?php esc_html_e( 'Archived', 'augment-types' ); ?></option>' );
 			<?php endif; ?>
