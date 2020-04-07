@@ -4,7 +4,7 @@
 
 	'use strict';
 
-	var $container = $( '#the-list' );
+	var $container = $( '.at-sort-list' );
 	var $filters   = $( '#the-filters' );
 
 
@@ -15,9 +15,7 @@
 			data : {
 				action: 'at_update_order',
 				items: $container.sortable( 'serialize' ),
-				type: $container.parents( '.wp-list-table' ).attr( 'class' )
-					.replace( 'wp-list-table widefat fixed striped ', '' )
-					.replace( ' at-sort', '' )
+				type: 'posts',
 			},
 			beforeSend: function() {
 				if ( $this ) {
@@ -27,7 +25,7 @@
 
 				$container
 					.sortable( 'disable' )
-					.parents( '.wp-list-table' )
+					.parents( '.at-sort-container' )
 					.addClass( 'sorting' );
 			},
 			complete: function() {
@@ -38,7 +36,7 @@
 
 				$container
 					.sortable( 'enable' )
-					.parents( '.wp-list-table' )
+					.parents( '.at-sort-container' )
 					.removeClass( 'sorting' );
 			},
 		});
@@ -46,7 +44,7 @@
 
 	$container.sortable( {
 		axis: 'y',
-		containment: '.wp-list-table',
+		containment: '.at-sort-list',
 		placeholder: 'ui-sortable-placeholder',
 		tolerance: 'pointer',
 		create: function() {
