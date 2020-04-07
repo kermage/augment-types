@@ -155,15 +155,15 @@ class AT_Sort {
 					</div>
 
 					<div id="postbox-container-2" class="postbox-container">
-						<div class="at-sort">
-							<div>
-								<span><?php _e( 'Title' ); ?></span>
-								<span><?php _e( 'Edit' ); ?></span>
-								<span><?php _e( 'View' ); ?></span>
+						<div class="at-sort-container">
+							<div class="at-sort-row header">
+								<span class="at-sort-column"><?php _e( 'Title' ); ?></span>
+								<span class="at-sort-column column-links"><?php _e( 'Edit' ); ?></span>
+								<span class="at-sort-column column-links"><?php _e( 'View' ); ?></span>
 							</div>
 
-							<div id="the-list">
-								<ul>
+							<div class="at-sort-body">
+								<ul class="at-sort-list">
 									<?php
 										$walker = new AT_Walker();
 										$output = $walker->walk( $query->posts, 0, $args );

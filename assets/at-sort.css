@@ -1,31 +1,67 @@
-.at-sort th {
+.at-sort-container {
+	box-sizing: border-box;
+	position: relative;
+	background-color: #fff;
+	border: 1px solid #ccd0d4;
+	box-shadow: 0 1px 1px rgba( 0, 0, 0, 0.04 );
+}
+
+.at-sort-container *,
+.at-sort-container *::before,
+.at-sort-container *::after {
+	box-sizing: inherit;
+}
+
+.at-sort-list {
+	width: 100%;
+	margin: 0;
+}
+
+.at-sort-row {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+}
+
+.at-sort-column {
+	flex-basis: 80%;
+	flex-grow: 1;
+	padding: 1em;
+}
+
+.at-sort-column.column-links {
+	flex-basis: 10%;
+}
+
+.at-sort-row.header {
+	border-bottom: 1px solid #ccd0d4;
 	font-weight: 600;
 }
 
-.at-sort .post-state {
+.at-sort-column .post-state {
 	font-style: italic;
 	font-size: 0.9em;
 	font-weight: 600;
 }
 
-.wp-list-table .ui-sortable tr {
+.at-sort-row.ui-sortable-handle {
 	cursor: move;
 }
 
-.wp-list-table .ui-sortable tr.ui-sortable-helper,
-.wp-list-table .ui-sortable tr.ui-sortable-placeholder {
+.at-sort-list .ui-sortable-helper,
+.at-sort-list .ui-sortable-placeholder {
 	border: dashed 2px #ddd;
 }
 
-.wp-list-table .ui-sortable tr.ui-sortable-placeholder {
+.at-sort-list .ui-sortable-placeholder {
 	display: block;
 }
 
-.wp-list-table.sorting {
+.at-sort-container {
 	position: relative;
 }
 
-.wp-list-table.sorting::after {
+.at-sort-container.sorting::after {
 	content: '';
 	position: absolute;
 	top: 0;

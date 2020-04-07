@@ -15,7 +15,7 @@ class AT_Walker extends Walker {
 
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
 
-		$output .= '<ul>';
+		$output .= '<ul class="at-sort-list">';
 
 	}
 
@@ -43,10 +43,10 @@ class AT_Walker extends Walker {
 		$p_title  = $indent . $page->post_title;
 		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $page->ID ), false );
 		$ev_tmpl  = '<a href="%s" target="_blank">%s</a>';
-		$template = '<li id="post-%1$s">
-			<span>%2$s</span>
-			<span>%3$s</span>
-			<span>%4$s</span>';
+		$template = '<li id="post-%1$s" class="at-sort-row">
+			<span class="at-sort-column">%2$s</span>
+			<span class="at-sort-column column-links">%3$s</span>
+			<span class="at-sort-column column-links">%4$s</span>';
 
 		$output .= sprintf(
 			$template,
