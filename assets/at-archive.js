@@ -5,6 +5,7 @@
 	}
 
 	var $statusSelect = $( '#at-status-select' );
+	var $statusSaving = $( '#at-status-saving' );
 	var currentStatus = wp.data.select( 'core/editor' ).getCurrentPostAttribute( 'status' );
 
 	wp.data.subscribe( function () {
@@ -12,9 +13,11 @@
 		var isAutosavingPost = wp.data.select( 'core/editor' ).isAutosavingPost();
 		var newStatus = wp.data.select( 'core/editor' ).getCurrentPostAttribute( 'status' );
 
-		if ( isSavingPost && ! isAutosavingPost && $statusSelect.val() && currentStatus !== newStatus ) {
-			var $selectedOption = $statusSelect.find( 'option:selected' );
+		if ( isSavingPost && ! isAutosavingPost && currentStatus !== newStatus ) {
+			var $selectedOption = $statusSelect.find( 'option[value=' + newStatus + ']' );
 
+			$statusSelect.val( '' );
+			$statusSaving.val( '' );
 			$( '#at-status-current strong' ).html( $selectedOption.text() );
 
 			currentStatus = newStatus;
@@ -22,8 +25,16 @@
 	} );
 
 	$( '#at-status-submit' ).on( 'click', function() {
+		var savingValue = $statusSelect.val();
+
+		if ( ! savingValue ) {
+			return;
+		}
+
+		$statusSaving.val( savingValue );
+
 		wp.data.dispatch( 'core/editor' ).editPost( {
-			status: $statusSelect.val()
+			status: savingValue
 		} );
 
 		wp.data.dispatch( 'core/editor' ).savePost();

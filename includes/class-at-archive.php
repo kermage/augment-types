@@ -247,17 +247,17 @@ class AT_Archive {
 		echo '</strong></p>';
 		echo '<p>';
 		echo '<label class="label" for="at-status-select">Change</label>';
-		echo ' <select id="at-status-select" name="at-post-status">';
+		echo ' <select id="at-status-select">';
 		echo '<option value="" selected>&mdash; Select &mdash;</option>';
 
 		foreach ( $statuses as $value => $label ) : ?>
-			<?php $selected = $value === $post->post_status ? ' selected' : ''; ?>
-			<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
+			<option value="<?php echo $value; ?>">
 				<?php echo $label; ?>
 			</option>
 		<?php endforeach;
 
 		echo '</select> <button id="at-status-submit" type="submit" class="button">Save</button>';
+		echo '<input type="hidden" id="at-status-saving" name="at-post-status">';
 		echo '</p>';
 		echo '</div>';
 
