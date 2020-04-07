@@ -13,6 +13,20 @@ class AT_Walker extends Walker {
 	);
 
 
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+
+		$output .= '<ul>';
+
+	}
+
+
+	public function end_lvl( &$output, $depth = 0, $args = array() ) {
+
+		$output .= '</ul>';
+
+	}
+
+
 	public function start_el( &$output, $page, $depth = 0, $args = array(), $current_page = 0 ) {
 
 		$indent = '';
@@ -29,11 +43,10 @@ class AT_Walker extends Walker {
 		$p_title  = $indent . $page->post_title;
 		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $page->ID ), false );
 		$ev_tmpl  = '<a href="%s" target="_blank">%s</a>';
-		$template = '<tr id="post-%1$s">
-			<td>%2$s</td>
-			<td>%3$s</td>
-			<td>%4$s</td>
-		</tr>';
+		$template = '<li id="post-%1$s">
+			<span>%2$s</span>
+			<span>%3$s</span>
+			<span>%4$s</span>';
 
 		$output .= sprintf(
 			$template,
@@ -50,6 +63,13 @@ class AT_Walker extends Walker {
 				__( 'View' )
 			)
 		);
+
+	}
+
+
+	public function end_el( &$output, $page, $depth = 0, $args = array() ) {
+
+		$output .= '</li>';
 
 	}
 

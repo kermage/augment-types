@@ -155,23 +155,24 @@ class AT_Sort {
 					</div>
 
 					<div id="postbox-container-2" class="postbox-container">
-						<table class="wp-list-table widefat fixed striped posts at-sort">
-							<thead>
-								<tr>
-									<th scope="col"><?php _e( 'Title' ); ?></th>
-									<th class="column-links" scope="col"><?php _e( 'Edit' ); ?></th>
-									<th class="column-links" scope="col"><?php _e( 'View' ); ?></th>
-								</tr>
-							</thead>
-							<tbody id="the-list">
-								<?php
-									$walker = new AT_Walker();
-									$output = $walker->walk( $query->posts, 0, $args );
+						<div class="at-sort">
+							<div>
+								<span><?php _e( 'Title' ); ?></span>
+								<span><?php _e( 'Edit' ); ?></span>
+								<span><?php _e( 'View' ); ?></span>
+							</div>
 
-									echo wp_kses_post( $output );
-								?>
-							</tbody>
-						</table>
+							<div id="the-list">
+								<ul>
+									<?php
+										$walker = new AT_Walker();
+										$output = $walker->walk( $query->posts, 0, $args );
+
+										echo wp_kses_post( $output );
+									?>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
