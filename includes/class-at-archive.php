@@ -238,6 +238,7 @@ class AT_Archive {
 	public function archive_select( $post ) {
 
 		$statuses = get_post_statuses();
+		$classic  = ! ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) );
 
 		$statuses['archive'] = __( 'Archived', 'augment-types' );
 
@@ -247,7 +248,7 @@ class AT_Archive {
 		echo '</strong></p>';
 		echo '<p>';
 		echo '<label class="label" for="at-status-select">Change</label>';
-		echo ' <select id="at-status-select">';
+		echo ' <select id="at-status-select"' . ( $classic ? ' name="at-post-status"' : '' ) . '>';
 		echo '<option value="" selected>&mdash; Select &mdash;</option>';
 
 		foreach ( $statuses as $value => $label ) : ?>
@@ -257,7 +258,11 @@ class AT_Archive {
 		<?php endforeach;
 
 		echo '</select> <button id="at-status-submit" type="submit" class="button">Save</button>';
-		echo '<input type="hidden" id="at-status-saving" name="at-post-status">';
+
+		if ( ! $classic ) {
+			echo '<input type="hidden" id="at-status-saving" name="at-post-status">';
+		}
+
 		echo '</p>';
 		echo '</div>';
 
