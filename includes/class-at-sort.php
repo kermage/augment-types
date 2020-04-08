@@ -97,16 +97,16 @@ class AT_Sort {
 		}
 
 		$post_type  = get_post_type_object( $type );
-		$taxonomies = get_object_taxonomies( $type );
+		$taxonomies = get_object_taxonomies( $type, 'objects' );
 
 		foreach ( $taxonomies as $taxonomy ) {
-			if ( ! isset( $_GET[ $taxonomy ] ) ) {
+			if ( ! isset( $_GET[ $taxonomy->name ] ) ) {
 				continue;
 			}
 
 			$args['tax_query'][] = array(
-				'taxonomy' => $taxonomy,
-				'terms'    => $_GET[ $taxonomy ],
+				'taxonomy' => $taxonomy->name,
+				'terms'    => $_GET[ $taxonomy->name ],
 			);
 		}
 
@@ -133,7 +133,7 @@ class AT_Sort {
 							<?php /* translators: 1: type label */ ?>
 							<h2 class="hndle"><?php printf( __( 'Filter %s', 'augment-types' ), $post_type->label ); ?></h2>
 							<div class="inside">
-								<?php $this->filters( $type ); ?>
+								<?php $this->filters( $type, $taxonomies ); ?>
 							</div>
 						</div>
 					</div>
@@ -167,10 +167,9 @@ class AT_Sort {
 	}
 
 
-	private function filters( $type ) {
+	private function filters( $type, $taxonomies ) {
 
-		$taxonomies = get_object_taxonomies( $type, 'objects' );
-		$statuses   = get_post_statuses();
+		$statuses = get_post_statuses();
 
 		$statuses['archive'] = __( 'Archived', 'augment-types' );
 
