@@ -9,12 +9,19 @@
 
 
 	function at_order_callback( $this = null ) {
+		var nested = [];
+
+		nested.push( $container.sortable( 'serialize' ) );
+		$container.find( '.at-sort-list' ).each( function() {
+			nested.push( $( this ).sortable( 'serialize' ) );
+		});
+
 		$.ajax( {
 			type : 'POST',
 			url : ajaxurl,
 			data : {
 				action: 'at_update_order',
-				items: $container.sortable( 'serialize' ),
+				items: nested.join( '&' ),
 				type: 'posts',
 			},
 			beforeSend: function() {
