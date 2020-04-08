@@ -8,10 +8,11 @@
 	var $filters   = $( '#the-filters' );
 
 	function at_order_callback( $this = null ) {
+		var type    = $( 'body' ).hasClass( 'edit-tags-php' ) ? 'tag' : 'post';
 		var nested = [];
 
-		$container.each( function() {
-			nested.push( $( this ).sortable( 'serialize' ) );
+		$container.first().find( '.ui-sortable-handle' ).each( function() {
+			nested.push( type + '[]=' + $( this ).attr( 'id' ).split( '-' ).pop() );
 		});
 
 		$.ajax( {
@@ -20,7 +21,7 @@
 			data : {
 				action: 'at_update_order',
 				items: nested.join( '&' ),
-				type: $( 'body' ).hasClass( 'edit-tags-php' ) ? 'tags' : 'posts',
+				type: type + 's',
 			},
 			beforeSend: function() {
 				if ( $this ) {
