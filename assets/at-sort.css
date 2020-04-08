@@ -50,11 +50,13 @@
 
 .at-sort-list .ui-sortable-helper,
 .at-sort-list .ui-sortable-placeholder {
+	background-color: #f9f9f9;
 	border: dashed 2px #ddd;
 }
 
 .at-sort-list .ui-sortable-placeholder {
 	display: block;
+	margin: 0;
 }
 
 .at-sort-container {
