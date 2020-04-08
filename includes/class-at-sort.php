@@ -271,19 +271,7 @@ class AT_Sort {
 			return true;
 		}
 
-		if ( 'edit' !== $screen->base && 'edit-tags' !== $screen->base ) {
-			return false;
-		}
-
-		if ( is_post_type_hierarchical( $screen->post_type ) ) {
-			return false;
-		}
-
-		if ( isset( $_GET['orderby'] ) ) {
-			return false;
-		}
-
-		return true;
+		return false;
 
 	}
 
