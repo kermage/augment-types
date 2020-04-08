@@ -50,10 +50,10 @@
 
 	$container.sortable( {
 		axis: 'y',
-		containment: '.at-sort-list',
 		placeholder: 'ui-sortable-placeholder',
-		tolerance: 'pointer',
 		create: function() {
+			$( this ).height( $( this ).height() );
+
 			$( document ).on( 'keydown', function( e ) {
 				var key = e.key || e.keyCode;
 
@@ -66,10 +66,6 @@
 			ui.placeholder.width( ui.item.width() );
 			ui.placeholder.height( ui.item.height() );
 			ui.placeholder.empty();
-
-			var sort = $( this ).sortable( 'instance' );
-
-			sort.containment[3] += ui.helper.height();
 		},
 		helper: function( e, ui ) {
 			ui.children().each( function() {
