@@ -11,7 +11,6 @@
 class AT_Sort {
 
 	private static $instance;
-	private $current_type;
 
 
 	public static function instance() {
@@ -27,29 +26,11 @@ class AT_Sort {
 
 	private function __construct() {
 
-		add_action( 'admin_init', array( $this, 'init' ) );
 		add_action( 'admin_menu', array( $this, 'menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 		add_action( 'wp_ajax_at_update_order', array( $this, 'update_order' ) );
 		add_action( 'pre_get_posts', array( $this, 'set_posts_order' ) );
 		add_filter( 'terms_clauses', array( $this, 'set_terms_order' ), 10, 3 );
-
-	}
-
-
-	public function init() {
-
-		if ( empty( $_GET ) ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['page'] ) || ! is_string( $_GET['page'] ) ) {
-			return;
-		}
-
-		if ( 0 === strpos( $_GET['page'], 'at-sort_' ) ) {
-			$this->current_type = get_post_type_object( str_replace( 'at-sort_', '', $_GET['page'] ) );
-		}
 
 	}
 
