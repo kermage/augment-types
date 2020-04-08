@@ -4,15 +4,13 @@
 
 	'use strict';
 
-	var $container = $( '.at-sort-list' );
+	var $container = $( '#the-list, .at-sort-list' );
 	var $filters   = $( '#the-filters' );
-
 
 	function at_order_callback( $this = null ) {
 		var nested = [];
 
-		nested.push( $container.sortable( 'serialize' ) );
-		$container.find( '.at-sort-list' ).each( function() {
+		$container.each( function() {
 			nested.push( $( this ).sortable( 'serialize' ) );
 		});
 
@@ -22,7 +20,7 @@
 			data : {
 				action: 'at_update_order',
 				items: nested.join( '&' ),
-				type: 'posts',
+				type: $( 'body' ).hasClass( 'edit-tags-php' ) ? 'tags' : 'posts',
 			},
 			beforeSend: function() {
 				if ( $this ) {
@@ -32,7 +30,7 @@
 
 				$container
 					.sortable( 'disable' )
-					.parents( '.at-sort-container' )
+					.parents( '.at-sort-container, .wp-list-table' )
 					.addClass( 'sorting' );
 			},
 			complete: function() {
@@ -43,7 +41,7 @@
 
 				$container
 					.sortable( 'enable' )
-					.parents( '.at-sort-container' )
+					.parents( '.at-sort-container, .wp-list-table' )
 					.removeClass( 'sorting' );
 			},
 		});
@@ -90,7 +88,7 @@
 
 			$container.sortable( 'option', 'locked', false );
 		},
-	});
+	} ).filter( '#the-list' ).addClass( 'at-sort-list' );
 
 	$filters.on( 'submit', function() {
 		$( this ).find( 'input, select' )

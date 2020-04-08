@@ -271,7 +271,15 @@ class AT_Sort {
 			return true;
 		}
 
-		return false;
+		if ( 'edit' !== $screen->base && 'edit-tags' !== $screen->base ) {
+			return false;
+		}
+
+		if ( isset( $_GET['orderby'] ) ) {
+			return false;
+		}
+
+		return true;
 
 	}
 

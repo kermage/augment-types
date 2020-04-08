@@ -44,7 +44,7 @@
 	font-weight: 600;
 }
 
-.at-sort-row.ui-sortable-handle {
+.at-sort-list .ui-sortable-handle {
 	cursor: move;
 }
 
@@ -59,10 +59,11 @@
 	margin: 0;
 }
 
-.at-sort-container {
+.wp-list-table.sorting {
 	position: relative;
 }
 
+.wp-list-table.sorting::after,
 .at-sort-container.sorting::after {
 	content: '';
 	position: absolute;
