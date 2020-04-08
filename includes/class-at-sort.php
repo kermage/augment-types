@@ -84,7 +84,7 @@ class AT_Sort {
 
 		$screen = get_current_screen();
 
-		$type = $screen->post_type;
+		$type = $screen->post_type ? $screen->post_type : 'post';
 		$args = array(
 			'post_type'      => $type,
 			'post_status'    => 'any',
