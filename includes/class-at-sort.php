@@ -101,7 +101,9 @@ class AT_Sort {
 
 	public function create() {
 
-		$type = $this->current_type->name;
+		$screen = get_current_screen();
+
+		$type = $screen->post_type;
 		$args = array(
 			'post_type'      => $type,
 			'post_status'    => 'any',
@@ -113,6 +115,7 @@ class AT_Sort {
 			$args['post_status'] = $_GET['post_status'];
 		}
 
+		$post_type  = get_post_type_object( $type );
 		$taxonomies = get_object_taxonomies( $type );
 
 		foreach ( $taxonomies as $taxonomy ) {
@@ -138,7 +141,7 @@ class AT_Sort {
 					<div id="postbox-container-1" class="postbox-container">
 						<div class="postbox">
 							<?php /* translators: 1: type label, 2: item count */ ?>
-							<h2 class="hndle"><?php printf( __( 'Sort %1$s <i>( %2$s )</i>', 'augment-types' ), $this->current_type->label, $query->found_posts ); ?></h2>
+							<h2 class="hndle"><?php printf( __( 'Sort %1$s <i>( %2$s )</i>', 'augment-types' ), $post_type->label, $query->found_posts ); ?></h2>
 							<div id="major-publishing-actions">
 								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
 								<span class="spinner"></span>
@@ -147,7 +150,7 @@ class AT_Sort {
 
 						<div class="postbox">
 							<?php /* translators: 1: type label */ ?>
-							<h2 class="hndle"><?php printf( __( 'Filter %s', 'augment-types' ), $this->current_type->label ); ?></h2>
+							<h2 class="hndle"><?php printf( __( 'Filter %s', 'augment-types' ), $post_type->label ); ?></h2>
 							<div class="inside">
 								<?php $this->filters( $type ); ?>
 							</div>
