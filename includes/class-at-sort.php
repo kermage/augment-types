@@ -83,12 +83,13 @@ class AT_Sort {
 	public function create() {
 
 		$screen = get_current_screen();
+		$type   = $screen->post_type ? $screen->post_type : 'post';
+		$limit  = min( ini_get( 'max_input_vars' ), array_sum( (array) wp_count_posts( $type ) ) );
 
-		$type = $screen->post_type ? $screen->post_type : 'post';
 		$args = array(
 			'post_type'      => $type,
 			'post_status'    => 'any',
-			'posts_per_page' => -1,
+			'posts_per_page' => $limit,
 			'tax_query'      => array(),
 		);
 
