@@ -269,49 +269,40 @@ class AT_Sort {
 
 	public function update_order() {
 
-		parse_str( $_POST['items'], $data );
-		parse_str( $_POST['filters'], $filters );
-		$this->{"update_{$_POST['type']}_order"}( $data, $filters );
+		$this->{"update_{$_POST['type']}_order"}( $_POST['data'] );
 
 	}
 
 
-	public function update_posts_order( $data, $filters ) {
+	public function update_posts_order( $data ) {
 
 		global $wpdb;
+
+		parse_str( $data['filters'], $filters );
 
 		unset( $filters['post_type'] );
 		unset( $filters['page'] );
 
 		$filters = array_filter( $filters );
+		$orders  = empty( $filters ) ? array_keys( $data['items'] ) : $data['orders'];
 
-		if ( empty( $filters ) ) {
-			$order = array_keys( $data['post'] );
-		} else {
-			$order = array();
+		sort( $orders );
 
-			foreach ( $data['post'] as $post ) {
-				$query   = $wpdb->prepare( "SELECT `menu_order` FROM {$wpdb->posts} WHERE `ID` = %d", $post );
-				$order[] = $wpdb->get_var( $query );
-			}
-
-			sort( $order );
+		foreach ( $data['items'] as $index => $post ) {
+			$wpdb->update( $wpdb->posts, array( 'menu_order' => $orders[ $index ] ), array( 'ID' => $post ) );
 		}
 
-		foreach ( $data['post'] as $index => $post ) {
-			$wpdb->update( $wpdb->posts, array( 'menu_order' => $order[ $index ] ), array( 'ID' => $post ) );
-		}
 
 		wp_die();
 
 	}
 
 
-	public function update_tags_order( $data, $filters ) {
+	public function update_tags_order( $data ) {
 
 		global $wpdb;
 
-		foreach ( $data['tag'] as $index => $tag ) {
+		foreach ( $data['items'] as $index => $tag ) {
 			$wpdb->update( $wpdb->terms, array( 'term_order' => $index + 1 ), array( 'term_id' => $tag ) );
 		}
 
