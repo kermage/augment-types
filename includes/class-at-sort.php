@@ -283,10 +283,13 @@ class AT_Sort {
 		global $wpdb;
 
 		parse_str( $data['filters'], $filters );
+		parse_str( $data['orders'], $orders );
+		parse_str( $data['items'], $items );
 
 		unset( $filters['post_type'] );
 		unset( $filters['page'] );
 
+		$data    = array_merge( $items, $orders );
 		$filters = array_filter( $filters );
 		$orders  = empty( $filters ) ? array_keys( $data['items'] ) : $data['orders'];
 
@@ -296,7 +299,6 @@ class AT_Sort {
 			$wpdb->update( $wpdb->posts, array( 'menu_order' => $orders[ $index ] ), array( 'ID' => $post ) );
 		}
 
-
 		wp_die();
 
 	}
@@ -305,6 +307,8 @@ class AT_Sort {
 	public function update_tags_order( $data ) {
 
 		global $wpdb;
+
+		parse_str( $data['items'], $data );
 
 		foreach ( $data['items'] as $index => $tag ) {
 			$wpdb->update( $wpdb->terms, array( 'term_order' => $index + 1 ), array( 'term_id' => $tag ) );

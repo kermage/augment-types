@@ -11,13 +11,13 @@
 		var type = $( 'body' ).hasClass( 'edit-tags-php' ) ? 'tags' : 'posts';
 		var data = {
 			filters: $filters.serialize(),
-			items: [],
-			orders: [],
+			items: '',
+			orders: '',
 		};
 
 		$container.first().find( '.ui-sortable-handle' ).each( function( index ) {
-			data.items[ index ] = $( this ).attr( 'id' ).split( '-' ).pop();
-			data.orders[ index ] = 'posts' ===  type ? $( this ).data( 'order' ) : index;
+			data.items += '&items[]=' + $( this ).attr( 'id' ).split( '-' ).pop();
+			data.orders += '&orders[]=' + ( 'posts' ===  type ? $( this ).data( 'order' ) : index );
 		});
 
 		$.ajax( {
