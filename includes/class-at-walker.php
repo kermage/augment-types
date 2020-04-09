@@ -43,14 +43,15 @@ class AT_Walker extends Walker {
 		$p_title  = $indent . $page->post_title;
 		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $page->ID ), false );
 		$ev_tmpl  = '<a href="%s" target="_blank">%s</a>';
-		$template = '<li id="post-%1$s" class="at-sort-row">
-			<span class="at-sort-column">%2$s</span>
-			<span class="at-sort-column column-links">%3$s</span>
-			<span class="at-sort-column column-links">%4$s</span>';
+		$template = '<li id="post-%1$s" class="at-sort-row" data-order="%2$s">
+			<span class="at-sort-column">%3$s</span>
+			<span class="at-sort-column column-links">%4$s</span>
+			<span class="at-sort-column column-links">%5$s</span>';
 
 		$output .= sprintf(
 			$template,
 			$page->ID,
+			$page->menu_order,
 			$p_title,
 			sprintf(
 				$ev_tmpl,
