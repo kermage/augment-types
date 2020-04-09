@@ -269,6 +269,10 @@ class AT_Sort {
 
 	public function update_order() {
 
+		if ( ! isset( $_POST['type'], $_POST['data'] ) ) {
+			wp_die( '', 403 );
+		}
+
 		$this->{"update_{$_POST['type']}_order"}( $_POST['data'] );
 
 	}
