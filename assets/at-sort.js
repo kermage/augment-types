@@ -22,6 +22,7 @@
 				action: 'at_update_order',
 				items: nested.join( '&' ),
 				type: type + 's',
+				filters: $filters.serialize(),
 			},
 			beforeSend: function() {
 				if ( $this ) {
