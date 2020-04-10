@@ -259,7 +259,7 @@ class AT_Sort {
 			return false;
 		}
 
-		if ( isset( $_GET['orderby'] ) ) {
+		if ( isset( $_GET['orderby'] ) || isset( $_GET['paged'] ) ) {
 			return false;
 		}
 
