@@ -345,7 +345,8 @@ class AT_Sort {
 	public function set_terms_order( $pieces, $taxonomies, $args ) {
 
 		if ( ! ( ( is_admin() && isset( $_GET['orderby'] ) ) || ( isset( $args['ignore_term_order'] ) && true === $args['ignore_term_order'] ) ) ) {
-			$pieces['orderby'] = 'ORDER BY t.term_order';
+			$pieces['orderby'] = 'ORDER BY t.term_order ASC,  t.term_id';
+			$pieces['order']   = 'DESC';
 		}
 
 		return $pieces;
