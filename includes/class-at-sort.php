@@ -292,7 +292,11 @@ class AT_Sort {
 
 		$data    = array_merge( $items, $orders );
 		$filters = array_filter( $filters );
-		$orders  = empty( $filters ) ? array_keys( $data['items'] ) : $data['orders'];
+		$orders  = $data['orders'];
+
+		if ( empty( $filters ) || empty( array_filter( $orders ) ) ) {
+			$orders = array_keys( $data['items'] );
+		}
 
 		sort( $orders );
 
