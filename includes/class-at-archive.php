@@ -241,6 +241,10 @@ class AT_Archive {
 		$statuses = get_post_stati( array( 'show_in_admin_all_list' => true ), 'objects' );
 		$classic  = ! ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) );
 
+		if ( 'auto-draft' === $post->post_status ) {
+			$post->post_status = 'draft';
+		}
+
 		echo '<div class="at-metabox-wrap">';
 		echo '<p id="at-status-current">Current: <strong>';
 		echo $statuses[ $post->post_status ]->label;
