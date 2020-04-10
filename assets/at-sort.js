@@ -15,11 +15,20 @@
 			orders: '',
 		};
 
-		$container.first().find( '.ui-sortable-handle' ).each( function( index ) {
-			data.items += '&items[]=' + $( this ).attr( 'id' ).split( '-' ).pop();
-			data.orders += '&orders[]=' + ( 'posts' ===  type ? $( this ).data( 'order' ) : index );
-		});
+		$container.each( function() {
+			data.items = '';
+			data.orders = '';
 
+			$( this ).find( '> .ui-sortable-handle' ).each( function( index ) {
+				data.items += '&items[]=' + $( this ).attr( 'id' ).split( '-' ).pop();
+				data.orders += '&orders[]=' + ( 'posts' ===  type ? $( this ).data( 'order' ) : index );
+			});
+
+			at_post_ajax( type, data, $this );
+		});
+	}
+
+	function at_post_ajax( type, data, $this ) {
 		$.ajax( {
 			type : 'POST',
 			url : ajaxurl,
