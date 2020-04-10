@@ -26,6 +26,8 @@
 
 			at_post_ajax( type, data, $this );
 		});
+
+		window.location.reload();
 	}
 
 	function at_post_ajax( type, data, $this ) {
@@ -48,17 +50,6 @@
 					.parents( '.at-sort-container, .wp-list-table' )
 					.addClass( 'sorting' );
 			},
-			complete: function() {
-				if ( $this ) {
-					$this.attr( 'disabled', false );
-					$this.siblings( '.spinner' ).removeClass( 'is-active' );
-				}
-
-				$container
-					.sortable( 'enable' )
-					.parents( '.at-sort-container, .wp-list-table' )
-					.removeClass( 'sorting' );
-			},
 		});
 	}
 
@@ -72,6 +63,7 @@
 				var key = e.key || e.keyCode;
 
 				if ( 'Escape' === key || 27 === key ) {
+					$container.sortable( 'option', 'locked', true );
 					$container.sortable( 'cancel' );
 				}
 			});
