@@ -238,23 +238,21 @@ class AT_Archive {
 
 	public function archive_select( $post ) {
 
-		$statuses = get_post_statuses();
+		$statuses = get_post_stati( array( 'show_in_admin_all_list' => true ), 'objects' );
 		$classic  = ! ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) );
-
-		$statuses['archive'] = __( 'Archived', 'augment-types' );
 
 		echo '<div class="at-metabox-wrap">';
 		echo '<p id="at-status-current">Current: <strong>';
-		echo $statuses[ $post->post_status ];
+		echo $statuses[ $post->post_status ]->label;
 		echo '</strong></p>';
 		echo '<p>';
 		echo '<label class="label" for="at-status-select">Change</label>';
 		echo ' <select id="at-status-select"' . ( $classic ? ' name="at-post-status"' : '' ) . '>';
 		echo '<option value="" selected>&mdash; Select &mdash;</option>';
 
-		foreach ( $statuses as $value => $label ) : ?>
+		foreach ( $statuses as $value => $status ) : ?>
 			<option value="<?php echo $value; ?>">
-				<?php echo $label; ?>
+				<?php echo $status->label; ?>
 			</option>
 		<?php endforeach;
 
