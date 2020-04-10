@@ -1,0 +1,15 @@
+{
+	"new_version"    : "1.9.0",
+	"homepage"       : "https://github.com/kermage/augment-types",
+	"download_link"  : "https://github.com/kermage/augment-types/releases/download/v1.9.0/augment-types.zip",
+	"last_updated"   : "2020-04-04",
+	"author"         : "Gene Alyson Fortunado Torcende",
+	"author_profile" : "https://github.com/kermage",
+	"requires"       : "4.6.0",
+	"tested"         : "5.4.0",
+	"requires_php"   : "5.6",
+	"donate_link"    : "https://www.paypal.me/GAFT",
+	"sections"        : {
+		"description" : "<div id='output' class='content markdown-body'><h1>Augment Types -- <img alt='Scrutinizer Build Status' src='https://scrutinizer-ci.com/g/kermage/augment-types/badges/build.png'> <img alt='Scrutinizer Code Quality' src='https://scrutinizer-ci.com/g/kermage/augment-types/badges/quality-score.png'></h1><blockquote><p><em>'Add essential functionalities to WordPress Post Types'</em></p></blockquote><ul><li>Intuitive drag-and-drop sorting</li><li>Straightforward content archiving</li><li>Easy inline edits of featured images</li><li>Classic TinyMCE for exciting excerpts</li><li>Simple post expirator by date and time</li></ul></div>"
+	}
+}

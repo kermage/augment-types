@@ -48,4 +48,4 @@ register_activation_hook( AT_FILE, array( 'Augment_Types', 'activate' ) );
 
 // Instantiate the Augment Types updater
 require_once AT_PATH . 'class-external-update-manager.php';
-EUM_Handler::run( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/wp-update/data.json' );
+EUM_Handler::run( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/master/update-data.json' );
