@@ -9,19 +9,61 @@
  * @package External Update Manager
  * @link    https://github.com/kermage/External-Update-Manager
  * @author  Gene Alyson Fortunado Torcende
- * @version 1.9.2
+ * @version 2.0.0
  * @license GPL-3.0
  */
 
-if ( ! class_exists( 'External_Update_Manager' ) ) {
+if ( ! class_exists( 'EUM_Handler' ) ) {
 
 	/**
 	 * @package External Update Manager
 	 * @since   0.1.0
 	 */
-	class External_Update_Manager {
+	// phpcs:ignore Generic.Files.OneObjectStructurePerFile.MultipleFound
+	class EUM_Handler {
+
+		private static $versions = array();
+
+		public static function add_version( $number ) {
+			if ( ! in_array( $number, self::$versions, true ) ) {
+				self::$versions[] = $number;
+
+				usort( self::$versions, 'version_compare' );
+			}
+		}
+
+		public static function get_latest() {
+			if ( empty( self::$versions ) ) {
+				return null;
+			}
+
+			return end( self::$versions );
+		}
+
+		public static function run( $path, $url, $args = array() ) {
+			$latest = str_replace( '.', '_', self::get_latest() );
+			$class  = 'External_Update_Manager_' . $latest;
+
+			return new $class( $path, $url, $args );
+		}
+
+	}
+
+}
+
+if ( ! class_exists( 'External_Update_Manager_2_0_0' ) ) {
+
+	EUM_Handler::add_version( '2.0.0' );
+
+	/**
+	 * @package External Update Manager
+	 * @since   0.1.0
+	 */
+	// phpcs:ignore Generic.Files.OneObjectStructurePerFile.MultipleFound
+	class External_Update_Manager_2_0_0 {
 
 		private $update_url;
+		private $custom_arg;
 		private $update_data;
 		private $item_type;
 		private $item_slug;
@@ -31,8 +73,9 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 		private $transient    = 'eum_';
 		private $has_update   = false;
 
-		public function __construct( $full_path, $update_url ) {
+		public function __construct( $full_path, $update_url, $custom_arg ) {
 			$this->update_url = $update_url;
+			$this->custom_arg = $custom_arg;
 			$this->get_file_details( $full_path );
 			$this->transient .= $this->item_type . '_' . $this->item_slug;
 
@@ -149,11 +192,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			$data = get_site_transient( $this->transient );
 
 			if ( ! is_object( $data ) ) {
-				$args = array(
-					'type' => $this->item_type,
-					'slug' => $this->item_slug,
-				);
-				$data = $this->call_remote_api( $args );
+				$data = $this->call_remote_api();
 				set_site_transient( $this->transient, $data, HOUR_IN_SECONDS );
 			}
 
@@ -162,10 +201,13 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			return $data;
 		}
 
-		private function call_remote_api( $request ) {
-			$url      = add_query_arg( $request, $this->update_url );
-			$options  = array( 'timeout' => 10 );
-			$response = wp_remote_get( $url, $options );
+		private function call_remote_api() {
+			$defaults = array(
+				'method'  => 'GET',
+				'timeout' => 10,
+			);
+			$options  = array_merge( $defaults, $this->custom_arg );
+			$response = wp_remote_request( $this->update_url, $options );
 
 			if ( ! is_array( $response ) || is_wp_error( $response ) ) {
 				return false;
@@ -185,18 +227,23 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 			if ( 'theme' === $this->item_type ) {
 				$formatted = (array) $unformatted;
 
-				$formatted['theme'] = $this->item_slug;
+				$formatted['package'] = $unformatted->download_link;
+				$formatted['url']     = $unformatted->homepage;
 			} else {
 				$formatted = (object) $unformatted;
 
-				$formatted->name          = $this->item_name;
-				$formatted->slug          = $this->item_slug;
-				$formatted->plugin        = $this->item_key;
-				$formatted->version       = $unformatted->new_version;
-				$formatted->download_link = $unformatted->package;
-				$formatted->homepage      = $unformatted->url;
-				$formatted->author        = sprintf( '<a href="%s">%s</a>', $unformatted->author_url, $unformatted->author_name );
-				$formatted->sections      = (array) $unformatted->sections;
+				$formatted->name    = $this->item_name;
+				$formatted->slug    = $this->item_slug;
+				$formatted->version = $this->item_version;
+				$formatted->package = $formatted->download_link;
+
+				if ( ! empty( $unformatted->author_profile ) ) {
+					$formatted->author = sprintf( '<a href="%s">%s</a>', $unformatted->author_profile, $unformatted->author );
+				}
+
+				if ( ! empty( $unformatted->sections ) ) {
+					$formatted->sections = (array) $unformatted->sections;
+				}
 
 				if ( ! empty( $unformatted->banners ) ) {
 					$formatted->banners = (array) $unformatted->banners;
@@ -272,7 +319,7 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 
 			if ( 'theme' === $this->item_type ) {
 				$details_args = array( 'TB_iframe' => 'true' );
-				$details_url  = $remote_data->url;
+				$details_url  = $remote_data->homepage;
 			} else {
 				$details_args = array(
 					'tab'       => 'plugin-information',
@@ -293,17 +340,20 @@ if ( ! class_exists( 'External_Update_Manager' ) ) {
 
 			/* phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped */
 			echo '<div class="notice notice-info is-dismissible"><p><strong>';
-			/* translators: 1: plugin name, 2: details URL, 3: additional link attributes, 4: version number, 5: update URL, 6: additional link attributes */
-			printf( __( 'There is a new version of %1$s available. <a href="%2$s" %3$s>View version %4$s details</a> or <a href="%5$s" %6$s>update now</a>.' ),
+			printf(
+				/* translators: 1: plugin name, 2: details URL, 3: additional link attributes, 4: version number, 5: update URL, 6: additional link attributes */
+				__( 'There is a new version of %1$s available. <a href="%2$s" %3$s>View version %4$s details</a> or <a href="%5$s" %6$s>update now</a>.' ),
 				$this->item_name,
 				esc_url( $details_url ),
-				sprintf( 'class="thickbox open-plugin-details-modal" aria-label="%s"',
+				sprintf(
+					'class="thickbox open-plugin-details-modal" aria-label="%s"',
 					/* translators: 1: plugin name, 2: version number */
 					esc_attr( sprintf( __( 'View %1$s version %2$s details' ), $this->item_name, $remote_data->new_version ) )
 				),
 				$remote_data->new_version,
 				esc_url( $update_url ),
-				sprintf( 'class="update-link" aria-label="%s"',
+				sprintf(
+					'class="update-link" aria-label="%s"',
 					/* translators: %s: plugin name */
 					esc_attr( sprintf( __( 'Update %s now' ), $this->item_name ) )
 				)
