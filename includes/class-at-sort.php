@@ -259,6 +259,10 @@ class AT_Sort {
 			return false;
 		}
 
+		if ( is_post_type_hierarchical( $screen->post_type ) || is_taxonomy_hierarchical( $screen->taxonomy ) ) {
+			return false;
+		}
+
 		if ( isset( $_GET['orderby'] ) || isset( $_GET['paged'] ) ) {
 			return false;
 		}
