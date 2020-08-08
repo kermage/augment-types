@@ -27,6 +27,7 @@ class Augment_Types {
 		spl_autoload_register( array( $this, 'autoload' ) );
 
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
+		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
 		AT_Sort::instance();
 		AT_Feature::instance();
@@ -96,6 +97,29 @@ class Augment_Types {
 		if ( ! $wpdb->query( "SHOW COLUMNS FROM {$wpdb->terms} LIKE 'term_order'" ) ) {
 			$wpdb->query( "ALTER TABLE {$wpdb->terms} ADD `term_order` INT( 11 ) NOT NULL DEFAULT '0'" );
 		}
+
+	}
+
+
+	public function per_type( $value, $term_id, $taxonomy ) {
+
+		$screen = get_current_screen();
+
+		$args = array(
+			'post_type'      => $screen->post_type,
+			'post_status'    => 'any',
+			'posts_per_page' => -1,
+			'tax_query'      => array(
+				array(
+					'taxonomy' => $taxonomy,
+					'terms'    => $term_id,
+				),
+			),
+		);
+
+		$query = new WP_Query( $args );
+
+		return $query->post_count;
 
 	}
 
