@@ -105,6 +105,10 @@ class Augment_Types {
 
 		$screen = get_current_screen();
 
+		if ( null === $screen || 'edit-tags' !== $screen->base ) {
+			return $value;
+		}
+
 		$args = array(
 			'post_type'      => $screen->post_type,
 			'post_status'    => 'any',
