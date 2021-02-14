@@ -9,6 +9,7 @@
 class Augment_Types {
 
 	private static $instance;
+	private static $data;
 
 
 	public static function instance() {
@@ -24,6 +25,10 @@ class Augment_Types {
 
 	private function __construct() {
 
+		self::$data         = get_plugin_data( AT_FILE );
+		self::$data['URL']  = plugin_dir_url( AT_FILE );
+		self::$data['PATH'] = plugin_dir_path( AT_FILE );
+
 		spl_autoload_register( array( $this, 'autoload' ) );
 
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
@@ -38,6 +43,13 @@ class Augment_Types {
 	}
 
 
+	public static function get_data( $key ) {
+
+		return self::$data[ $key ];
+
+	}
+
+
 	private function autoload( $class ) {
 
 		if ( 0 !== strpos( $class, 'AT' ) ) {
@@ -45,7 +57,7 @@ class Augment_Types {
 		}
 
 		$name = 'class-' . strtolower( str_replace( '_', '-', $class ) );
-		$file = AT_PATH . 'includes' . DIRECTORY_SEPARATOR . $name . '.php';
+		$file = self::$data['PATH'] . 'includes' . DIRECTORY_SEPARATOR . $name . '.php';
 
 		if ( ! class_exists( $class ) && file_exists( $file ) ) {
 			require_once $file;

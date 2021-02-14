@@ -294,7 +294,7 @@ class AT_Archive {
 
 	public function scripts_styles() {
 
-		wp_enqueue_script( 'at-archive-script', AT_URL . 'assets/at-archive.js', array(), AT_VERSION, true );
+		wp_enqueue_script( 'at-archive-script', Augment_Types::get_data( 'URL' ) . 'assets/at-archive.js', array(), Augment_Types::get_data( 'Version' ), true );
 
 	}
 

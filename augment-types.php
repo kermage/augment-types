@@ -25,27 +25,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 Global constants
 ================================================== */
 
-if ( ! defined( 'AT_VERSION' ) ) {
-	define( 'AT_VERSION', '1.10.0' );
-}
-
 if ( ! defined( 'AT_FILE' ) ) {
 	define( 'AT_FILE', __FILE__ );
 }
 
-if ( ! defined( 'AT_URL' ) ) {
-	define( 'AT_URL', plugin_dir_url( AT_FILE ) );
-}
-
-if ( ! defined( 'AT_PATH' ) ) {
-	define( 'AT_PATH', plugin_dir_path( AT_FILE ) );
-}
-
 // Load the main Augment Types class
-require_once AT_PATH . 'class-' . basename( AT_FILE );
+require_once plugin_dir_path( AT_FILE ) . 'class-' . basename( AT_FILE );
 
 register_activation_hook( AT_FILE, array( 'Augment_Types', 'activate' ) );
 
 // Instantiate the Augment Types updater
-require_once AT_PATH . 'class-external-update-manager.php';
+require_once plugin_dir_path( AT_FILE ) . 'class-external-update-manager.php';
 EUM_Handler::run( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/master/update-data.json' );

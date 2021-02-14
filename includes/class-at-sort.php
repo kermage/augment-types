@@ -241,8 +241,8 @@ class AT_Sort {
 
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_style( 'at-sort-style', AT_URL . 'assets/at-sort.css', array(), AT_VERSION );
-		wp_enqueue_script( 'at-sort-script', AT_URL . 'assets/at-sort.js', array(), AT_VERSION, true );
+		wp_enqueue_style( 'at-sort-style', Augment_Types::get_data( 'URL' ) . 'assets/at-sort.css', array(), Augment_Types::get_data( 'Version' ) );
+		wp_enqueue_script( 'at-sort-script', Augment_Types::get_data( 'URL' ) . 'assets/at-sort.js', array(), Augment_Types::get_data( 'Version' ), true );
 
 	}
 
