@@ -140,6 +140,3 @@ class Augment_Types {
 	}
 
 }
-
-// Get the Augment Types plugin running
-Augment_Types::instance();

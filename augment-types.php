@@ -32,6 +32,8 @@ if ( ! defined( 'AT_FILE' ) ) {
 // Load the main Augment Types class
 require_once plugin_dir_path( AT_FILE ) . 'class-' . basename( AT_FILE );
 
+// Get the Augment Types plugin running
+Augment_Types::instance();
 register_activation_hook( AT_FILE, array( 'Augment_Types', 'activate' ) );
 
 // Instantiate the Augment Types updater
