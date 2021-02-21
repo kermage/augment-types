@@ -11,7 +11,7 @@
  * Author:      Gene Alyson Fortunado Torcende
  * Author URI:  mailto:genealyson.torcende@gmail.com
  * Description: Add essential functionalities to WordPress Post Types.
- * Version:     1.10.0
+ * Version:     1.11.0
  * License:     GNU General Public License v3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
