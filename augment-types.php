@@ -33,8 +33,8 @@ if ( ! defined( 'AT_FILE' ) ) {
 require_once plugin_dir_path( AT_FILE ) . 'vendor/autoload.php';
 
 // Get the Augment Types plugin running
-Augment_Types::instance();
-register_activation_hook( AT_FILE, array( 'Augment_Types', 'activate' ) );
+AugmentTypes::instance();
+register_activation_hook( AT_FILE, array( 'AugmentTypes', 'activate' ) );
 
 // Instantiate the Augment Types updater
 EUM_Handler::run( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/master/update-data.json' );

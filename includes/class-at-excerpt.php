@@ -7,7 +7,7 @@
 
 namespace AugmentTypes;
 
-class AT_Excerpt {
+class Excerpt {
 
 	private static $instance;
 

@@ -12,12 +12,12 @@ class ComposerStaticInitd7be9dc1b75f20f601c537e264081abb
     );
 
     public static $classMap = array (
-        'AugmentTypes\\AT_Archive' => __DIR__ . '/../..' . '/includes/class-at-archive.php',
-        'AugmentTypes\\AT_Excerpt' => __DIR__ . '/../..' . '/includes/class-at-excerpt.php',
-        'AugmentTypes\\AT_Expire' => __DIR__ . '/../..' . '/includes/class-at-expire.php',
-        'AugmentTypes\\AT_Feature' => __DIR__ . '/../..' . '/includes/class-at-feature.php',
-        'AugmentTypes\\AT_Sort' => __DIR__ . '/../..' . '/includes/class-at-sort.php',
-        'AugmentTypes\\AT_Walker' => __DIR__ . '/../..' . '/includes/class-at-walker.php',
+        'AugmentTypes\\Archive' => __DIR__ . '/../..' . '/includes/class-at-archive.php',
+        'AugmentTypes\\Excerpt' => __DIR__ . '/../..' . '/includes/class-at-excerpt.php',
+        'AugmentTypes\\Expire' => __DIR__ . '/../..' . '/includes/class-at-expire.php',
+        'AugmentTypes\\Feature' => __DIR__ . '/../..' . '/includes/class-at-feature.php',
+        'AugmentTypes\\Sort' => __DIR__ . '/../..' . '/includes/class-at-sort.php',
+        'AugmentTypes\\Walker' => __DIR__ . '/../..' . '/includes/class-at-walker.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 

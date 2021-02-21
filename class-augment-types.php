@@ -6,7 +6,7 @@
  */
 
 
-class Augment_Types {
+class AugmentTypes {
 
 	private static $instance;
 	private static $data;
@@ -32,11 +32,11 @@ class Augment_Types {
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
-		\AugmentTypes\AT_Sort::instance();
-		\AugmentTypes\AT_Feature::instance();
-		\AugmentTypes\AT_Archive::instance();
-		\AugmentTypes\AT_Excerpt::instance();
-		\AugmentTypes\AT_Expire::instance();
+		\AugmentTypes\Sort::instance();
+		\AugmentTypes\Feature::instance();
+		\AugmentTypes\Archive::instance();
+		\AugmentTypes\Excerpt::instance();
+		\AugmentTypes\Expire::instance();
 
 	}
 

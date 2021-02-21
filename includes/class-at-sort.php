@@ -10,7 +10,7 @@
 
 namespace AugmentTypes;
 
-class AT_Sort {
+class Sort {
 
 	private static $instance;
 
@@ -152,7 +152,7 @@ class AT_Sort {
 							<div class="at-sort-body">
 								<ul class="at-sort-list">
 									<?php
-										$walker = new AT_Walker();
+										$walker = new Walker();
 										$output = $walker->walk( $query->posts, 0, $args );
 
 										echo wp_kses_post( $output );
@@ -243,8 +243,8 @@ class AT_Sort {
 
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_style( 'at-sort-style', \Augment_Types::get_data( 'URL' ) . 'assets/at-sort.css', array(), \Augment_Types::get_data( 'Version' ) );
-		wp_enqueue_script( 'at-sort-script', \Augment_Types::get_data( 'URL' ) . 'assets/at-sort.js', array(), \Augment_Types::get_data( 'Version' ), true );
+		wp_enqueue_style( 'at-sort-style', \AugmentTypes::get_data( 'URL' ) . 'assets/at-sort.css', array(), \AugmentTypes::get_data( 'Version' ) );
+		wp_enqueue_script( 'at-sort-script', \AugmentTypes::get_data( 'URL' ) . 'assets/at-sort.js', array(), \AugmentTypes::get_data( 'Version' ), true );
 
 	}
 
