@@ -6,3 +6,4 @@
 - Easy inline edits of featured images
 - Classic TinyMCE for exciting excerpts
 - Simple post expirator by date and time
+- Correct taxonomy term count per post type
