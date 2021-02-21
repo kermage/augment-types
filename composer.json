@@ -30,9 +30,9 @@
 		"wp-coding-standards/wpcs": "^2.2"
 	},
 	"autoload": {
-		"classmap": [
-			"includes/"
-		],
+		"psr-4": {
+			"AugmentTypes\\": "includes/"
+		},
 		"files": [
 			"class-augment-types.php"
 		]

@@ -6,11 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AugmentTypes\\Archive' => $baseDir . '/includes/class-at-archive.php',
-    'AugmentTypes\\Excerpt' => $baseDir . '/includes/class-at-excerpt.php',
-    'AugmentTypes\\Expire' => $baseDir . '/includes/class-at-expire.php',
-    'AugmentTypes\\Feature' => $baseDir . '/includes/class-at-feature.php',
-    'AugmentTypes\\Sort' => $baseDir . '/includes/class-at-sort.php',
-    'AugmentTypes\\Walker' => $baseDir . '/includes/class-at-walker.php',
+    'AugmentTypes\\Archive' => $baseDir . '/includes/Archive.php',
+    'AugmentTypes\\Excerpt' => $baseDir . '/includes/Excerpt.php',
+    'AugmentTypes\\Expire' => $baseDir . '/includes/Expire.php',
+    'AugmentTypes\\Feature' => $baseDir . '/includes/Feature.php',
+    'AugmentTypes\\Sort' => $baseDir . '/includes/Sort.php',
+    'AugmentTypes\\Walker' => $baseDir . '/includes/Walker.php',
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
 );

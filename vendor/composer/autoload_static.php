@@ -11,19 +11,35 @@ class ComposerStaticInitd7be9dc1b75f20f601c537e264081abb
         '4b3562a25fffdb9f03238d4264e0a407' => __DIR__ . '/../..' . '/class-augment-types.php',
     );
 
+    public static $prefixLengthsPsr4 = array (
+        'A' => 
+        array (
+            'AugmentTypes\\' => 13,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'AugmentTypes\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes',
+        ),
+    );
+
     public static $classMap = array (
-        'AugmentTypes\\Archive' => __DIR__ . '/../..' . '/includes/class-at-archive.php',
-        'AugmentTypes\\Excerpt' => __DIR__ . '/../..' . '/includes/class-at-excerpt.php',
-        'AugmentTypes\\Expire' => __DIR__ . '/../..' . '/includes/class-at-expire.php',
-        'AugmentTypes\\Feature' => __DIR__ . '/../..' . '/includes/class-at-feature.php',
-        'AugmentTypes\\Sort' => __DIR__ . '/../..' . '/includes/class-at-sort.php',
-        'AugmentTypes\\Walker' => __DIR__ . '/../..' . '/includes/class-at-walker.php',
+        'AugmentTypes\\Archive' => __DIR__ . '/../..' . '/includes/Archive.php',
+        'AugmentTypes\\Excerpt' => __DIR__ . '/../..' . '/includes/Excerpt.php',
+        'AugmentTypes\\Expire' => __DIR__ . '/../..' . '/includes/Expire.php',
+        'AugmentTypes\\Feature' => __DIR__ . '/../..' . '/includes/Feature.php',
+        'AugmentTypes\\Sort' => __DIR__ . '/../..' . '/includes/Sort.php',
+        'AugmentTypes\\Walker' => __DIR__ . '/../..' . '/includes/Walker.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd7be9dc1b75f20f601c537e264081abb::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd7be9dc1b75f20f601c537e264081abb::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInitd7be9dc1b75f20f601c537e264081abb::$classMap;
 
         }, null, ClassLoader::class);
