@@ -8,6 +8,8 @@
 // phpcs:disable WordPress.Security.EscapeOutput
 // phpcs:disable WordPress.Security.NonceVerification
 
+namespace AugmentTypes;
+
 class AT_Sort {
 
 	private static $instance;
@@ -111,7 +113,7 @@ class AT_Sort {
 			);
 		}
 
-		$query = new WP_Query( $args );
+		$query = new \WP_Query( $args );
 
 		?>
 
@@ -241,8 +243,8 @@ class AT_Sort {
 
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_style( 'at-sort-style', Augment_Types::get_data( 'URL' ) . 'assets/at-sort.css', array(), Augment_Types::get_data( 'Version' ) );
-		wp_enqueue_script( 'at-sort-script', Augment_Types::get_data( 'URL' ) . 'assets/at-sort.js', array(), Augment_Types::get_data( 'Version' ), true );
+		wp_enqueue_style( 'at-sort-style', \Augment_Types::get_data( 'URL' ) . 'assets/at-sort.css', array(), \Augment_Types::get_data( 'Version' ) );
+		wp_enqueue_script( 'at-sort-script', \Augment_Types::get_data( 'URL' ) . 'assets/at-sort.js', array(), \Augment_Types::get_data( 'Version' ), true );
 
 	}
 
@@ -328,7 +330,7 @@ class AT_Sort {
 	}
 
 
-	public function set_posts_order( WP_Query $query ) {
+	public function set_posts_order( $query ) {
 
 		if ( $query->get( 'orderby' ) || $query->is_search() ) {
 			return $query;

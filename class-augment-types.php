@@ -32,11 +32,11 @@ class Augment_Types {
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
-		AT_Sort::instance();
-		AT_Feature::instance();
-		AT_Archive::instance();
-		AT_Excerpt::instance();
-		AT_Expire::instance();
+		\AugmentTypes\AT_Sort::instance();
+		\AugmentTypes\AT_Feature::instance();
+		\AugmentTypes\AT_Archive::instance();
+		\AugmentTypes\AT_Excerpt::instance();
+		\AugmentTypes\AT_Expire::instance();
 
 	}
 

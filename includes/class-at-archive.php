@@ -5,6 +5,7 @@
  * @since 0.1.0
  */
 
+namespace AugmentTypes;
 
 class AT_Archive {
 
@@ -186,7 +187,7 @@ class AT_Archive {
 	}
 
 
-	public function set_status( WP_Query $query ) {
+	public function set_status( $query ) {
 
 		if ( is_admin() ) {
 			return $query;
@@ -294,7 +295,7 @@ class AT_Archive {
 
 	public function scripts_styles() {
 
-		wp_enqueue_script( 'at-archive-script', Augment_Types::get_data( 'URL' ) . 'assets/at-archive.js', array(), Augment_Types::get_data( 'Version' ), true );
+		wp_enqueue_script( 'at-archive-script', \Augment_Types::get_data( 'URL' ) . 'assets/at-archive.js', array(), \Augment_Types::get_data( 'Version' ), true );
 
 	}
 

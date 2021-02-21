@@ -5,7 +5,9 @@
  * @since 0.1.0
  */
 
-class AT_Walker extends Walker {
+namespace AugmentTypes;
+
+class AT_Walker extends \Walker {
 
 	public $db_fields = array(
 		'parent' => 'post_parent',

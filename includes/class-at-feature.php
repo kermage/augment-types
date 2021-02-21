@@ -5,6 +5,7 @@
  * @since 0.1.0
  */
 
+namespace AugmentTypes;
 
 class AT_Feature {
 
@@ -115,8 +116,8 @@ class AT_Feature {
 		}
 
 		wp_enqueue_media();
-		wp_enqueue_style( 'at-feature-style', Augment_Types::get_data( 'URL' ) . 'assets/at-feature.css', array(), Augment_Types::get_data( 'Version' ) );
-		wp_enqueue_script( 'at-feature-script', Augment_Types::get_data( 'URL' ) . 'assets/at-feature.js', array(), Augment_Types::get_data( 'Version' ), true );
+		wp_enqueue_style( 'at-feature-style', \Augment_Types::get_data( 'URL' ) . 'assets/at-feature.css', array(), \Augment_Types::get_data( 'Version' ) );
+		wp_enqueue_script( 'at-feature-script', \Augment_Types::get_data( 'URL' ) . 'assets/at-feature.js', array(), \Augment_Types::get_data( 'Version' ), true );
 
 	}
 
