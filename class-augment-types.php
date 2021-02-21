@@ -29,8 +29,6 @@ class Augment_Types {
 		self::$data['URL']  = plugin_dir_url( AT_FILE );
 		self::$data['PATH'] = plugin_dir_path( AT_FILE );
 
-		spl_autoload_register( array( $this, 'autoload' ) );
-
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
@@ -46,22 +44,6 @@ class Augment_Types {
 	public static function get_data( $key ) {
 
 		return self::$data[ $key ];
-
-	}
-
-
-	private function autoload( $class ) {
-
-		if ( 0 !== strpos( $class, 'AT' ) ) {
-			return;
-		}
-
-		$name = 'class-' . strtolower( str_replace( '_', '-', $class ) );
-		$file = self::$data['PATH'] . 'includes' . DIRECTORY_SEPARATOR . $name . '.php';
-
-		if ( ! class_exists( $class ) && file_exists( $file ) ) {
-			require_once $file;
-		}
 
 	}
 

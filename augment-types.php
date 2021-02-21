@@ -29,13 +29,12 @@ if ( ! defined( 'AT_FILE' ) ) {
 	define( 'AT_FILE', __FILE__ );
 }
 
-// Load the main Augment Types class
-require_once plugin_dir_path( AT_FILE ) . 'class-' . basename( AT_FILE );
+// Autoload classes with Composer
+require_once plugin_dir_path( AT_FILE ) . 'vendor/autoload.php';
 
 // Get the Augment Types plugin running
 Augment_Types::instance();
 register_activation_hook( AT_FILE, array( 'Augment_Types', 'activate' ) );
 
 // Instantiate the Augment Types updater
-require_once plugin_dir_path( AT_FILE ) . 'class-external-update-manager.php';
 EUM_Handler::run( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/master/update-data.json' );
