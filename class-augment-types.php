@@ -25,6 +25,10 @@ class AugmentTypes {
 
 	private function __construct() {
 
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		}
+
 		self::$data         = get_plugin_data( AT_FILE );
 		self::$data['URL']  = plugin_dir_url( AT_FILE );
 		self::$data['PATH'] = plugin_dir_path( AT_FILE );
