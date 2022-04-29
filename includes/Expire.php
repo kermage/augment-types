@@ -106,7 +106,7 @@ class Expire {
 			return;
 		}
 
-		if ( $expiration && time() >= strtotime( $expiration ) ) {
+		if ( time() >= (int) strtotime( $expiration ) ) {
 			$postarr = array(
 				'ID'          => $post->ID,
 				'post_status' => 'archive',
