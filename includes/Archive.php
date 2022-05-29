@@ -193,7 +193,7 @@ class Archive {
 			return $query;
 		}
 
-		if ( $query->is_archive() || $query->is_home() ) {
+		if ( 'wp_global_styles' !== $query->get( 'post_type' ) && ( $query->is_archive() || $query->is_home() ) ) {
 			global $wp_post_statuses;
 
 			$wp_post_statuses['archive']->public = false;
