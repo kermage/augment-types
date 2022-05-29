@@ -110,6 +110,8 @@ class AugmentTypes {
 		$args = array(
 			'post_type'      => $screen->post_type,
 			'post_status'    => 'any',
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
 			'posts_per_page' => -1,
 			'tax_query'      => array(
 				array(
