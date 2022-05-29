@@ -7,7 +7,9 @@
 
 namespace AugmentTypes;
 
-class Walker extends \Walker {
+use Walker as CoreWalker;
+
+class Walker extends CoreWalker {
 
 	public $db_fields = array(
 		'parent' => 'post_parent',

@@ -5,6 +5,12 @@
  * @since 0.1.0
  */
 
+use AugmentTypes\Archive;
+use AugmentTypes\Excerpt;
+use AugmentTypes\Expire;
+use AugmentTypes\Feature;
+use AugmentTypes\Sort;
+
 
 class AugmentTypes {
 
@@ -36,11 +42,11 @@ class AugmentTypes {
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
-		\AugmentTypes\Sort::instance();
-		\AugmentTypes\Feature::instance();
-		\AugmentTypes\Archive::instance();
-		\AugmentTypes\Excerpt::instance();
-		\AugmentTypes\Expire::instance();
+		Sort::instance();
+		Feature::instance();
+		Archive::instance();
+		Excerpt::instance();
+		Expire::instance();
 
 	}
 

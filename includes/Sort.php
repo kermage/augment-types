@@ -10,6 +10,9 @@
 
 namespace AugmentTypes;
 
+use AugmentTypes;
+use WP_Query;
+
 class Sort {
 
 	private static $instance;
@@ -113,7 +116,7 @@ class Sort {
 			);
 		}
 
-		$query = new \WP_Query( $args );
+		$query = new WP_Query( $args );
 
 		?>
 
@@ -243,8 +246,8 @@ class Sort {
 
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_style( 'at-sort-style', \AugmentTypes::get_data( 'URL' ) . 'assets/at-sort.css', array(), \AugmentTypes::get_data( 'Version' ) );
-		wp_enqueue_script( 'at-sort-script', \AugmentTypes::get_data( 'URL' ) . 'assets/at-sort.js', array(), \AugmentTypes::get_data( 'Version' ), true );
+		wp_enqueue_style( 'at-sort-style', AugmentTypes::get_data( 'URL' ) . 'assets/at-sort.css', array(), AugmentTypes::get_data( 'Version' ) );
+		wp_enqueue_script( 'at-sort-script', AugmentTypes::get_data( 'URL' ) . 'assets/at-sort.js', array(), AugmentTypes::get_data( 'Version' ), true );
 
 	}
 

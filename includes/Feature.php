@@ -7,6 +7,8 @@
 
 namespace AugmentTypes;
 
+use AugmentTypes;
+
 class Feature {
 
 	private static $instance;
@@ -116,8 +118,8 @@ class Feature {
 		}
 
 		wp_enqueue_media();
-		wp_enqueue_style( 'at-feature-style', \AugmentTypes::get_data( 'URL' ) . 'assets/at-feature.css', array(), \AugmentTypes::get_data( 'Version' ) );
-		wp_enqueue_script( 'at-feature-script', \AugmentTypes::get_data( 'URL' ) . 'assets/at-feature.js', array(), \AugmentTypes::get_data( 'Version' ), true );
+		wp_enqueue_style( 'at-feature-style', AugmentTypes::get_data( 'URL' ) . 'assets/at-feature.css', array(), AugmentTypes::get_data( 'Version' ) );
+		wp_enqueue_script( 'at-feature-script', AugmentTypes::get_data( 'URL' ) . 'assets/at-feature.js', array(), AugmentTypes::get_data( 'Version' ), true );
 
 	}
 

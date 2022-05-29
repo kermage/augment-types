@@ -7,6 +7,8 @@
 
 namespace AugmentTypes;
 
+use AugmentTypes;
+
 class Archive {
 
 	private static $instance;
@@ -295,7 +297,7 @@ class Archive {
 
 	public function scripts_styles() {
 
-		wp_enqueue_script( 'at-archive-script', \AugmentTypes::get_data( 'URL' ) . 'assets/at-archive.js', array(), \AugmentTypes::get_data( 'Version' ), true );
+		wp_enqueue_script( 'at-archive-script', AugmentTypes::get_data( 'URL' ) . 'assets/at-archive.js', array(), AugmentTypes::get_data( 'Version' ), true );
 
 	}
 

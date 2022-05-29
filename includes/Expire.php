@@ -7,6 +7,8 @@
 
 namespace AugmentTypes;
 
+use AugmentTypes;
+
 class Expire {
 
 	private static $instance;
@@ -155,7 +157,7 @@ class Expire {
 			return;
 		}
 
-		wp_enqueue_style( 'at-expire-style', \AugmentTypes::get_data( 'URL' ) . 'assets/at-expire.css', array(), \AugmentTypes::get_data( 'Version' ) );
+		wp_enqueue_style( 'at-expire-style', AugmentTypes::get_data( 'URL' ) . 'assets/at-expire.css', array(), AugmentTypes::get_data( 'Version' ) );
 
 	}
 
