@@ -1,12 +1,12 @@
 {
-	"new_version"    : "1.12.0",
+	"new_version"    : "1.13.0",
 	"homepage"       : "https://github.com/kermage/augment-types",
-	"download_link"  : "https://github.com/kermage/augment-types/releases/download/v1.12.0/augment-types.zip",
-	"last_updated"   : "2022-04-29",
+	"download_link"  : "https://github.com/kermage/augment-types/releases/download/v1.13.0/augment-types.zip",
+	"last_updated"   : "2022-05-30",
 	"author"         : "Gene Alyson Fortunado Torcende",
 	"author_profile" : "https://github.com/kermage",
 	"requires"       : "4.6.0",
-	"tested"         : "5.9.3",
+	"tested"         : "6.0.0",
 	"requires_php"   : "5.6",
 	"donate_link"    : "https://www.paypal.me/GAFT",
 	"sections"        : {
