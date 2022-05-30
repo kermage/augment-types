@@ -94,6 +94,7 @@ class Sort {
 		$args = array(
 			'post_type'      => $type,
 			'post_status'    => 'any',
+			'no_found_rows'  => true,
 			'posts_per_page' => $limit,
 			'tax_query'      => array(),
 		);
