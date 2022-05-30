@@ -257,11 +257,13 @@ class Archive {
 		echo ' <select id="at-status-select"' . ( $classic ? ' name="at-post-status"' : '' ) . '>';
 		echo '<option value="" selected>&mdash; Select &mdash;</option>';
 
-		foreach ( $statuses as $value => $status ) : ?>
+		foreach ( $statuses as $value => $status ) :
+			?>
 			<option value="<?php echo $value; ?>">
 				<?php echo $status->label; ?>
 			</option>
-		<?php endforeach;
+			<?php
+		endforeach;
 
 		echo '</select> <button id="at-status-submit" type="submit" class="button">Save</button>';
 

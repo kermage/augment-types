@@ -31,7 +31,7 @@ class Walker extends CoreWalker {
 	}
 
 
-	public function start_el( &$output, $page, $depth = 0, $args = array(), $current_page = 0 ) {
+	public function start_el( &$output, $object, $depth = 0, $args = array(), $current_object_id = 0 ) {
 
 		$indent = '';
 
@@ -39,13 +39,13 @@ class Walker extends CoreWalker {
 			$indent = str_repeat( '&mdash; ', $depth );
 		}
 
-		if ( '' === $page->post_title ) {
+		if ( '' === $object->post_title ) {
 			/* translators: %d: ID of a post. */
-			$page->post_title = sprintf( __( '#%d (no title)' ), $page->ID );
+			$object->post_title = sprintf( __( '#%d (no title)' ), $object->ID );
 		}
 
-		$p_title  = $indent . $page->post_title;
-		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $page->ID ), false );
+		$p_title  = $indent . $object->post_title;
+		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $object->ID ), false );
 		$ev_tmpl  = '<a href="%s" target="_blank">%s</a>';
 		$template = '<li id="post-%1$s" class="at-sort-row" data-order="%2$s">
 			<span class="at-sort-column">%3$s</span>
@@ -54,17 +54,17 @@ class Walker extends CoreWalker {
 
 		$output .= sprintf(
 			$template,
-			$page->ID,
-			$page->menu_order,
+			$object->ID,
+			$object->menu_order,
 			$p_title,
 			sprintf(
 				$ev_tmpl,
-				get_edit_post_link( $page->ID ),
+				get_edit_post_link( $object->ID ),
 				__( 'Edit' )
 			),
 			sprintf(
 				$ev_tmpl,
-				get_permalink( $page->ID ),
+				get_permalink( $object->ID ),
 				__( 'View' )
 			)
 		);
@@ -72,7 +72,7 @@ class Walker extends CoreWalker {
 	}
 
 
-	public function end_el( &$output, $page, $depth = 0, $args = array() ) {
+	public function end_el( &$output, $object, $depth = 0, $args = array() ) {
 
 		$output .= '</li>';
 

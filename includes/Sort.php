@@ -213,7 +213,7 @@ class Sort {
 					if ( empty( $options ) ) {
 						continue;
 					}
-				?>
+					?>
 
 				<label>
 					<span><?php echo $taxonomy->labels->singular_name; ?></span>
