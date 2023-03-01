@@ -248,33 +248,41 @@ class Archive {
 			$post->post_status = 'draft';
 		}
 
+		$current = sprintf(
+			/* translators: %s: Post status label. */
+			__( 'Current: %s', 'augment-types' ),
+			sprintf(
+				'<strong>%s</strong>',
+				esc_html( $statuses[ $post->post_status ]->label )
+			)
+		);
+
 		wp_nonce_field( 'at-archive-' . $post->ID, 'at-archive-nonce' );
 
-		echo '<div class="at-metabox-wrap">';
-		echo '<p id="at-status-current">Current: <strong>';
-		echo $statuses[ $post->post_status ]->label;
-		echo '</strong></p>';
-		echo '<p>';
-		echo '<label class="label" for="at-status-select">Change</label>';
-		echo ' <select id="at-status-select"' . ( $classic ? ' name="at-post-status"' : '' ) . '>';
-		echo '<option value="" selected>&mdash; Select &mdash;</option>';
+		?>
+<div class="at-metabox-wrap">
+	<p id="at-status-current"><?php echo wp_kses_post( $current ); ?></p>
+	<p>
+		<label class="label" for="at-status-select"><?php esc_html_e( 'Change', 'augment-types' ); ?></label>
 
-		foreach ( $statuses as $value => $status ) :
-			?>
-			<option value="<?php echo $value; ?>">
-				<?php echo $status->label; ?>
-			</option>
-			<?php
-		endforeach;
+		<select id="at-status-select" name="<?php echo esc_attr( $classic ? 'at-post-status' : '' ); ?>">
+			<option value="" selected>&mdash; <?php esc_html_e( 'Select', 'augment-types' ); ?> &mdash;</option>
 
-		echo '</select> <button id="at-status-submit" type="submit" class="button">Save</button>';
+			<?php foreach ( $statuses as $value => $status ) : ?>
+				<option value="<?php echo esc_attr( $value ); ?>">
+					<?php echo esc_html( $status->label ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
 
-		if ( ! $classic ) {
-			echo '<input type="hidden" id="at-status-saving" name="at-post-status">';
-		}
+		<button id="at-status-submit" type="submit" class="button"><?php esc_html_e( 'Save', 'augment-types' ); ?></button>
 
-		echo '</p>';
-		echo '</div>';
+		<?php if ( ! $classic ) : ?>
+			<input type="hidden" id="at-status-saving" name="at-post-status">
+		<?php endif; ?>
+	</p>
+</div>
+		<?php
 
 	}
 
@@ -296,7 +304,7 @@ class Archive {
 		if ( ! empty( $_POST['at-post-status'] ) ) {
 			$postarr = array(
 				'ID'          => $post_id,
-				'post_status' => $_POST['at-post-status'],
+				'post_status' => sanitize_text_field( $_POST['at-post-status'] ),
 			);
 
 			remove_action( 'save_post', array( $this, 'save_post' ) );

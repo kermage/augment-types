@@ -129,7 +129,7 @@ class Sort {
 					<div id="postbox-container-1" class="postbox-container">
 						<div class="postbox">
 							<?php /* translators: 1: type label, 2: item count */ ?>
-							<h2 class="hndle"><?php printf( __( 'Sort %1$s <i>( %2$s )</i>', 'augment-types' ), $post_type->label, $query->post_count ); ?></h2>
+							<h2 class="hndle"><?php printf( __( 'Sort %1$s ( %2$s )', 'augment-types' ), $post_type->label, '<i>' . $query->post_count . '</i>' ); ?></h2>
 							<div id="major-publishing-actions">
 								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
 								<span class="spinner"></span>

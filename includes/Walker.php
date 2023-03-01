@@ -44,7 +44,8 @@ class Walker extends CoreWalker {
 			$object->post_title = sprintf( __( '#%d (no title)' ), $object->ID );
 		}
 
-		$p_title  = $indent . $object->post_title;
+		$p_title = $indent . $object->post_title;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $object->ID ), false );
 		$ev_tmpl  = '<a href="%s" target="_blank">%s</a>';
 		$template = '<li id="post-%1$s" class="at-sort-row" data-order="%2$s">

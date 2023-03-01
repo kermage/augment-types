@@ -54,19 +54,24 @@ class Expire {
 
 	public function expire_settings( $post ) {
 
-		$expiration = get_post_meta( $post->ID, 'at-expiration', true );
+		$expiration  = get_post_meta( $post->ID, 'at-expiration', true );
+		$expiry_date = wp_date( 'Y-m-d', strtotime( $expiration ) );
+		$expiry_time = wp_date( 'H:i', strtotime( $expiration ) );
 
 		wp_nonce_field( 'at-expiration-' . $post->ID, 'at-expiration-nonce' );
-		echo '<div class="at-metabox-wrap">';
-		echo '<p>';
-		echo '<label class="label" for="at-expiration-date">Date</label>';
-		echo '<input type="date" name="at-expiration[date]" id="at-expiration-date" value="' . esc_attr( wp_date( 'Y-m-d', strtotime( $expiration ) ) ) . '">';
-		echo '</p>';
-		echo '<p>';
-		echo '<label class="label" for="at-expiration-time">Time</label>';
-		echo '<input type="time" name="at-expiration[time]" id="at-expiration-time" value="' . esc_attr( wp_date( 'H:i', strtotime( $expiration ) ) ) . '">';
-		echo '</p>';
-		echo '</div>';
+
+		?>
+<div class="at-metabox-wrap">
+	<p>
+		<label class="label" for="at-expiration-date"><?php esc_html_e( 'Date', 'augment-types' ); ?></label>
+		<input type="date" name="at-expiration[date]" id="at-expiration-date" value="<?php echo esc_attr( $expiry_date ); ?>">
+	</p>
+	<p>
+		<label class="label" for="at-expiration-time"><?php esc_html_e( 'Time', 'augment-types' ); ?></label>
+		<input type="time" name="at-expiration[time]" id="at-expiration-time" value="<?php echo esc_attr( $expiry_time ); ?>">
+	</p>
+</div>
+		<?php
 
 	}
 
@@ -93,7 +98,7 @@ class Expire {
 					$_POST['at-expiration']['date'] = wp_date( 'Y-m-d' );
 				}
 
-				$imploded   = implode( ' ', $_POST['at-expiration'] );
+				$imploded   = implode( ' ', array_map( 'sanitize_text_field', $_POST['at-expiration'] ) );
 				$difference = get_option( 'gmt_offset' ) * HOUR_IN_SECONDS;
 				$adjusted   = strtotime( $imploded ) - $difference;
 				$expiration = gmdate( 'Y-m-d H:i:s', $adjusted );
@@ -153,9 +158,9 @@ class Expire {
 			return;
 		}
 
-		echo wp_date( get_option( 'date_format' ), strtotime( $expiration ) );
+		echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $expiration ) ) );
 		echo '<br>';
-		echo wp_date( get_option( 'time_format' ), strtotime( $expiration ) );
+		echo esc_html( wp_date( get_option( 'time_format' ), strtotime( $expiration ) ) );
 
 	}
 
