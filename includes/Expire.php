@@ -73,6 +73,10 @@ class Expire {
 
 	public function save_post( $post_id ) {
 
+		if ( empty( $_POST['at-expiration-nonce'] ) ) {
+			return;
+		}
+
 		if ( ! wp_verify_nonce( $_POST['at-expiration-nonce'], 'at-expiration-' . $post_id ) ) {
 			return;
 		}

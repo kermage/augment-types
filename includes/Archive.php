@@ -281,6 +281,10 @@ class Archive {
 
 	public function save_post( $post_id ) {
 
+		if ( empty( $_POST['at-archive-nonce'] ) ) {
+			return;
+		}
+
 		if ( ! wp_verify_nonce( $_POST['at-archive-nonce'], 'at-archive-' . $post_id ) ) {
 			return;
 		}
