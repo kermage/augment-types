@@ -56,6 +56,7 @@ class Expire {
 
 		$expiration = get_post_meta( $post->ID, 'at-expiration', true );
 
+		wp_nonce_field( 'at-expiration-' . $post->ID, 'at-expiration-nonce' );
 		echo '<div class="at-metabox-wrap">';
 		echo '<p>';
 		echo '<label class="label" for="at-expiration-date">Date</label>';
@@ -71,6 +72,10 @@ class Expire {
 
 
 	public function save_post( $post_id ) {
+
+		if ( ! wp_verify_nonce( $_POST['at-expiration-nonce'], 'at-expiration-' . $post_id ) ) {
+			return;
+		}
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;

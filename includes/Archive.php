@@ -248,6 +248,8 @@ class Archive {
 			$post->post_status = 'draft';
 		}
 
+		wp_nonce_field( 'at-archive-' . $post->ID, 'at-archive-nonce' );
+
 		echo '<div class="at-metabox-wrap">';
 		echo '<p id="at-status-current">Current: <strong>';
 		echo $statuses[ $post->post_status ]->label;
@@ -278,6 +280,10 @@ class Archive {
 
 
 	public function save_post( $post_id ) {
+
+		if ( ! wp_verify_nonce( $_POST['at-archive-nonce'], 'at-archive-' . $post_id ) ) {
+			return;
+		}
 
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
