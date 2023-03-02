@@ -4,60 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a66658934eaed0d2251b3f14515c6282",
-    "packages": [
-        {
-            "name": "kermage/external-update-manager",
-            "version": "v2.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kermage/External-Update-Manager.git",
-                "reference": "00506d4e76047026d0c19f39223a8f2051593686"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kermage/External-Update-Manager/zipball/00506d4e76047026d0c19f39223a8f2051593686",
-                "reference": "00506d4e76047026d0c19f39223a8f2051593686",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
-                "phpcompatibility/phpcompatibility-wp": "^2.1",
-                "squizlabs/php_codesniffer": "^3.5",
-                "wp-coding-standards/wpcs": "^2.2"
-            },
-            "type": "wordpress-dropin",
-            "autoload": {
-                "files": [
-                    "class-external-update-manager.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Gene Alyson Fortunado Torcende",
-                    "email": "genealyson.torcende@gmail.com"
-                }
-            ],
-            "description": "A drop-in library for WordPress themes or plugins to manage updates.",
-            "keywords": [
-                "dropin",
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/kermage/External-Update-Manager/issues",
-                "source": "https://github.com/kermage/External-Update-Manager/tree/v2.2.0"
-            },
-            "time": "2022-04-25T11:28:19+00:00"
-        }
-    ],
+    "content-hash": "ac1df4690ac0adb7fc09a047962ca814",
+    "packages": [],
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -424,5 +372,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

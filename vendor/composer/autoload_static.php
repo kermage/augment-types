@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInitd7be9dc1b75f20f601c537e264081abb
 {
     public static $files = array (
-        'e2fb8214a7589690aae8ec82f7aa8973' => __DIR__ . '/..' . '/kermage/external-update-manager/class-external-update-manager.php',
         '4b3562a25fffdb9f03238d4264e0a407' => __DIR__ . '/../..' . '/class-augment-types.php',
     );
 
