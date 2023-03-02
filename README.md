@@ -1,5 +1,14 @@
 # Augment Types -- ![Scrutinizer Build Status](https://scrutinizer-ci.com/g/kermage/augment-types/badges/build.png) ![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kermage/augment-types/badges/quality-score.png)
 
+Stable tag: 1.14.0  
+Tested up to: 6.1.1  
+Requires at least: 4.6  
+Requires PHP: 5.6  
+License: GPLv3  
+Tags: order, sort, custom post type order, custom post type sort, archive, post status archive, featured image, excerpts, expiration, custom post type expiration  
+Contributors: gaft  
+Donate link: https://www.paypal.me/GAFT
+
 ## Description
 
 Add essential functionalities to WordPress Post Types
