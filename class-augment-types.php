@@ -39,6 +39,7 @@ class AugmentTypes {
 		self::$data['URL']  = plugin_dir_url( AT_FILE );
 		self::$data['PATH'] = plugin_dir_path( AT_FILE );
 
+		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
@@ -75,6 +76,13 @@ class AugmentTypes {
 		} else {
 			self::_alter_table();
 		}
+
+	}
+
+
+	public function load_text_domain() {
+
+		load_plugin_textdomain( 'augment-types' );
 
 	}
 

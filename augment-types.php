@@ -1,11 +1,6 @@
 <?php
 
 /**
- * @package Augment Types
- * @since 0.1.0
- */
-
-/**
  * Plugin Name: Augment Types
  * Plugin URI:  https://github.com/kermage/augment-types
  * Author:      Gene Alyson Fortunado Torcende
@@ -14,6 +9,11 @@
  * Version:     1.14.0
  * License:     GNU General Public License v3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * Text Domain: augment-types
+ *
+ * @package Augment Types
+ * @since 0.1.0
  */
 
 // Accessed directly
