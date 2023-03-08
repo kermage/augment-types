@@ -131,7 +131,7 @@ class Sort {
 							<?php /* translators: 1: type label, 2: item count */ ?>
 							<h2 class="hndle"><?php printf( __( 'Sort %1$s ( %2$s )', 'augment-types' ), $post_type->label, '<i>' . $query->post_count . '</i>' ); ?></h2>
 							<div id="major-publishing-actions">
-								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
+								<input id="at-save-order" type="submit" value="<?php _e( 'Update' ); ?>" class="button button-primary button-large">
 								<span class="spinner"></span>
 							</div>
 						</div>
@@ -229,7 +229,7 @@ class Sort {
 				</label>
 			<?php endforeach; ?>
 
-			<input type="submit" value="Submit" class="button button-primary button-large">
+			<input type="submit" value="<?php _e( 'Submit' ); ?>" class="button button-primary button-large">
 		</form>
 
 		<?php
