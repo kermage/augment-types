@@ -191,7 +191,7 @@ class Archive {
 
 	public function set_status( $query ) {
 
-		if ( is_admin() ) {
+		if ( is_admin() || ! $query ) {
 			return $query;
 		}
 
