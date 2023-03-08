@@ -284,7 +284,16 @@ class Sort {
 			wp_die( '', 403 );
 		}
 
-		$this->{"update_{$_POST['type']}_order"}( $_POST['data'] );
+		$type = sanitize_key( $_POST['type'] );
+		$data = array_map( 'sanitize_text_field', $_POST['data'] );
+
+		if ( 'posts' === $type ) {
+			$this->update_posts_order( $data );
+		} elseif ( 'tags' === $type ) {
+			$this->update_tags_order( $data );
+		} else {
+			wp_die( '', 405 );
+		}
 
 	}
 
