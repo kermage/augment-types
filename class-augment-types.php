@@ -65,7 +65,7 @@ class AugmentTypes {
 			global $wpdb;
 
 			$current = $wpdb->blogid;
-			$blogs   = $wpdb->get_col( "SELECT `blog_id` FROM {$wpdb->blogs}" );
+			$blogs   = $wpdb->get_col( "SELECT `blog_id` FROM $wpdb->blogs" );
 
 			foreach ( $blogs as $blog ) {
 				switch_to_blog( $blog );
@@ -106,8 +106,8 @@ class AugmentTypes {
 
 		global $wpdb;
 
-		if ( ! $wpdb->query( "SHOW COLUMNS FROM {$wpdb->terms} LIKE 'term_order'" ) ) {
-			$wpdb->query( "ALTER TABLE {$wpdb->terms} ADD `term_order` INT( 11 ) NOT NULL DEFAULT '0'" );
+		if ( ! $wpdb->query( "SHOW COLUMNS FROM $wpdb->terms LIKE 'term_order'" ) ) {
+			$wpdb->query( "ALTER TABLE $wpdb->terms ADD `term_order` INT( 11 ) NOT NULL DEFAULT '0'" );
 		}
 
 	}
