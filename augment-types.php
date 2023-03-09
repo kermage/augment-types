@@ -25,16 +25,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 Global constants
 ================================================== */
 
-if ( ! defined( 'AT_FILE' ) ) {
-	define( 'AT_FILE', __FILE__ );
+if ( ! defined( 'AUGMENT_TYPES' ) ) {
+	define( 'AUGMENT_TYPES', __FILE__ );
 }
 
 // Autoload classes with Composer
-require_once plugin_dir_path( AT_FILE ) . 'vendor/autoload.php';
+require_once plugin_dir_path( AUGMENT_TYPES ) . 'vendor/autoload.php';
 
 // Get the Augment Types plugin running
 AugmentTypes::instance();
-register_activation_hook( AT_FILE, array( AugmentTypes::class, 'activate' ) );
+register_activation_hook( AUGMENT_TYPES, array( AugmentTypes::class, 'activate' ) );
 
 // Instantiate the Augment Types updater
-EUM_Handler::run( AT_FILE, 'https://raw.githubusercontent.com/kermage/augment-types/master/update-data.json' );
+EUM_Handler::run( AUGMENT_TYPES, 'https://raw.githubusercontent.com/kermage/augment-types/master/update-data.json' );

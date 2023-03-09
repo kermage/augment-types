@@ -35,9 +35,9 @@ class AugmentTypes {
 			require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
 
-		self::$data         = get_plugin_data( AT_FILE );
-		self::$data['URL']  = plugin_dir_url( AT_FILE );
-		self::$data['PATH'] = plugin_dir_path( AT_FILE );
+		self::$data         = get_plugin_data( AUGMENT_TYPES );
+		self::$data['URL']  = plugin_dir_url( AUGMENT_TYPES );
+		self::$data['PATH'] = plugin_dir_path( AUGMENT_TYPES );
 
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
@@ -83,7 +83,7 @@ class AugmentTypes {
 
 		global $wpdb;
 
-		if ( is_plugin_active_for_network( plugin_basename( AT_FILE ) ) ) {
+		if ( is_plugin_active_for_network( plugin_basename( AUGMENT_TYPES ) ) ) {
 			$current = $wpdb->blogid;
 
 			switch_to_blog( $id );
