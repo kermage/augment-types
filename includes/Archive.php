@@ -74,11 +74,15 @@ class Archive {
 		$types = get_post_types( $args, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) ) {
+			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) || ! $type->rewrite ) {
 				continue;
 			}
 
-			$slug = $type->rewrite['slug'];
+			$slug = $type->name;
+
+			if ( isset( $type->rewrite['slug'] ) ) {
+				$slug = $type->rewrite['slug'];
+			}
 
 			add_rewrite_rule( '^' . $slug . '/archive/?$', 'index.php?post_type=' . $type->name . '&at-archive=true', 'top' );
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
