@@ -1,6 +1,6 @@
 # Augment Types -- ![Scrutinizer Build Status](https://scrutinizer-ci.com/g/kermage/augment-types/badges/build.png) ![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kermage/augment-types/badges/quality-score.png)
 
-Stable tag: 1.14.0  
+Stable tag: 1.15.0  
 Tested up to: 6.1.1  
 Requires at least: 4.6  
 Requires PHP: 5.6  
