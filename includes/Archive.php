@@ -191,7 +191,7 @@ class Archive {
 
 	public function set_status( $query ) {
 
-		if ( is_admin() ) {
+		if ( is_admin() || ! $query ) {
 			return $query;
 		}
 
@@ -304,7 +304,7 @@ class Archive {
 		if ( ! empty( $_POST['at-post-status'] ) ) {
 			$postarr = array(
 				'ID'          => $post_id,
-				'post_status' => sanitize_text_field( $_POST['at-post-status'] ),
+				'post_status' => sanitize_key( $_POST['at-post-status'] ),
 			);
 
 			remove_action( 'save_post', array( $this, 'save_post' ) );

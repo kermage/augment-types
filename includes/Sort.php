@@ -100,7 +100,7 @@ class Sort {
 		);
 
 		if ( isset( $_GET['post_status'] ) ) {
-			$args['post_status'] = $_GET['post_status'];
+			$args['post_status'] = sanitize_key( $_GET['post_status'] );
 		}
 
 		$post_type  = get_post_type_object( $type );
@@ -113,7 +113,7 @@ class Sort {
 
 			$args['tax_query'][] = array(
 				'taxonomy' => $taxonomy->name,
-				'terms'    => $_GET[ $taxonomy->name ],
+				'terms'    => sanitize_key( $_GET[ $taxonomy->name ] ),
 			);
 		}
 
@@ -131,7 +131,7 @@ class Sort {
 							<?php /* translators: 1: type label, 2: item count */ ?>
 							<h2 class="hndle"><?php printf( __( 'Sort %1$s ( %2$s )', 'augment-types' ), $post_type->label, '<i>' . $query->post_count . '</i>' ); ?></h2>
 							<div id="major-publishing-actions">
-								<input id="at-save-order" type="submit" value="Update" class="button button-primary button-large">
+								<input id="at-save-order" type="submit" value="<?php _e( 'Update' ); ?>" class="button button-primary button-large">
 								<span class="spinner"></span>
 							</div>
 						</div>
@@ -180,13 +180,13 @@ class Sort {
 
 		$statuses['archive'] = __( 'Archived', 'augment-types' );
 
-		$filter = isset( $_GET['post_status'] ) ? $_GET['post_status'] : null;
+		$filter = isset( $_GET['post_status'] ) ? sanitize_key( $_GET['post_status'] ) : null;
 
 		?>
 
 		<form action="<?php echo admin_url( 'edit.php' ); ?>" id="the-filters" class="at-filters">
-			<input type="hidden" name="post_type" value="<?php echo 'post' !== $type ? $type : '0'; ?>">
-			<input type="hidden" name="page" value="at-sort_<?php echo $type; ?>">
+			<input type="hidden" name="post_type" value="<?php echo 'post' !== $type ? esc_attr( $type ) : '0'; ?>">
+			<input type="hidden" name="page" value="at-sort_<?php echo esc_attr( $type ); ?>">
 
 			<label>
 				<span><?php _e( 'Status' ); ?></span>
@@ -194,9 +194,8 @@ class Sort {
 				<select name="post_status">
 					<option value="0" selected><?php _e( 'All' ); ?></option>
 					<?php foreach ( $statuses as $value => $label ) : ?>
-						<?php $selected = $filter === $value ? ' selected' : ''; ?>
-						<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
-							<?php echo $label; ?>
+						<option value="<?php echo esc_attr( $value ); ?>"<?php selected( $filter, $value ); ?>>
+							<?php echo esc_html( $label ); ?>
 						</option>
 					<?php endforeach; ?>
 				</select>
@@ -209,7 +208,7 @@ class Sort {
 						'fields'   => 'id=>name',
 					);
 					$options = get_terms( $args );
-					$filter  = isset( $_GET[ $name ] ) ? $_GET[ $name ] : null;
+					$filter  = isset( $_GET[ $name ] ) ? sanitize_key( $_GET[ $name ] ) : null;
 
 					if ( empty( $options ) ) {
 						continue;
@@ -217,21 +216,20 @@ class Sort {
 					?>
 
 				<label>
-					<span><?php echo $taxonomy->labels->singular_name; ?></span>
+					<span><?php echo esc_html( $taxonomy->labels->singular_name ); ?></span>
 
-					<select name="<?php echo $name; ?>">
+					<select name="<?php echo esc_attr( $name ); ?>">
 						<option value="0" selected><?php _e( 'All' ); ?></option>
 						<?php foreach ( $options as $value => $label ) : ?>
-							<?php $selected = (string) $value === $filter ? ' selected' : ''; ?>
-							<option value="<?php echo $value; ?>"<?php echo $selected; ?>>
-								<?php echo $label; ?>
+							<option value="<?php echo esc_attr( $value ); ?>"<?php selected( $filter, $value ); ?>>
+								<?php echo esc_html( $label ); ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
 				</label>
 			<?php endforeach; ?>
 
-			<input type="submit" value="Submit" class="button button-primary button-large">
+			<input type="submit" value="<?php _e( 'Submit' ); ?>" class="button button-primary button-large">
 		</form>
 
 		<?php
@@ -284,7 +282,16 @@ class Sort {
 			wp_die( '', 403 );
 		}
 
-		$this->{"update_{$_POST['type']}_order"}( $_POST['data'] );
+		$type = sanitize_key( $_POST['type'] );
+		$data = array_map( 'sanitize_text_field', $_POST['data'] );
+
+		if ( 'posts' === $type ) {
+			$this->update_posts_order( $data );
+		} elseif ( 'tags' === $type ) {
+			$this->update_tags_order( $data );
+		} else {
+			wp_die( '', 405 );
+		}
 
 	}
 
