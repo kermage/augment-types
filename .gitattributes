@@ -4,6 +4,7 @@
 .gitattributes export-ignore
 .gitignore export-ignore
 .github export-ignore
+.wordpress-org export-ignore
 composer.* export-ignore
 phpcs.xml export-ignore
 update-data.json export-ignore
