@@ -1,6 +1,6 @@
 # Augment Types
 
-Stable tag: 1.15.0  
+Stable tag: 1.16.0  
 Tested up to: 6.1.1  
 Requires at least: 4.6  
 Requires PHP: 5.6  
@@ -34,3 +34,7 @@ Add essential functionalities to WordPress Post Types
 
 3. The listing page
    ![The listing page](.wordpress-org/screenshot-3.png)
+
+## Changelog
+
+Please follow the ![Github Releases](https://github.com/kermage/augment-types/releases)
