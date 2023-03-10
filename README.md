@@ -1,4 +1,4 @@
-# Augment Types -- ![Scrutinizer Build Status](https://scrutinizer-ci.com/g/kermage/augment-types/badges/build.png) ![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kermage/augment-types/badges/quality-score.png)
+# Augment Types
 
 Stable tag: 1.15.0  
 Tested up to: 6.1.1  
@@ -8,6 +8,8 @@ License: GPLv3
 Tags: order, sort, custom post type order, custom post type sort, archive, post status archive, featured image, excerpts, expiration, custom post type expiration  
 Contributors: gaft  
 Donate link: https://www.paypal.me/GAFT
+
+![Scrutinizer Build Status](https://scrutinizer-ci.com/g/kermage/augment-types/badges/build.png) ![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kermage/augment-types/badges/quality-score.png)
 
 ## Description
 
