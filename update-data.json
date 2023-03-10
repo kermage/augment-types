@@ -1,7 +1,7 @@
 {
 	"new_version"    : "1.15.0",
 	"homepage"       : "https://github.com/kermage/augment-types",
-	"download_link"  : "https://github.com/kermage/augment-types/releases/download/v1.15.0/augment-types.zip",
+	"download_link"  : "https://downloads.wordpress.org/plugin/augment-types.zip",
 	"last_updated"   : "2023-03-09",
 	"author"         : "Gene Alyson Fortunado Torcende",
 	"author_profile" : "https://github.com/kermage",
@@ -9,6 +9,7 @@
 	"tested"         : "6.1.1",
 	"requires_php"   : "5.6",
 	"donate_link"    : "https://www.paypal.me/GAFT",
+	"upgrade_notice" : "Please do the update now to seamlessly use the official WordPress Plugin Directory version",
 	"sections"        : {
 		"description" : "<h1>Augment Types -- <img alt='Scrutinizer Build Status' src='https://scrutinizer-ci.com/g/kermage/augment-types/badges/build.png'> <img alt='Scrutinizer Code Quality' src='https://scrutinizer-ci.com/g/kermage/augment-types/badges/quality-score.png'></h1><blockquote><p><em>'Add essential functionalities to WordPress Post Types'</em></p></blockquote><ul><li>Intuitive drag-and-drop sorting</li><li>Straightforward content archiving</li><li>Easy inline edits of featured images</li><li>Classic TinyMCE for exciting excerpts</li><li>Simple post expirator by date and time</li><li>Correct taxonomy term count per post type</li></ul>"
 	}
