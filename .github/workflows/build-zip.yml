@@ -1,0 +1,47 @@
+name: Build Zip
+
+on:
+  push:
+    tags:
+      - "*"
+
+permissions:
+  contents: read
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Prepare variables
+      shell: bash
+      run: |
+        REPO_SLUG="${GITHUB_REPOSITORY#*/}"
+        TAG_NAME="${GITHUB_REF#refs/tags/}"
+        OUT_ZIP="${HOME}/${REPO_SLUG}.zip"
+
+        echo "REPO_SLUG=$REPO_SLUG" >> $GITHUB_ENV
+        echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+        echo "OUT_ZIP=$OUT_ZIP" >> $GITHUB_ENV
+
+    - name: Git archive version
+      shell: bash
+      run: |
+        echo "Archiving $REPO_SLUG $TAG_NAME"
+
+        git archive --prefix="${REPO_SLUG}/" "$TAG_NAME" --output="$OUT_ZIP"
+
+        echo "Prevent zipping the zip"
+
+        mkdir "${HOME}/${REPO_SLUG}"
+        cd "${HOME}/${REPO_SLUG}"
+        unzip $OUT_ZIP
+
+    - name: Upload as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ env.REPO_SLUG }}
+        path: "~/${{ env.REPO_SLUG }}"
