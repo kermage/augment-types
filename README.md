@@ -37,4 +37,4 @@ Add essential functionalities to WordPress Post Types
 
 ## Changelog
 
-Please follow the ![Github Releases](https://github.com/kermage/augment-types/releases)
+Please follow the [Github Releases](https://github.com/kermage/augment-types/releases)
