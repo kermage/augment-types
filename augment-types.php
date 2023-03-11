@@ -4,7 +4,7 @@
  * Plugin Name: Augment Types
  * Plugin URI:  https://github.com/kermage/augment-types
  * Author:      Gene Alyson Fortunado Torcende
- * Author URI:  mailto:genealyson.torcende@gmail.com
+ * Author URI:  https://genealysontorcende.wordpress.com/
  * Description: Add essential functionalities to WordPress Post Types.
  * Version:     1.16.0
  * License:     GNU General Public License v3.0

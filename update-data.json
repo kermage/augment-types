@@ -4,7 +4,7 @@
 	"download_link"  : "https://downloads.wordpress.org/plugin/augment-types.zip",
 	"last_updated"   : "2023-03-10",
 	"author"         : "Gene Alyson Fortunado Torcende",
-	"author_profile" : "https://github.com/kermage",
+	"author_profile" : "https://genealysontorcende.wordpress.com/",
 	"requires"       : "4.6.0",
 	"tested"         : "6.1.1",
 	"requires_php"   : "5.6",
