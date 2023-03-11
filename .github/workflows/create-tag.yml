@@ -20,6 +20,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.WF_TOKEN }}
 
     - name: Get new version
       shell: bash
