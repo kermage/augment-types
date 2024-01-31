@@ -6,7 +6,7 @@
 
 	var $statusSelect = $( '#at-status-select' );
 	var $statusSaving = $( '#at-status-saving' );
-	var currentStatus = wp.data.select( 'core/editor' ).getCurrentPostAttribute( 'status' );
+	var currentStatus = '';
 
 	wp.data.subscribe( function () {
 		var isSavingPost = wp.data.select( 'core/editor' ).isSavingPost();
@@ -32,6 +32,8 @@
 		}
 
 		$statusSaving.val( savingValue );
+
+		currentStatus = wp.data.select( 'core/editor' ).getCurrentPostAttribute( 'status' );
 
 		wp.data.dispatch( 'core/editor' ).editPost( {
 			status: savingValue
