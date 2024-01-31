@@ -112,7 +112,7 @@ class Expire {
 
 	public function maybe_expire( $post ) {
 
-		if ( 'archive' === $post->status ) {
+		if ( 'archive' === $post->post_status ) {
 			return;
 		}
 
