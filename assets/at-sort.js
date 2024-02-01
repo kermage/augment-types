@@ -14,6 +14,7 @@
 			items: '',
 			orders: '',
 		};
+		var deferreds = [];
 
 		$container.each( function() {
 			data.items = '';
@@ -24,14 +25,16 @@
 				data.orders += '&orders[]=' + ( 'posts' ===  type ? $( this ).data( 'order' ) : index );
 			});
 
-			at_post_ajax( type, data, $this );
+			deferreds.push( at_post_ajax( type, data, $this ) );
 		});
 
-		window.location.reload();
+		$.when.apply( 0, deferreds ).done( function() {
+			window.location.reload();
+		});
 	}
 
 	function at_post_ajax( type, data, $this ) {
-		$.ajax( {
+		return $.ajax( {
 			type : 'POST',
 			url : ajaxurl,
 			data : {
