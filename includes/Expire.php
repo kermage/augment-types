@@ -104,6 +104,10 @@ class Expire {
 				$expiration = gmdate( 'Y-m-d H:i:s', $adjusted );
 			}
 
+			if ( $expiration === get_post_meta( $post_id, 'at-expiration', true ) ) {
+				return;
+			}
+
 			update_post_meta( $post_id, 'at-expiration', $expiration );
 		}
 
