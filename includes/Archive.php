@@ -36,7 +36,7 @@ class Archive {
 		add_filter( 'wp_unique_post_slug_is_bad_flat_slug', array( $this, 'reserve_slug' ), 10, 3 );
 		add_filter( 'wp_unique_post_slug_is_bad_hierarchical_slug', array( $this, 'reserve_slug' ), 10, 4 );
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
-		add_action( 'save_post', array( $this, 'save_post' ) );
+		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'scripts_styles' ) );
 
 	}
@@ -291,7 +291,7 @@ class Archive {
 	}
 
 
-	public function save_post( $post_id ) {
+	public function save_post( $post_id, $post ) {
 
 		if ( empty( $_POST['at-archive-nonce'] ) ) {
 			return;
@@ -306,9 +306,15 @@ class Archive {
 		}
 
 		if ( ! empty( $_POST['at-post-status'] ) ) {
+			$saved_status = sanitize_key( $_POST['at-post-status'] );
+
+			if ( $saved_status === $post->post_status ) {
+				return;
+			}
+
 			$postarr = array(
 				'ID'          => $post_id,
-				'post_status' => sanitize_key( $_POST['at-post-status'] ),
+				'post_status' => $saved_status,
 			);
 
 			remove_action( 'save_post', array( $this, 'save_post' ) );
