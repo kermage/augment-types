@@ -199,6 +199,12 @@ class Archive {
 			return $query;
 		}
 
+		global $wp_query;
+
+		if ( ! $wp_query ) {
+			return $query;
+		}
+
 		if ( get_query_var( 'post_type' ) && ( $query->is_archive() || $query->is_home() ) ) {
 			global $wp_post_statuses;
 
