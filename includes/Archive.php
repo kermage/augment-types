@@ -27,7 +27,7 @@ class Archive {
 
 	private function __construct() {
 
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'wp_loaded', array( $this, 'rewrites' ) );
 		add_action( 'admin_footer-post.php', array( $this, 'post_js' ) );
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_js' ) );
