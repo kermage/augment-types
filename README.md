@@ -1,6 +1,6 @@
 # Augment Types
 
-Stable tag: 1.17.0  
+Stable tag: 1.17.1 
 Tested up to: 6.4.99  
 Requires at least: 4.6  
 Requires PHP: 5.6  
