@@ -5,7 +5,7 @@ Tested up to: 6.4.99
 Requires at least: 4.6  
 Requires PHP: 5.6  
 License: GPLv3  
-Tags: order, sort, custom post type order, custom post type sort, archive, post status archive, featured image, excerpts, expiration, custom post type expiration  
+Tags: order/sort, archive, featured image, excerpts, expiration  
 Contributors: gaft  
 Donate link: https://www.paypal.me/GAFT
 
