@@ -209,11 +209,6 @@ class Archive {
 			}
 		}
 
-		if ( $query->get( 'at-archive' ) && ! $query->get( 'post_type' ) ) {
-			$query->set( 'name', '0' );
-			$query->set_404();
-		}
-
 		return $query;
 
 	}
