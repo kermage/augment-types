@@ -88,14 +88,8 @@ class Archive {
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
 		}
 
-		$page_for_posts = get_option( 'page_for_posts', 0 );
-
-		$slug = get_permalink( $page_for_posts );
-
-		if ( false === $slug ) {
-			return;
-		}
-
+		$slug = get_option( 'page_for_posts', 0 );
+		$slug = get_permalink( $slug );
 		$slug = str_replace( home_url( '/' ), '', $slug );
 
 		add_rewrite_rule( '^' . $slug . 'archive/?$', 'index.php?post_type=post&at-archive=true', 'top' );
