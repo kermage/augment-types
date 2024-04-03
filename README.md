@@ -1,7 +1,7 @@
 # Augment Types
 
-Stable tag: 1.17.2 
-Tested up to: 6.4.99  
+Stable tag: 1.18.0 
+Tested up to: 6.5.99  
 Requires at least: 4.6  
 Requires PHP: 5.6  
 License: GPLv3  
