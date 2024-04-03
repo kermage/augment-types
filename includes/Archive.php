@@ -199,7 +199,7 @@ class Archive {
 			return $query;
 		}
 
-		if ( get_query_var( 'post_type' ) && ( $query->is_archive() || $query->is_home() ) ) {
+		if ( $query->is_archive() || $query->is_home() ) {
 			global $wp_post_statuses;
 
 			$wp_post_statuses['archive']->public = false;
