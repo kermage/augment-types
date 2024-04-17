@@ -41,6 +41,10 @@ class Expire {
 
 	public function meta_box( $post_type ) {
 
+		if ( 'attachment' === $post_type ) {
+			return;
+		}
+
 		add_meta_box(
 			'at_expire_settings',
 			__( 'Expiration', 'augment-types' ),

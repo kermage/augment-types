@@ -227,6 +227,10 @@ class Archive {
 
 	public function meta_box( $post_type ) {
 
+		if ( 'attachment' === $post_type ) {
+			return;
+		}
+
 		add_meta_box(
 			'at_archive_select',
 			__( 'Status', 'augment-types' ),
