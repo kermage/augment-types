@@ -31,15 +31,7 @@ class AugmentTypes {
 
 	private function __construct() {
 
-		if ( ! function_exists( 'get_plugin_data' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		self::$data         = get_plugin_data( AUGMENT_TYPES );
-		self::$data['URL']  = plugin_dir_url( AUGMENT_TYPES );
-		self::$data['PATH'] = plugin_dir_path( AUGMENT_TYPES );
-
-		add_action( 'plugins_loaded', array( $this, 'load_text_domain' ) );
+		add_action( 'init', array( $this, 'load_text_domain' ) );
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 
@@ -83,6 +75,14 @@ class AugmentTypes {
 	public function load_text_domain() {
 
 		load_plugin_textdomain( 'augment-types' );
+
+		if ( ! function_exists( 'get_plugin_data' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		self::$data         = get_plugin_data( AUGMENT_TYPES, false, false );
+		self::$data['URL']  = plugin_dir_url( AUGMENT_TYPES );
+		self::$data['PATH'] = plugin_dir_path( AUGMENT_TYPES );
 
 	}
 
