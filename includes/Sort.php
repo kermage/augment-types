@@ -17,6 +17,12 @@ class Sort {
 
 	private static $instance;
 
+	public const EXCLUDED_TYPES = array(
+		'attachment',
+		'acf-field-group',
+		'elementor_library',
+	);
+
 
 	public static function instance() {
 
@@ -46,7 +52,7 @@ class Sort {
 		$types = get_post_types( $args, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( 'attachment' === $type->name ) {
+			if ( in_array( $type->name, self::EXCLUDED_TYPES, true ) ) {
 				continue;
 			}
 
@@ -260,6 +266,10 @@ class Sort {
 		}
 
 		if ( 'edit' !== $screen->base && 'edit-tags' !== $screen->base ) {
+			return false;
+		}
+
+		if ( in_array( $screen->post_type, self::EXCLUDED_TYPES, true ) ) {
 			return false;
 		}
 
