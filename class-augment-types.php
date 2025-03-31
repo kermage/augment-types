@@ -61,12 +61,12 @@ class AugmentTypes {
 
 			foreach ( $blogs as $blog ) {
 				switch_to_blog( $blog );
-				self::_alter_table();
+				self::alter_table();
 			}
 
 			switch_to_blog( $current );
 		} else {
-			self::_alter_table();
+			self::alter_table();
 		}
 
 	}
@@ -95,14 +95,14 @@ class AugmentTypes {
 			$current = $wpdb->blogid;
 
 			switch_to_blog( $id );
-			self::_alter_table();
+			self::alter_table();
 			switch_to_blog( $current );
 		}
 
 	}
 
 
-	public static function _alter_table() {
+	protected static function alter_table() {
 
 		global $wpdb;
 
