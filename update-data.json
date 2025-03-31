@@ -1,8 +1,8 @@
 {
-	"new_version"    : "1.19.0",
+	"new_version"    : "1.20.0",
 	"homepage"       : "https://github.com/kermage/augment-types",
 	"download_link"  : "https://downloads.wordpress.org/plugin/augment-types.zip",
-	"last_updated"   : "2024-12-03",
+	"last_updated"   : "2025-03-31",
 	"author"         : "Gene Alyson Fortunado Torcende",
 	"author_profile" : "https://genealysontorcende.wordpress.com/",
 	"requires"       : "4.6.0",
