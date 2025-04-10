@@ -188,7 +188,7 @@ class Expire {
 
 		$screen = get_current_screen();
 
-		return ! ( null === $screen || ! in_array( $screen->base, array( 'edit', 'post' ), true ) );
+		return null !== $screen && in_array( $screen->base, array( 'edit', 'post' ), true );
 
 	}
 

@@ -74,7 +74,11 @@ class Archive {
 		$types = get_post_types( $args, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) || ! $type->rewrite ) {
+			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) ) {
+				continue;
+			}
+
+			if ( ! $type->rewrite ) {
 				continue;
 			}
 
@@ -337,7 +341,7 @@ class Archive {
 
 		$screen = get_current_screen();
 
-		return ! ( null === $screen || ! in_array( $screen->base, array( 'edit', 'post' ), true ) );
+		return null !== $screen && in_array( $screen->base, array( 'edit', 'post' ), true );
 
 	}
 

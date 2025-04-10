@@ -132,11 +132,7 @@ class Feature {
 			return false;
 		}
 
-		if ( ! post_type_supports( $screen->post_type, 'thumbnail' ) ) {
-			return false;
-		}
-
-		return true;
+		return post_type_supports( $screen->post_type, 'thumbnail' );
 
 	}
 

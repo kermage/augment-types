@@ -277,11 +277,7 @@ class Sort {
 			return false;
 		}
 
-		if ( isset( $_GET['orderby'] ) || isset( $_GET['paged'] ) ) {
-			return false;
-		}
-
-		return true;
+		return ! isset( $_GET['orderby'] ) && ! isset( $_GET['paged'] );
 
 	}
 
@@ -369,7 +365,7 @@ class Sort {
 
 	public function set_terms_order( $pieces, $taxonomies, $args ) {
 
-		if ( ! ( ( is_admin() && isset( $_GET['orderby'] ) ) || ( isset( $args['ignore_term_order'] ) && true === $args['ignore_term_order'] ) ) ) {
+		if ( ! ( is_admin() && isset( $_GET['orderby'] ) ) && ! ( isset( $args['ignore_term_order'] ) && true === $args['ignore_term_order'] ) ) {
 			$pieces['orderby'] = 'ORDER BY t.term_order ASC,  t.term_id';
 			$pieces['order']   = 'DESC';
 		}
