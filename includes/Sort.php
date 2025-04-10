@@ -354,7 +354,7 @@ class Sort {
 	public function set_posts_order( $query ) {
 
 		if ( $query->get( 'orderby' ) || $query->is_search() ) {
-			return $query;
+			return;
 		}
 
 		$meta = array(
@@ -363,8 +363,6 @@ class Sort {
 		);
 
 		$query->set( 'orderby', $meta );
-
-		return $query;
 
 	}
 

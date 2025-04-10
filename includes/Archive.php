@@ -190,13 +190,13 @@ class Archive {
 	public function set_status( $query ) {
 
 		if ( is_admin() || ! $query ) {
-			return $query;
+			return;
 		}
 
 		global $wp_query;
 
 		if ( ! $wp_query ) {
-			return $query;
+			return;
 		}
 
 		if ( $query->is_archive() || $query->is_home() ) {
@@ -208,8 +208,6 @@ class Archive {
 				$query->set( 'post_status', 'archive' );
 			}
 		}
-
-		return $query;
 
 	}
 
