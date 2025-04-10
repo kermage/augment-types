@@ -316,7 +316,7 @@ class Archive {
 
 			remove_action( 'save_post', array( $this, 'save_post' ) );
 			wp_update_post( $postarr );
-			add_action( 'save_post', array( $this, 'save_post' ) );
+			add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 		}
 
 	}
