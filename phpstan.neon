@@ -1,0 +1,15 @@
+parameters:
+  level: 5
+  excludePaths:
+    - vendor
+  scanDirectories:
+    - %currentWorkingDirectory%/.cache/wordpress
+    - %currentWorkingDirectory%/.cache/wordpress-tests-lib
+  reportUnmatchedIgnoredErrors: false
+  ignoreErrors:
+    -
+      message: '#no value type specified in iterable type array#'
+      path: includes/Walker.php
+    - message: '#Access to an undefined property object::\$#'
+      path: includes/Walker.php
+    - '#no value type specified in iterable type array#'
