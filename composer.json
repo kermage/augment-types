@@ -40,7 +40,7 @@
 		]
 	},
 	"scripts": {
-		"lint": "phpcs --colors -p -s -v",
-		"fix": "phpcbf -p -v"
+		"lint": "phpcs",
+		"fix": "phpcbf"
 	}
 }
