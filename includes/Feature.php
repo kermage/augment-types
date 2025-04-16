@@ -36,8 +36,7 @@ class Feature {
 
 	public function init() {
 
-		$args  = array( 'show_ui' => true );
-		$types = get_post_types( $args );
+		$types = get_post_types();
 
 		foreach ( $types as $type ) {
 			if ( ! post_type_supports( $type, 'thumbnail' ) ) {
