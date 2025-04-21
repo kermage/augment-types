@@ -24,10 +24,9 @@
 	<exclude-pattern>vendor</exclude-pattern>
 
 	<!-- Include PHP cross-version compatibility. -->
-	<config name="testVersion" value="5.6-" />
+	<config name="testVersion" value="7.4-" />
 	<!-- Include minimum supported WP version. -->
-	<config name="minimum_supported_wp_version" value="4.6" />
-
+	<config name="minimum_supported_wp_version" value="5.9" />
 	<!-- Include PHP Compatibility Coding Standard. -->
 	<rule ref="PHPCompatibilityWP" />
 	<!-- Include the WordPress ruleset. -->
