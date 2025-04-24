@@ -19,6 +19,8 @@ class Admin {
 	private static $instance;
 
 
+	public const PARENT_PAGE = 'options-general.php';
+
 	public const OPTION_KEY = 'augment-types';
 
 	public const FEATURES = array(
@@ -51,7 +53,7 @@ class Admin {
 	public function init(): void {
 
 		( new SubMenuPage( __( 'Augment Types', 'augment-types' ) ) )
-			->parent( 'options-general.php' )
+			->parent( self::PARENT_PAGE )
 			->slug( self::OPTION_KEY )
 			->setup();
 

@@ -36,6 +36,7 @@ class AugmentTypes {
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
 		add_action( 'init', array( Admin::instance(), 'init' ), 20 );
+		add_filter( 'plugin_action_links_' . plugin_basename( AUGMENT_TYPES ), array( $this, 'settings_link' ) );
 
 		Sort::instance();
 		Feature::instance();
@@ -140,6 +141,20 @@ class AugmentTypes {
 		$query = new WP_Query( $args );
 
 		return $query->post_count;
+
+	}
+
+
+	public function settings_link( array $links ): array {
+
+		$settings = sprintf(
+			'<a href="%1$s" target="%2$s">%3$s</a>',
+			admin_url( Admin::PARENT_PAGE . '&page=' . Admin::OPTION_KEY ),
+			'_self',
+			__( 'Settings', 'augment-types' ),
+		);
+
+		return array_merge( compact( 'settings' ), $links );
 
 	}
 
