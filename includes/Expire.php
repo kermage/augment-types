@@ -30,9 +30,9 @@ class Expire {
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_post' ) );
 		add_action( 'the_post', array( $this, 'maybe_expire' ) );
-		add_filter( 'manage_posts_columns', array( $this, 'column_header' ) );
+		add_filter( 'manage_posts_columns', array( $this, 'column_header' ), 10, 2 );
 		add_action( 'manage_posts_custom_column', array( $this, 'column_content' ), 10, 2 );
-		add_filter( 'manage_pages_columns', array( $this, 'column_header' ) );
+		add_filter( 'manage_pages_columns', array( $this, 'column_header' ), 10, 2 );
 		add_action( 'manage_pages_custom_column', array( $this, 'column_content' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
@@ -150,7 +150,13 @@ class Expire {
 	}
 
 
-	public function column_header( $columns ) {
+	public function column_header( $columns, $post_type = 'page' ) {
+
+		$settings = Admin::instance()->option( 'expire_disabled' );
+
+		if ( in_array( $post_type, $settings, true ) ) {
+			return $columns;
+		}
 
 		$columns['at-expire'] = __( 'Expiration', 'augment-types' );
 

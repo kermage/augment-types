@@ -116,6 +116,12 @@ class Archive {
 
 		global $post;
 
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
+		if ( in_array( $post->post_type, $settings, true ) ) {
+			return;
+		}
+
 		if ( 'attachment' === $post->post_type ) {
 			return;
 		}
@@ -161,6 +167,12 @@ class Archive {
 
 		global $typenow;
 
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
+		if ( in_array( $typenow, $settings, true ) ) {
+			return;
+		}
+
 		if ( 'attachment' === $typenow ) {
 			return;
 		}
@@ -189,6 +201,12 @@ class Archive {
 
 
 	public function post_states( $states, $post ) {
+
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
+		if ( in_array( $post->post_type, $settings, true ) ) {
+			return $states;
+		}
 
 		if ( 'archive' !== $post->post_status || 'archive' === get_query_var( 'post_status' ) ) {
 			return $states;
@@ -229,6 +247,12 @@ class Archive {
 
 
 	public function reserve_slug( $is_bad, $slug, $post_type, $post_parent = null ) {
+
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
+		if ( in_array( $post_type, $settings, true ) ) {
+			return $is_bad;
+		}
 
 		if ( 'archive' === $slug && ! $post_parent ) {
 			return true;
