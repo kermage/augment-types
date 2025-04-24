@@ -13,6 +13,10 @@ class Expire {
 
 	private static $instance;
 
+	public const EXCLUDED_TYPES = array(
+		'attachment',
+	);
+
 
 	public static function instance() {
 
@@ -39,15 +43,16 @@ class Expire {
 	}
 
 
+	protected function disabled_types() {
+
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'expire_disabled' ) );
+
+	}
+
+
 	public function meta_box( $post_type ) {
 
-		if ( 'attachment' === $post_type ) {
-			return;
-		}
-
-		$settings = Admin::instance()->option( 'expire_disabled' );
-
-		if ( in_array( $post_type, $settings, true ) ) {
+		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
 			return;
 		}
 
@@ -152,9 +157,7 @@ class Expire {
 
 	public function column_header( $columns, $post_type = 'page' ) {
 
-		$settings = Admin::instance()->option( 'expire_disabled' );
-
-		if ( in_array( $post_type, $settings, true ) ) {
+		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
 			return $columns;
 		}
 
@@ -200,9 +203,7 @@ class Expire {
 
 		$screen = get_current_screen();
 
-		$settings = Admin::instance()->option( 'expire_disabled' );
-
-		if ( in_array( $screen->post_type, $settings, true ) ) {
+		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
 			return false;
 		}
 

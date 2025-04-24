@@ -11,6 +11,14 @@ class Excerpt {
 
 	private static $instance;
 
+	public const TYPE_ARGS = array(
+		'show_ui' => true,
+	);
+
+	public const EXCLUDED_TYPES = array(
+		'wp_block',
+	);
+
 
 	public static function instance() {
 
@@ -31,10 +39,16 @@ class Excerpt {
 	}
 
 
+	protected function disabled_types() {
+
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'excerpt_disabled' ) );
+
+	}
+
+
 	public function init() {
 
-		$args  = array( 'show_ui' => true );
-		$types = get_post_types( $args );
+		$types = get_post_types( self::TYPE_ARGS );
 
 		foreach ( $types as $type ) {
 			if ( ! post_type_supports( $type, 'excerpt' ) ) {
@@ -54,9 +68,7 @@ class Excerpt {
 			return;
 		}
 
-		$settings = Admin::instance()->option( 'excerpt_disabled' );
-
-		if ( in_array( $post_type, $settings, true ) ) {
+		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
 			return;
 		}
 

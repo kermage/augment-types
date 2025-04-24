@@ -13,6 +13,15 @@ class Archive {
 
 	private static $instance;
 
+	public const TYPE_ARGS = array(
+		'public' => true,
+	);
+
+	public const EXCLUDED_TYPES = array(
+		'page',
+		'attachment',
+	);
+
 
 	public static function instance() {
 
@@ -38,6 +47,13 @@ class Archive {
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'scripts_styles' ) );
+
+	}
+
+
+	protected function disabled_types() {
+
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'archive_disabled' ) );
 
 	}
 
@@ -70,17 +86,14 @@ class Archive {
 
 		add_rewrite_tag( '%at-archive%', '([^&]+)' );
 
-		$args  = array( 'public' => true );
-		$types = get_post_types( $args, 'objects' );
-
-		$settings = Admin::instance()->option( 'archive_disabled' );
+		$types = get_post_types( self::TYPE_ARGS, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( in_array( $type->name, $settings, true ) ) {
+			if ( 'post' === $type->name ) {
 				continue;
 			}
 
-			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) ) {
+			if ( in_array( $type->name, $this->disabled_types(), true ) ) {
 				continue;
 			}
 
@@ -98,7 +111,7 @@ class Archive {
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
 		}
 
-		if ( in_array( 'post', $settings, true ) ) {
+		if ( in_array( 'post', $this->disabled_types(), true ) ) {
 			return;
 		}
 
@@ -116,13 +129,7 @@ class Archive {
 
 		global $post;
 
-		$settings = Admin::instance()->option( 'archive_disabled' );
-
-		if ( in_array( $post->post_type, $settings, true ) ) {
-			return;
-		}
-
-		if ( 'attachment' === $post->post_type ) {
+		if ( in_array( $post->post_type, $this->disabled_types(), true ) ) {
 			return;
 		}
 
@@ -167,13 +174,7 @@ class Archive {
 
 		global $typenow;
 
-		$settings = Admin::instance()->option( 'archive_disabled' );
-
-		if ( in_array( $typenow, $settings, true ) ) {
-			return;
-		}
-
-		if ( 'attachment' === $typenow ) {
+		if ( in_array( $typenow, $this->disabled_types(), true ) ) {
 			return;
 		}
 
@@ -202,9 +203,7 @@ class Archive {
 
 	public function post_states( $states, $post ) {
 
-		$settings = Admin::instance()->option( 'archive_disabled' );
-
-		if ( in_array( $post->post_type, $settings, true ) ) {
+		if ( in_array( $post->post_type, $this->disabled_types(), true ) ) {
 			return $states;
 		}
 
@@ -248,9 +247,7 @@ class Archive {
 
 	public function reserve_slug( $is_bad, $slug, $post_type, $post_parent = null ) {
 
-		$settings = Admin::instance()->option( 'archive_disabled' );
-
-		if ( in_array( $post_type, $settings, true ) ) {
+		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
 			return $is_bad;
 		}
 
@@ -265,13 +262,7 @@ class Archive {
 
 	public function meta_box( $post_type ) {
 
-		if ( 'attachment' === $post_type ) {
-			return;
-		}
-
-		$settings = Admin::instance()->option( 'archive_disabled' );
-
-		if ( in_array( $post_type, $settings, true ) ) {
+		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
 			return;
 		}
 
@@ -383,9 +374,7 @@ class Archive {
 
 		$screen = get_current_screen();
 
-		$settings = Admin::instance()->option( 'archive_disabled' );
-
-		if ( in_array( $screen->post_type, $settings, true ) ) {
+		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
 			return false;
 		}
 

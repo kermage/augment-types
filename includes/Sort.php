@@ -17,10 +17,16 @@ class Sort {
 
 	private static $instance;
 
+	public const TYPE_ARGS = array(
+		'show_ui' => true,
+	);
+
 	public const EXCLUDED_TYPES = array(
 		'attachment',
 		'acf-field-group',
 		'elementor_library',
+		'wp_block',
+		'wp_navigation',
 	);
 
 
@@ -46,19 +52,19 @@ class Sort {
 	}
 
 
+	protected function disabled_types() {
+
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'sort_disabled' ) );
+
+	}
+
+
 	public function menu() {
 
-		$args  = array( 'show_ui' => true );
-		$types = get_post_types( $args, 'objects' );
-
-		$settings = Admin::instance()->option( 'sort_disabled' );
+		$types = get_post_types( self::TYPE_ARGS, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( in_array( $type->name, self::EXCLUDED_TYPES, true ) ) {
-				continue;
-			}
-
-			if ( in_array( $type->name, $settings, true ) ) {
+			if ( in_array( $type->name, $this->disabled_types(), true ) ) {
 				continue;
 			}
 
@@ -275,13 +281,7 @@ class Sort {
 			return false;
 		}
 
-		if ( in_array( $screen->post_type, self::EXCLUDED_TYPES, true ) ) {
-			return false;
-		}
-
-		$settings = Admin::instance()->option( 'sort_disabled' );
-
-		if ( in_array( $screen->post_type, $settings, true ) ) {
+		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
 			return false;
 		}
 

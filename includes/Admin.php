@@ -116,9 +116,9 @@ class Admin {
 		$title = __( 'Disable archiving on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'archive_' );
 		$types = array_filter(
-			get_post_types( array( 'public' => true ), 'objects' ),
+			get_post_types( Archive::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
-				return ! in_array( $type->name, array( 'page', 'attachment' ), true );
+				return ! in_array( $type->name, Archive::EXCLUDED_TYPES, true );
 			}
 		);
 
@@ -133,9 +133,9 @@ class Admin {
 		$title = __( 'Disable exciting excerpts on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'excerpt_' );
 		$types = array_filter(
-			get_post_types( array( 'show_ui' => true ), 'objects' ),
+			get_post_types( Excerpt::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
-				if ( in_array( $type->name, array( 'wp_block' ), true ) ) {
+				if ( in_array( $type->name, Excerpt::EXCLUDED_TYPES, true ) ) {
 					return false;
 				}
 
@@ -156,7 +156,7 @@ class Admin {
 		$types = array_filter(
 			get_post_types( array(), 'objects' ),
 			function ( $type ) {
-				if ( in_array( $type->name, array( 'attachment', 'page', 'post' ), true ) ) {
+				if ( in_array( $type->name, array( 'page', 'post' ), true ) ) {
 					return true;
 				}
 
@@ -175,7 +175,7 @@ class Admin {
 		$title = __( 'Disable thumbnail column on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'thumbnail_' );
 		$types = array_filter(
-			get_post_types( array( 'show_ui' => true ), 'objects' ),
+			get_post_types( Feature::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
 				return post_type_supports( $type->name, 'thumbnail' );
 			}
@@ -192,12 +192,8 @@ class Admin {
 		$title = __( 'Disable sorting on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'sort_' );
 		$types = array_filter(
-			get_post_types( array( 'show_ui' => true ), 'objects' ),
+			get_post_types( Sort::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
-				if ( in_array( $type->name, array( 'wp_block', 'wp_navigation' ), true ) ) {
-					return false;
-				}
-
 				return ! in_array( $type->name, Sort::EXCLUDED_TYPES, true );
 			}
 		);

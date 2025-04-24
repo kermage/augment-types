@@ -13,6 +13,10 @@ class Feature {
 
 	private static $instance;
 
+	public const TYPE_ARGS = array(
+		'show_ui' => true,
+	);
+
 
 	public static function instance() {
 
@@ -34,18 +38,23 @@ class Feature {
 	}
 
 
+	protected function disabled_types() {
+
+		return Admin::instance()->option( 'thumbnail_disabled' );
+
+	}
+
+
 	public function init() {
 
-		$types = get_post_types();
-
-		$settings = Admin::instance()->option( 'thumbnail_disabled' );
+		$types = get_post_types( self::TYPE_ARGS );
 
 		foreach ( $types as $type ) {
 			if ( ! post_type_supports( $type, 'thumbnail' ) ) {
 				continue;
 			}
 
-			if ( in_array( $type, $settings, true ) ) {
+			if ( in_array( $type, $this->disabled_types(), true ) ) {
 				continue;
 			}
 
@@ -137,9 +146,7 @@ class Feature {
 			return false;
 		}
 
-		$settings = Admin::instance()->option( 'thumbnail_disabled' );
-
-		if ( in_array( $screen->post_type, $settings, true ) ) {
+		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
 			return false;
 		}
 
