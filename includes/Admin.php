@@ -65,6 +65,8 @@ class Admin {
 			$box->location( self::OPTION_KEY )->create();
 		}
 
+		add_action( 'themeplate_settings_' . self::OPTION_KEY . '_advanced', array( $this, 'styles' ) );
+
 	}
 
 
@@ -72,6 +74,20 @@ class Admin {
 	public function option( string $key ) {
 
 		return $this->repository->retrieve( $key, self::OPTION_KEY );
+
+	}
+
+
+	public function styles() {
+
+		?>
+<style>
+	[id^=augment-types_][id$=_disabled] {
+		columns: 2;
+		word-break: break-all;
+	}
+</style>
+		<?php
 
 	}
 
