@@ -38,8 +38,14 @@ class Feature {
 
 		$types = get_post_types();
 
+		$settings = Admin::instance()->option( 'thumbnail_disabled' );
+
 		foreach ( $types as $type ) {
 			if ( ! post_type_supports( $type, 'thumbnail' ) ) {
+				continue;
+			}
+
+			if ( in_array( $type, $settings, true ) ) {
 				continue;
 			}
 
@@ -128,6 +134,12 @@ class Feature {
 		$screen = get_current_screen();
 
 		if ( null === $screen || 'edit' !== $screen->base ) {
+			return false;
+		}
+
+		$settings = Admin::instance()->option( 'thumbnail_disabled' );
+
+		if ( in_array( $screen->post_type, $settings, true ) ) {
 			return false;
 		}
 

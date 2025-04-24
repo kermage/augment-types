@@ -45,6 +45,12 @@ class Expire {
 			return;
 		}
 
+		$settings = Admin::instance()->option( 'expire_disabled' );
+
+		if ( in_array( $post_type, $settings, true ) ) {
+			return;
+		}
+
 		add_meta_box(
 			'at_expire_settings',
 			__( 'Expiration', 'augment-types' ),
@@ -187,6 +193,12 @@ class Expire {
 	private function is_valid_screen() {
 
 		$screen = get_current_screen();
+
+		$settings = Admin::instance()->option( 'expire_disabled' );
+
+		if ( in_array( $screen->post_type, $settings, true ) ) {
+			return false;
+		}
 
 		return null !== $screen && in_array( $screen->base, array( 'edit', 'post' ), true );
 

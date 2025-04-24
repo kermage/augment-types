@@ -5,6 +5,7 @@
  * @since 0.1.0
  */
 
+use AugmentTypes\Admin;
 use AugmentTypes\Archive;
 use AugmentTypes\Excerpt;
 use AugmentTypes\Expire;
@@ -34,6 +35,7 @@ class AugmentTypes {
 		add_action( 'init', array( $this, 'load_text_domain' ) );
 		add_action( 'wpmu_new_blog', array( $this, 'new_blog' ) );
 		add_filter( 'term_count', array( $this, 'per_type' ), 10, 3 );
+		add_action( 'init', array( Admin::instance(), 'init' ), 20 );
 
 		Sort::instance();
 		Feature::instance();

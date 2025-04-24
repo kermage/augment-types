@@ -54,6 +54,12 @@ class Excerpt {
 			return;
 		}
 
+		$settings = Admin::instance()->option( 'excerpt_disabled' );
+
+		if ( in_array( $post_type, $settings, true ) ) {
+			return;
+		}
+
 		remove_meta_box( 'postexcerpt', $post_type, 'normal' );
 		add_meta_box(
 			'at_excerpt_editor',

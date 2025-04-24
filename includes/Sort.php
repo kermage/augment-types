@@ -51,8 +51,14 @@ class Sort {
 		$args  = array( 'show_ui' => true );
 		$types = get_post_types( $args, 'objects' );
 
+		$settings = Admin::instance()->option( 'sort_disabled' );
+
 		foreach ( $types as $type ) {
 			if ( in_array( $type->name, self::EXCLUDED_TYPES, true ) ) {
+				continue;
+			}
+
+			if ( in_array( $type->name, $settings, true ) ) {
 				continue;
 			}
 
@@ -270,6 +276,12 @@ class Sort {
 		}
 
 		if ( in_array( $screen->post_type, self::EXCLUDED_TYPES, true ) ) {
+			return false;
+		}
+
+		$settings = Admin::instance()->option( 'sort_disabled' );
+
+		if ( in_array( $screen->post_type, $settings, true ) ) {
 			return false;
 		}
 

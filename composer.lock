@@ -4,8 +4,145 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a088257dd6f227a4f9618bd9fd9f5d98",
-    "packages": [],
+    "content-hash": "e9eff316907e54c72112fb6f11ff9132",
+    "packages": [
+        {
+            "name": "themeplate/core",
+            "version": "v2.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThemePlate/Core.git",
+                "reference": "d4f95cd16110c993b9b1d477bac2021f7875a656"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThemePlate/Core/zipball/d4f95cd16110c993b9b1d477bac2021f7875a656",
+                "reference": "d4f95cd16110c993b9b1d477bac2021f7875a656",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.4|^8.2"
+            },
+            "require-dev": {
+                "themeplate/tester": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "2.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ThemePlate\\Core\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Gene Alyson Fortunado Torcende",
+                    "email": "genealyson.torcende@gmail.com"
+                }
+            ],
+            "description": "ThemePlate core functions and helpers",
+            "support": {
+                "issues": "https://github.com/ThemePlate/Core/issues",
+                "source": "https://github.com/ThemePlate/Core/tree/v2.14.0"
+            },
+            "time": "2025-04-19T16:12:49+00:00"
+        },
+        {
+            "name": "themeplate/page",
+            "version": "v2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThemePlate/Page.git",
+                "reference": "f26e8609d45105f72ce57ae13d27d4213b87895c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThemePlate/Page/zipball/f26e8609d45105f72ce57ae13d27d4213b87895c",
+                "reference": "f26e8609d45105f72ce57ae13d27d4213b87895c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.2"
+            },
+            "require-dev": {
+                "themeplate/tester": "^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ThemePlate\\Page\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Gene Alyson Fortunado Torcende",
+                    "email": "genealyson.torcende@gmail.com"
+                }
+            ],
+            "description": "ThemePlate custom options pages",
+            "support": {
+                "issues": "https://github.com/ThemePlate/Page/issues",
+                "source": "https://github.com/ThemePlate/Page/tree/v2.6.0"
+            },
+            "time": "2025-04-08T15:16:57+00:00"
+        },
+        {
+            "name": "themeplate/settings",
+            "version": "v2.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ThemePlate/Settings.git",
+                "reference": "712b7d07eb5914f153011e869a79de90eb0bf5e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ThemePlate/Settings/zipball/712b7d07eb5914f153011e869a79de90eb0bf5e6",
+                "reference": "712b7d07eb5914f153011e869a79de90eb0bf5e6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.2",
+                "themeplate/core": "^2.0"
+            },
+            "require-dev": {
+                "themeplate/tester": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ThemePlate\\Settings\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Gene Alyson Fortunado Torcende",
+                    "email": "genealyson.torcende@gmail.com"
+                }
+            ],
+            "description": "ThemePlate custom option boxes",
+            "support": {
+                "issues": "https://github.com/ThemePlate/Settings/issues",
+                "source": "https://github.com/ThemePlate/Settings/tree/v2.5.2"
+            },
+            "time": "2025-04-10T17:04:37+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",

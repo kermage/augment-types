@@ -73,7 +73,13 @@ class Archive {
 		$args  = array( 'public' => true );
 		$types = get_post_types( $args, 'objects' );
 
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
 		foreach ( $types as $type ) {
+			if ( in_array( $type->name, $settings, true ) ) {
+				continue;
+			}
+
 			if ( in_array( $type->name, array( 'post', 'page', 'attachment' ), true ) ) {
 				continue;
 			}
@@ -90,6 +96,10 @@ class Archive {
 
 			add_rewrite_rule( '^' . $slug . '/archive/?$', 'index.php?post_type=' . $type->name . '&at-archive=true', 'top' );
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
+		}
+
+		if ( in_array( 'post', $settings, true ) ) {
+			return;
 		}
 
 		$slug = get_option( 'page_for_posts', 0 );
@@ -235,6 +245,12 @@ class Archive {
 			return;
 		}
 
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
+		if ( in_array( $post_type, $settings, true ) ) {
+			return;
+		}
+
 		add_meta_box(
 			'at_archive_select',
 			__( 'Status', 'augment-types' ),
@@ -342,6 +358,12 @@ class Archive {
 	private function is_valid_screen() {
 
 		$screen = get_current_screen();
+
+		$settings = Admin::instance()->option( 'archive_disabled' );
+
+		if ( in_array( $screen->post_type, $settings, true ) ) {
+			return false;
+		}
 
 		return null !== $screen && in_array( $screen->base, array( 'edit', 'post' ), true );
 
