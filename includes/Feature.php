@@ -32,7 +32,7 @@ class Feature {
 	private function __construct() {
 
 		add_action( 'admin_init', array( $this, 'init' ) );
-		add_action( 'quick_edit_custom_box', array( $this, 'form' ), 10, 2 );
+		add_action( 'quick_edit_custom_box', array( $this, 'form' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts_styles' ) );
 
 	}
@@ -91,13 +91,9 @@ class Feature {
 	}
 
 
-	public function form( $column, $type ) {
+	public function form( $column ) {
 
 		if ( 'at-feature' !== $column ) {
-			return;
-		}
-
-		if ( ! post_type_supports( $type, 'thumbnail' ) ) {
 			return;
 		}
 

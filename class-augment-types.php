@@ -149,7 +149,7 @@ class AugmentTypes {
 
 		$settings = sprintf(
 			'<a href="%1$s" target="%2$s">%3$s</a>',
-			admin_url( Admin::PARENT_PAGE . '&page=' . Admin::OPTION_KEY ),
+			admin_url( Admin::PARENT_PAGE . '?page=' . Admin::OPTION_KEY ),
 			'_self',
 			__( 'Settings', 'augment-types' ),
 		);

@@ -33,7 +33,6 @@ class Excerpt {
 
 	private function __construct() {
 
-		add_action( 'init', array( $this, 'init' ), 11 );
 		add_action( 'add_meta_boxes', array( $this, 'meta_box' ) );
 
 	}
@@ -46,25 +45,9 @@ class Excerpt {
 	}
 
 
-	public function init() {
-
-		$types = get_post_types( self::TYPE_ARGS );
-
-		foreach ( $types as $type ) {
-			if ( ! post_type_supports( $type, 'excerpt' ) ) {
-				continue;
-			}
-
-			remove_post_type_support( $type, 'excerpt' );
-			add_post_type_support( $type, 'at-excerpt' );
-		}
-
-	}
-
-
 	public function meta_box( $post_type ) {
 
-		if ( ! post_type_supports( $post_type, 'at-excerpt' ) ) {
+		if ( ! post_type_supports( $post_type, 'excerpt' ) ) {
 			return;
 		}
 

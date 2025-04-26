@@ -141,7 +141,7 @@ class Admin {
 					return false;
 				}
 
-				return post_type_supports( $type->name, 'at-excerpt' );
+				return post_type_supports( $type->name, 'excerpt' );
 			}
 		);
 
