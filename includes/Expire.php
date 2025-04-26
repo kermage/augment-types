@@ -45,7 +45,7 @@ class Expire {
 
 	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'expire_enabled' ) );
+		return array_merge( Admin::instance()->option( 'expire_enabled' ) );
 
 	}
 

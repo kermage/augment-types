@@ -40,7 +40,7 @@ class Excerpt {
 
 	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'excerpt_enabled' ) );
+		return array_merge( Admin::instance()->option( 'excerpt_enabled' ) );
 
 	}
 

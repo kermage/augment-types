@@ -54,7 +54,7 @@ class Sort {
 
 	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'sort_enabled' ) );
+		return array_merge( Admin::instance()->option( 'sort_enabled' ) );
 
 	}
 

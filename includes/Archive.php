@@ -53,7 +53,7 @@ class Archive {
 
 	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'archive_enabled' ) );
+		return array_merge( Admin::instance()->option( 'archive_enabled' ) );
 
 	}
 
