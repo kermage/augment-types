@@ -38,9 +38,9 @@ class Feature {
 	}
 
 
-	protected function disabled_types() {
+	protected function enabled_types() {
 
-		return Admin::instance()->option( 'thumbnail_disabled' );
+		return Admin::instance()->option( 'thumbnail_enabled' );
 
 	}
 
@@ -54,7 +54,7 @@ class Feature {
 				continue;
 			}
 
-			if ( in_array( $type, $this->disabled_types(), true ) ) {
+			if ( ! in_array( $type, $this->enabled_types(), true ) ) {
 				continue;
 			}
 
@@ -142,7 +142,7 @@ class Feature {
 			return false;
 		}
 
-		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, $this->enabled_types(), true ) ) {
 			return false;
 		}
 

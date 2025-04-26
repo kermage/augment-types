@@ -38,9 +38,9 @@ class Excerpt {
 	}
 
 
-	protected function disabled_types() {
+	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'excerpt_disabled' ) );
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'excerpt_enabled' ) );
 
 	}
 
@@ -51,7 +51,7 @@ class Excerpt {
 			return;
 		}
 
-		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return;
 		}
 

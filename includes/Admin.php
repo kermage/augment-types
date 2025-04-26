@@ -84,7 +84,7 @@ class Admin {
 
 		?>
 <style>
-	[id^=augment-types_][id$=_disabled] {
+	[id^=augment-types_][id$=_enabled] {
 		columns: 2;
 		word-break: break-all;
 	}
@@ -103,7 +103,7 @@ class Admin {
 		$types = array_column( $options, 'label', 'name' );
 
 		return array(
-			'disabled' => array(
+			'enabled' => array(
 				'type'     => 'checklist',
 				'options'  => $types,
 				'multiple' => true,
@@ -115,7 +115,7 @@ class Admin {
 
 	public function archive_box(): OptionBox {
 
-		$title = __( 'Disable archiving on', 'augment-types' );
+		$title = __( 'Enable archiving on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'archive_' );
 		$types = array_filter(
 			get_post_types( Archive::TYPE_ARGS, 'objects' ),
@@ -132,7 +132,7 @@ class Admin {
 
 	public function excerpt_box(): OptionBox {
 
-		$title = __( 'Disable exciting excerpts on', 'augment-types' );
+		$title = __( 'Enable exciting excerpts on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'excerpt_' );
 		$types = array_filter(
 			get_post_types( Excerpt::TYPE_ARGS, 'objects' ),
@@ -153,7 +153,7 @@ class Admin {
 
 	public function expire_box(): OptionBox {
 
-		$title = __( 'Disable expirator on', 'augment-types' );
+		$title = __( 'Enable expirator on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'expire_' );
 		$types = array_filter(
 			get_post_types( array(), 'objects' ),
@@ -174,7 +174,7 @@ class Admin {
 
 	public function thumbnail_box(): OptionBox {
 
-		$title = __( 'Disable thumbnail column on', 'augment-types' );
+		$title = __( 'Enable thumbnail column on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'thumbnail_' );
 		$types = array_filter(
 			get_post_types( Feature::TYPE_ARGS, 'objects' ),
@@ -191,7 +191,7 @@ class Admin {
 
 	public function sort_box(): OptionBox {
 
-		$title = __( 'Disable sorting on', 'augment-types' );
+		$title = __( 'Enable sorting on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'sort_' );
 		$types = array_filter(
 			get_post_types( Sort::TYPE_ARGS, 'objects' ),

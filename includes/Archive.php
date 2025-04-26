@@ -51,9 +51,9 @@ class Archive {
 	}
 
 
-	protected function disabled_types() {
+	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'archive_disabled' ) );
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'archive_enabled' ) );
 
 	}
 
@@ -93,7 +93,7 @@ class Archive {
 				continue;
 			}
 
-			if ( in_array( $type->name, $this->disabled_types(), true ) ) {
+			if ( ! in_array( $type->name, $this->enabled_types(), true ) ) {
 				continue;
 			}
 
@@ -111,7 +111,7 @@ class Archive {
 			add_rewrite_rule( '^' . $slug . '/archive/page/([0-9]+)/?$', 'index.php?post_type=' . $type->name . '&paged=$matches[1]&at-archive=true', 'top' );
 		}
 
-		if ( in_array( 'post', $this->disabled_types(), true ) ) {
+		if ( ! in_array( 'post', $this->enabled_types(), true ) ) {
 			return;
 		}
 
@@ -129,7 +129,7 @@ class Archive {
 
 		global $post;
 
-		if ( in_array( $post->post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post->post_type, $this->enabled_types(), true ) ) {
 			return;
 		}
 
@@ -174,7 +174,7 @@ class Archive {
 
 		global $typenow;
 
-		if ( in_array( $typenow, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $typenow, $this->enabled_types(), true ) ) {
 			return;
 		}
 
@@ -203,7 +203,7 @@ class Archive {
 
 	public function post_states( $states, $post ) {
 
-		if ( in_array( $post->post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post->post_type, $this->enabled_types(), true ) ) {
 			return $states;
 		}
 
@@ -247,7 +247,7 @@ class Archive {
 
 	public function reserve_slug( $is_bad, $slug, $post_type, $post_parent = null ) {
 
-		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return $is_bad;
 		}
 
@@ -262,7 +262,7 @@ class Archive {
 
 	public function meta_box( $post_type ) {
 
-		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return;
 		}
 
@@ -374,7 +374,7 @@ class Archive {
 
 		$screen = get_current_screen();
 
-		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, $this->enabled_types(), true ) ) {
 			return false;
 		}
 

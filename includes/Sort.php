@@ -52,9 +52,9 @@ class Sort {
 	}
 
 
-	protected function disabled_types() {
+	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'sort_disabled' ) );
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'sort_enabled' ) );
 
 	}
 
@@ -64,7 +64,7 @@ class Sort {
 		$types = get_post_types( self::TYPE_ARGS, 'objects' );
 
 		foreach ( $types as $type ) {
-			if ( in_array( $type->name, $this->disabled_types(), true ) ) {
+			if ( ! in_array( $type->name, $this->enabled_types(), true ) ) {
 				continue;
 			}
 
@@ -281,7 +281,7 @@ class Sort {
 			return false;
 		}
 
-		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, $this->enabled_types(), true ) ) {
 			return false;
 		}
 

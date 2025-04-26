@@ -43,16 +43,16 @@ class Expire {
 	}
 
 
-	protected function disabled_types() {
+	protected function enabled_types() {
 
-		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'expire_disabled' ) );
+		return array_merge( self::EXCLUDED_TYPES, Admin::instance()->option( 'expire_enabled' ) );
 
 	}
 
 
 	public function meta_box( $post_type ) {
 
-		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return;
 		}
 
@@ -157,7 +157,7 @@ class Expire {
 
 	public function column_header( $columns, $post_type = 'page' ) {
 
-		if ( in_array( $post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return $columns;
 		}
 
@@ -203,7 +203,7 @@ class Expire {
 
 		$screen = get_current_screen();
 
-		if ( in_array( $screen->post_type, $this->disabled_types(), true ) ) {
+		if ( ! in_array( $screen->post_type, $this->enabled_types(), true ) ) {
 			return false;
 		}
 
