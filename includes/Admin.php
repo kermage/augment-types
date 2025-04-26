@@ -67,6 +67,7 @@ class Admin {
 			$box->location( self::OPTION_KEY )->create();
 		}
 
+		add_action( 'themeplate_settings_' . self::OPTION_KEY . '_advanced', array( $this, 'scripts' ) );
 		add_action( 'themeplate_settings_' . self::OPTION_KEY . '_advanced', array( $this, 'styles' ) );
 
 	}
@@ -80,6 +81,23 @@ class Admin {
 	}
 
 
+	public function scripts() {
+
+		?>
+<script>
+	jQuery( '.augment-type-toggle' ).on( 'click', function() {
+		var mode = jQuery( this ).data( 'toggle' );
+
+		jQuery( this ).parents( '.fields-container' ).find( 'input[type=checkbox]' ).each( function() {
+			this.checked = mode === 'all';
+		} );
+	} );
+</script>
+		<?php
+
+	}
+
+
 	public function styles() {
 
 		?>
@@ -87,6 +105,16 @@ class Admin {
 	[id^=augment-types_][id$=_enabled] {
 		columns: 2;
 		word-break: break-all;
+	}
+
+	.augment-types-toggles {
+		display: flex;
+		gap: 0.5rem;
+		font-weight: 500;
+	}
+
+	.augment-types-legend {
+		display: contents;
 	}
 </style>
 		<?php
@@ -107,8 +135,31 @@ class Admin {
 				'type'     => 'checklist',
 				'options'  => $types,
 				'multiple' => true,
+				'default'  => array_keys( $types ),
+			),
+			'toggles' => array(
+				'type'    => 'html',
+				'options' => array( $this, 'toggles_html' ),
 			),
 		);
+
+	}
+
+
+	public function toggles_html() {
+
+		ob_start();
+
+		?>
+<fieldset class="augment-types-toggles">
+	<legend class="augment-types-legend"><?php esc_html_e( 'Select' ); ?>:</legend>
+	<button type="button" class="button-link augment-type-toggle" data-toggle="all"><?php esc_html_e( 'All' ); ?></button>
+	<span>|</span>
+	<button type="button" class="button-link augment-type-toggle" data-toggle="none"><?php esc_html_e( 'None' ); ?></button>
+</fieldset>
+		<?php
+
+		return ob_get_clean();
 
 	}
 
