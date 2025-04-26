@@ -23,8 +23,6 @@ class Sort {
 
 	public const EXCLUDED_TYPES = array(
 		'attachment',
-		'acf-field-group',
-		'elementor_library',
 		'wp_block',
 		'wp_navigation',
 	);

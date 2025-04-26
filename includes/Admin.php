@@ -31,10 +31,22 @@ class Admin {
 		'sort',
 	);
 
+	public const EXCLUDED_TYPES = array(
+		'acf-field-group',
+		'elementor_library',
+	);
+
 
 	private function __construct() {
 
 		$this->repository = new Repository( new OptionHandler() );
+
+	}
+
+
+	protected function excluded_type( $type, $excluded ) {
+
+		return in_array( $type->name, array_merge( self::EXCLUDED_TYPES, $excluded ), true );
 
 	}
 
@@ -171,7 +183,7 @@ class Admin {
 		$types = array_filter(
 			get_post_types( Archive::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
-				return ! in_array( $type->name, Archive::EXCLUDED_TYPES, true );
+				return ! $this->excluded_type( $type, Archive::EXCLUDED_TYPES );
 			}
 		);
 
@@ -188,7 +200,7 @@ class Admin {
 		$types = array_filter(
 			get_post_types( Excerpt::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
-				if ( in_array( $type->name, Excerpt::EXCLUDED_TYPES, true ) ) {
+				if ( $this->excluded_type( $type, Excerpt::EXCLUDED_TYPES ) ) {
 					return false;
 				}
 
@@ -209,6 +221,10 @@ class Admin {
 		$types = array_filter(
 			get_post_types( array(), 'objects' ),
 			function ( $type ) {
+				if ( $this->excluded_type( $type, array() ) ) {
+					return false;
+				}
+
 				if ( in_array( $type->name, array( 'page', 'post' ), true ) ) {
 					return true;
 				}
@@ -230,6 +246,10 @@ class Admin {
 		$types = array_filter(
 			get_post_types( Feature::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
+				if ( $this->excluded_type( $type, array() ) ) {
+					return false;
+				}
+
 				return post_type_supports( $type->name, 'thumbnail' );
 			}
 		);
@@ -247,7 +267,7 @@ class Admin {
 		$types = array_filter(
 			get_post_types( Sort::TYPE_ARGS, 'objects' ),
 			function ( $type ) {
-				return ! in_array( $type->name, Sort::EXCLUDED_TYPES, true );
+				return ! $this->excluded_type( $type, Sort::EXCLUDED_TYPES );
 			}
 		);
 
