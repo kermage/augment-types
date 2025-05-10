@@ -38,6 +38,7 @@ class Feature {
 	}
 
 
+	/** @return string[] */
 	protected function enabled_types(): array {
 
 		return Admin::instance()->option( 'thumbnail_enabled' );
@@ -47,6 +48,7 @@ class Feature {
 
 	public function init(): void {
 
+		/** @var string[] $types */
 		$types = get_post_types( self::TYPE_ARGS );
 
 		foreach ( $types as $type ) {

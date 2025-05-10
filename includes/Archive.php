@@ -53,6 +53,7 @@ class Archive {
 	}
 
 
+	/** @return string[] */
 	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'archive_enabled' ) );
@@ -88,6 +89,7 @@ class Archive {
 
 		add_rewrite_tag( '%at-archive%', '([^&]+)' );
 
+		/** @var \WP_Post_Type[] $types */
 		$types = get_post_types( self::TYPE_ARGS, 'objects' );
 
 		foreach ( $types as $type ) {
@@ -118,7 +120,7 @@ class Archive {
 		}
 
 		$slug = get_option( 'page_for_posts', 0 );
-		$slug = get_permalink( $slug );
+		$slug = (string) get_permalink( $slug );
 		$slug = str_replace( home_url( '/' ), '', $slug );
 
 		add_rewrite_rule( '^' . $slug . 'archive/?$', 'index.php?post_type=post&at-archive=true', 'top' );
@@ -129,6 +131,7 @@ class Archive {
 
 	public function post_js(): void {
 
+		/** @var WP_Post $post */
 		global $post;
 
 		if ( ! in_array( $post->post_type, $this->enabled_types(), true ) ) {
@@ -174,6 +177,7 @@ class Archive {
 
 	public function edit_js(): void {
 
+		/** @var string $typenow */
 		global $typenow;
 
 		if ( ! in_array( $typenow, $this->enabled_types(), true ) ) {
@@ -226,6 +230,7 @@ class Archive {
 			return;
 		}
 
+		/** @var ?WP_Query $wp_query */
 		global $wp_query;
 
 		if ( ! $wp_query ) {
@@ -281,6 +286,7 @@ class Archive {
 
 	public function archive_select( WP_Post $post ): void {
 
+		/** @var array<string, object{label: string}> $statuses */
 		$statuses = get_post_stati( array( 'show_in_admin_all_list' => true ), 'objects' );
 		$classic  = ! ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) );
 

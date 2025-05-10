@@ -50,6 +50,7 @@ class Sort {
 	}
 
 
+	/** @return string[] */
 	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'sort_enabled' ) );
@@ -59,6 +60,7 @@ class Sort {
 
 	public function menu(): void {
 
+		/** @var \WP_Post_Type[] $types */
 		$types = get_post_types( self::TYPE_ARGS, 'objects' );
 
 		foreach ( $types as $type ) {
@@ -119,7 +121,8 @@ class Sort {
 			$args['post_status'] = sanitize_key( $_GET['post_status'] );
 		}
 
-		$post_type  = get_post_type_object( $type );
+		$post_type = get_post_type_object( $type );
+		/** @var \WP_Taxonomy[] $taxonomies */
 		$taxonomies = get_object_taxonomies( $type, 'objects' );
 
 		foreach ( $taxonomies as $taxonomy ) {
@@ -219,10 +222,12 @@ class Sort {
 
 			<?php foreach ( $taxonomies as $name => $taxonomy ) : ?>
 				<?php
-					$args    = array(
+					$args = array(
 						'taxonomy' => $name,
 						'fields'   => 'id=>name',
 					);
+
+					/** @var array<int, string> $options */
 					$options = get_terms( $args );
 					$filter  = isset( $_GET[ $name ] ) ? sanitize_key( $_GET[ $name ] ) : null;
 
@@ -312,8 +317,10 @@ class Sort {
 	}
 
 
+	/** @param array<string, string> $data */
 	public function update_posts_order( array $data ): void {
 
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 
 		parse_str( $data['filters'], $filters );
@@ -323,6 +330,7 @@ class Sort {
 		unset( $filters['post_type'] );
 		unset( $filters['page'] );
 
+		/** @var array<string, string[]> $data */
 		$data    = array_merge( $items, $orders );
 		$filters = array_filter( $filters );
 		$orders  = $data['orders'];
@@ -342,13 +350,18 @@ class Sort {
 	}
 
 
+	/** @param array<string, string> $data */
 	public function update_tags_order( array $data ): void {
 
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 
 		parse_str( $data['items'], $data );
 
-		foreach ( $data['items'] as $index => $tag ) {
+		/** @var int[] $data */
+		$data = $data['items'];
+
+		foreach ( $data as $index => $tag ) {
 			$wpdb->update( $wpdb->terms, array( 'term_order' => $index + 1 ), array( 'term_id' => $tag ) );
 		}
 

@@ -45,6 +45,7 @@ class Admin {
 	}
 
 
+	/** @param string[] $excluded */
 	protected function excluded_type( WP_Post_Type $type, array $excluded ): bool {
 
 		return in_array( $type->name, array_merge( self::EXCLUDED_TYPES, $excluded ), true );
@@ -172,7 +173,7 @@ class Admin {
 </fieldset>
 		<?php
 
-		return ob_get_clean();
+		return (string) ob_get_clean();
 
 	}
 
@@ -181,9 +182,11 @@ class Admin {
 
 		$title = __( 'Enable archiving on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'archive_' );
+		/** @var WP_Post_Type[] $types */
+		$types = get_post_types( Archive::TYPE_ARGS, 'objects' );
 		$types = array_filter(
-			get_post_types( Archive::TYPE_ARGS, 'objects' ),
-			function ( $type ) {
+			$types,
+			function ( WP_Post_Type $type ) {
 				return ! $this->excluded_type( $type, Archive::EXCLUDED_TYPES );
 			}
 		);
@@ -198,9 +201,11 @@ class Admin {
 
 		$title = __( 'Enable exciting excerpts on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'excerpt_' );
+		/** @var WP_Post_Type[] $types */
+		$types = get_post_types( Excerpt::TYPE_ARGS, 'objects' );
 		$types = array_filter(
-			get_post_types( Excerpt::TYPE_ARGS, 'objects' ),
-			function ( $type ) {
+			$types,
+			function ( WP_Post_Type $type ) {
 				if ( $this->excluded_type( $type, Excerpt::EXCLUDED_TYPES ) ) {
 					return false;
 				}
@@ -219,9 +224,11 @@ class Admin {
 
 		$title = __( 'Enable expirator on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'expire_' );
+		/** @var WP_Post_Type[] $types */
+		$types = get_post_types( array(), 'objects' );
 		$types = array_filter(
-			get_post_types( array(), 'objects' ),
-			function ( $type ) {
+			$types,
+			function ( WP_Post_Type $type ) {
 				if ( $this->excluded_type( $type, array() ) ) {
 					return false;
 				}
@@ -244,9 +251,11 @@ class Admin {
 
 		$title = __( 'Enable thumbnail column on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'thumbnail_' );
+		/** @var WP_Post_Type[] $types */
+		$types = get_post_types( Feature::TYPE_ARGS, 'objects' );
 		$types = array_filter(
-			get_post_types( Feature::TYPE_ARGS, 'objects' ),
-			function ( $type ) {
+			$types,
+			function ( WP_Post_Type $type ) {
 				if ( $this->excluded_type( $type, array() ) ) {
 					return false;
 				}
@@ -265,9 +274,11 @@ class Admin {
 
 		$title = __( 'Enable sorting on', 'augment-types' );
 		$args  = array( 'data_prefix' => 'sort_' );
+		/** @var WP_Post_Type[] $types */
+		$types = get_post_types( Sort::TYPE_ARGS, 'objects' );
 		$types = array_filter(
-			get_post_types( Sort::TYPE_ARGS, 'objects' ),
-			function ( $type ) {
+			$types,
+			function ( WP_Post_Type $type ) {
 				return ! $this->excluded_type( $type, Sort::EXCLUDED_TYPES );
 			}
 		);

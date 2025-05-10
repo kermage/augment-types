@@ -58,6 +58,7 @@ class AugmentTypes {
 	public static function activate( bool $network_wide ): void {
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() && $network_wide ) {
+			/** @var wpdb $wpdb */
 			global $wpdb;
 
 			$current = $wpdb->blogid;
@@ -93,6 +94,7 @@ class AugmentTypes {
 
 	public static function new_blog( int $id ): void {
 
+		/** @var wpdb $wpdb */
 		global $wpdb;
 
 		if ( is_plugin_active_for_network( plugin_basename( AUGMENT_TYPES ) ) ) {
@@ -108,6 +110,7 @@ class AugmentTypes {
 
 	protected static function alter_table(): void {
 
+		/** @var wpdb $wpdb */
 		global $wpdb;
 
 		if ( ! $wpdb->query( "SHOW COLUMNS FROM $wpdb->terms LIKE 'term_order'" ) ) {

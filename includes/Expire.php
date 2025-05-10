@@ -44,6 +44,7 @@ class Expire {
 	}
 
 
+	/** @return string[] */
 	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'expire_enabled' ) );
@@ -71,8 +72,8 @@ class Expire {
 	public function expire_settings( WP_Post $post ): void {
 
 		$expiration  = get_post_meta( $post->ID, 'at-expiration', true );
-		$expiry_date = wp_date( 'Y-m-d', strtotime( $expiration ) );
-		$expiry_time = wp_date( 'H:i', strtotime( $expiration ) );
+		$expiry_date = (string) wp_date( 'Y-m-d', strtotime( $expiration ) );
+		$expiry_time = (string) wp_date( 'H:i', strtotime( $expiration ) );
 
 		wp_nonce_field( 'at-expiration-' . $post->ID, 'at-expiration-nonce' );
 
@@ -182,9 +183,9 @@ class Expire {
 			return;
 		}
 
-		echo esc_html( wp_date( get_option( 'date_format' ), strtotime( $expiration ) ) );
+		echo esc_html( (string) wp_date( get_option( 'date_format' ), strtotime( $expiration ) ) );
 		echo '<br>';
-		echo esc_html( wp_date( get_option( 'time_format' ), strtotime( $expiration ) ) );
+		echo esc_html( (string) wp_date( get_option( 'time_format' ), strtotime( $expiration ) ) );
 
 	}
 
