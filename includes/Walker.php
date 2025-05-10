@@ -17,21 +17,21 @@ class Walker extends CoreWalker {
 	);
 
 
-	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+	public function start_lvl( &$output, $depth = 0, $args = array() ): void {
 
 		$output .= '<ul class="at-sort-list">';
 
 	}
 
 
-	public function end_lvl( &$output, $depth = 0, $args = array() ) {
+	public function end_lvl( &$output, $depth = 0, $args = array() ): void {
 
 		$output .= '</ul>';
 
 	}
 
 
-	public function start_el( &$output, $data_object, $depth = 0, $args = array(), $current_object_id = 0 ) {
+	public function start_el( &$output, $data_object, $depth = 0, $args = array(), $current_object_id = 0 ): void {
 
 		$indent = '';
 
@@ -73,7 +73,7 @@ class Walker extends CoreWalker {
 	}
 
 
-	public function end_el( &$output, $data_object, $depth = 0, $args = array() ) {
+	public function end_el( &$output, $data_object, $depth = 0, $args = array() ): void {
 
 		$output .= '</li>';
 

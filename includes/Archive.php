@@ -8,10 +8,12 @@
 namespace AugmentTypes;
 
 use AugmentTypes;
+use WP_Post;
+use WP_Query;
 
 class Archive {
 
-	private static $instance;
+	private static ?self $instance = null;
 
 	public const TYPE_ARGS = array(
 		'public' => true,
@@ -23,7 +25,7 @@ class Archive {
 	);
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -51,14 +53,14 @@ class Archive {
 	}
 
 
-	protected function enabled_types() {
+	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'archive_enabled' ) );
 
 	}
 
 
-	public function init() {
+	public function init(): void {
 
 		$args = array(
 			'label'       => __( 'Archived', 'augment-types' ),
@@ -72,7 +74,7 @@ class Archive {
 	}
 
 
-	public function rewrites() {
+	public function rewrites(): void {
 
 		$permalink_structure = get_option( 'permalink_structure', '' );
 
@@ -125,7 +127,7 @@ class Archive {
 	}
 
 
-	public function post_js() {
+	public function post_js(): void {
 
 		global $post;
 
@@ -170,7 +172,7 @@ class Archive {
 	}
 
 
-	public function edit_js() {
+	public function edit_js(): void {
 
 		global $typenow;
 
@@ -201,7 +203,7 @@ class Archive {
 	}
 
 
-	public function post_states( $states, $post ) {
+	public function post_states( array $states, WP_Post $post ): array {
 
 		if ( ! in_array( $post->post_type, $this->enabled_types(), true ) ) {
 			return $states;
@@ -218,7 +220,7 @@ class Archive {
 	}
 
 
-	public function set_status( $query ) {
+	public function set_status( ?WP_Query $query ): void {
 
 		if ( is_admin() || ! $query ) {
 			return;
@@ -245,7 +247,7 @@ class Archive {
 	}
 
 
-	public function reserve_slug( $is_bad, $slug, $post_type, $post_parent = null ) {
+	public function reserve_slug( bool $is_bad, string $slug, string $post_type, ?int $post_parent = null ): bool {
 
 		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return $is_bad;
@@ -260,7 +262,7 @@ class Archive {
 	}
 
 
-	public function meta_box( $post_type ) {
+	public function meta_box( string $post_type ): void {
 
 		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return;
@@ -277,7 +279,7 @@ class Archive {
 
 	}
 
-	public function archive_select( $post ) {
+	public function archive_select( WP_Post $post ): void {
 
 		$statuses = get_post_stati( array( 'show_in_admin_all_list' => true ), 'objects' );
 		$classic  = ! ( function_exists( 'use_block_editor_for_post' ) && use_block_editor_for_post( $post->ID ) );
@@ -325,7 +327,7 @@ class Archive {
 	}
 
 
-	public function save_post( $post_id, $post ) {
+	public function save_post( string $post_id, WP_Post $post ): void {
 
 		if ( empty( $_POST['at-archive-nonce'] ) ) {
 			return;
@@ -359,7 +361,7 @@ class Archive {
 	}
 
 
-	public function scripts_styles() {
+	public function scripts_styles(): void {
 
 		if ( ! $this->is_valid_screen() ) {
 			return;
@@ -370,7 +372,7 @@ class Archive {
 	}
 
 
-	private function is_valid_screen() {
+	private function is_valid_screen(): bool {
 
 		$screen = get_current_screen();
 

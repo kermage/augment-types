@@ -15,11 +15,11 @@ use AugmentTypes\Sort;
 
 class AugmentTypes {
 
-	private static $instance;
-	private static $data;
+	private static ?self $instance = null;
+	private static array $data;
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -47,14 +47,15 @@ class AugmentTypes {
 	}
 
 
-	public static function get_data( $key ) {
+	/** @return mixed */
+	public static function get_data( string $key ) {
 
 		return self::$data[ $key ];
 
 	}
 
 
-	public static function activate( $network_wide ) {
+	public static function activate( bool $network_wide ): void {
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() && $network_wide ) {
 			global $wpdb;
@@ -75,7 +76,7 @@ class AugmentTypes {
 	}
 
 
-	public function load_text_domain() {
+	public function load_text_domain(): void {
 
 		load_plugin_textdomain( 'augment-types' );
 
@@ -90,7 +91,7 @@ class AugmentTypes {
 	}
 
 
-	public static function new_blog( $id ) {
+	public static function new_blog( int $id ): void {
 
 		global $wpdb;
 
@@ -105,7 +106,7 @@ class AugmentTypes {
 	}
 
 
-	protected static function alter_table() {
+	protected static function alter_table(): void {
 
 		global $wpdb;
 
@@ -116,7 +117,7 @@ class AugmentTypes {
 	}
 
 
-	public function per_type( $value, $term_id, $taxonomy ) {
+	public function per_type( int $value, int $term_id, string $taxonomy ): int {
 
 		$screen = get_current_screen();
 

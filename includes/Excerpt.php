@@ -7,9 +7,11 @@
 
 namespace AugmentTypes;
 
+use WP_Post;
+
 class Excerpt {
 
-	private static $instance;
+	private static ?self $instance = null;
 
 	public const TYPE_ARGS = array(
 		'show_ui' => true,
@@ -20,7 +22,7 @@ class Excerpt {
 	);
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -38,14 +40,14 @@ class Excerpt {
 	}
 
 
-	protected function enabled_types() {
+	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'excerpt_enabled' ) );
 
 	}
 
 
-	public function meta_box( $post_type ) {
+	public function meta_box( string $post_type ): void {
 
 		if ( ! post_type_supports( $post_type, 'excerpt' ) ) {
 			return;
@@ -67,7 +69,7 @@ class Excerpt {
 
 	}
 
-	public function excerpt_editor( $post ) {
+	public function excerpt_editor( ?WP_Post $post ): void {
 
 		$excerpt = '';
 

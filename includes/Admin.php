@@ -11,12 +11,13 @@ use ThemePlate\Core\Repository;
 use ThemePlate\Page\SubMenuPage;
 use ThemePlate\Settings\OptionBox;
 use ThemePlate\Settings\OptionHandler;
+use WP_Post_Type;
 
 class Admin {
 
 	protected Repository $repository;
 
-	private static $instance;
+	private static ?self $instance = null;
 
 
 	public const PARENT_PAGE = 'options-general.php';
@@ -44,14 +45,14 @@ class Admin {
 	}
 
 
-	protected function excluded_type( $type, $excluded ) {
+	protected function excluded_type( WP_Post_Type $type, array $excluded ): bool {
 
 		return in_array( $type->name, array_merge( self::EXCLUDED_TYPES, $excluded ), true );
 
 	}
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -93,7 +94,7 @@ class Admin {
 	}
 
 
-	public function scripts() {
+	public function scripts(): void {
 
 		?>
 <script>
@@ -110,7 +111,7 @@ class Admin {
 	}
 
 
-	public function styles() {
+	public function styles(): void {
 
 		?>
 <style>
@@ -158,7 +159,7 @@ class Admin {
 	}
 
 
-	public function toggles_html() {
+	public function toggles_html(): string {
 
 		ob_start();
 

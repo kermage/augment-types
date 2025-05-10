@@ -11,14 +11,14 @@ use AugmentTypes;
 
 class Feature {
 
-	private static $instance;
+	private static ?self $instance = null;
 
 	public const TYPE_ARGS = array(
 		'show_ui' => true,
 	);
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -38,14 +38,14 @@ class Feature {
 	}
 
 
-	protected function enabled_types() {
+	protected function enabled_types(): array {
 
 		return Admin::instance()->option( 'thumbnail_enabled' );
 
 	}
 
 
-	public function init() {
+	public function init(): void {
 
 		$types = get_post_types( self::TYPE_ARGS );
 
@@ -65,7 +65,7 @@ class Feature {
 	}
 
 
-	public function header( $columns ) {
+	public function header( array $columns ): array {
 
 		$columns['at-feature'] = __( 'Featured Image', 'augment-types' );
 
@@ -74,7 +74,7 @@ class Feature {
 	}
 
 
-	public function content( $column, $post_ID ) {
+	public function content( string $column, int $post_ID ): void {
 
 		if ( 'at-feature' !== $column ) {
 			return;
@@ -91,7 +91,7 @@ class Feature {
 	}
 
 
-	public function form( $column ) {
+	public function form( string $column ): void {
 
 		if ( 'at-feature' !== $column ) {
 			return;
@@ -121,7 +121,7 @@ class Feature {
 	}
 
 
-	public function scripts_styles() {
+	public function scripts_styles(): void {
 
 		if ( ! $this->is_valid_screen() ) {
 			return;
@@ -134,7 +134,7 @@ class Feature {
 	}
 
 
-	private function is_valid_screen() {
+	private function is_valid_screen(): bool {
 
 		$screen = get_current_screen();
 

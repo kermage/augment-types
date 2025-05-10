@@ -8,17 +8,18 @@
 namespace AugmentTypes;
 
 use AugmentTypes;
+use WP_Post;
 
 class Expire {
 
-	private static $instance;
+	private static ?self $instance = null;
 
 	public const EXCLUDED_TYPES = array(
 		'attachment',
 	);
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -43,14 +44,14 @@ class Expire {
 	}
 
 
-	protected function enabled_types() {
+	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'expire_enabled' ) );
 
 	}
 
 
-	public function meta_box( $post_type ) {
+	public function meta_box( string $post_type ): void {
 
 		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return;
@@ -67,7 +68,7 @@ class Expire {
 
 	}
 
-	public function expire_settings( $post ) {
+	public function expire_settings( WP_Post $post ): void {
 
 		$expiration  = get_post_meta( $post->ID, 'at-expiration', true );
 		$expiry_date = wp_date( 'Y-m-d', strtotime( $expiration ) );
@@ -91,7 +92,7 @@ class Expire {
 	}
 
 
-	public function save_post( $post_id ) {
+	public function save_post( int $post_id ): void {
 
 		if ( empty( $_POST['at-expiration-nonce'] ) ) {
 			return;
@@ -129,7 +130,7 @@ class Expire {
 	}
 
 
-	public function maybe_expire( $post ) {
+	public function maybe_expire( WP_Post $post ): void {
 
 		if ( 'archive' === $post->post_status ) {
 			return;
@@ -155,7 +156,7 @@ class Expire {
 	}
 
 
-	public function column_header( $columns, $post_type = 'page' ) {
+	public function column_header( array $columns, string $post_type = 'page' ): array {
 
 		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
 			return $columns;
@@ -168,7 +169,7 @@ class Expire {
 	}
 
 
-	public function column_content( $column, $post_ID ) {
+	public function column_content( string $column, int $post_ID ): void {
 
 		if ( 'at-expire' !== $column ) {
 			return;
@@ -188,7 +189,7 @@ class Expire {
 	}
 
 
-	public function scripts_styles() {
+	public function scripts_styles(): void {
 
 		if ( ! $this->is_valid_screen() ) {
 			return;
@@ -199,7 +200,7 @@ class Expire {
 	}
 
 
-	private function is_valid_screen() {
+	private function is_valid_screen(): bool {
 
 		$screen = get_current_screen();
 

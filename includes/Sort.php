@@ -15,7 +15,7 @@ use WP_Query;
 
 class Sort {
 
-	private static $instance;
+	private static ?self $instance = null;
 
 	public const TYPE_ARGS = array(
 		'show_ui' => true,
@@ -28,7 +28,7 @@ class Sort {
 	);
 
 
-	public static function instance() {
+	public static function instance(): self {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
@@ -50,14 +50,14 @@ class Sort {
 	}
 
 
-	protected function enabled_types() {
+	protected function enabled_types(): array {
 
 		return array_merge( Admin::instance()->option( 'sort_enabled' ) );
 
 	}
 
 
-	public function menu() {
+	public function menu(): void {
 
 		$types = get_post_types( self::TYPE_ARGS, 'objects' );
 
@@ -81,7 +81,7 @@ class Sort {
 	}
 
 
-	private function page( $params ) {
+	private function page( array $params ): void {
 
 		add_submenu_page(
 			// Parent Slug
@@ -101,7 +101,7 @@ class Sort {
 	}
 
 
-	public function create() {
+	public function create(): void {
 
 		$screen = get_current_screen();
 		$type   = $screen->post_type ? $screen->post_type : 'post';
@@ -190,7 +190,7 @@ class Sort {
 	}
 
 
-	private function filters( $type, $taxonomies ) {
+	private function filters( string $type, array $taxonomies ): void {
 
 		$statuses = get_post_statuses();
 
@@ -237,7 +237,7 @@ class Sort {
 					<select name="<?php echo esc_attr( $name ); ?>">
 						<option value="0" selected><?php _e( 'All' ); ?></option>
 						<?php foreach ( $options as $value => $label ) : ?>
-							<option value="<?php echo esc_attr( $value ); ?>"<?php selected( $filter, $value ); ?>>
+							<option value="<?php echo esc_attr( (string) $value ); ?>"<?php selected( $filter, $value ); ?>>
 								<?php echo esc_html( $label ); ?>
 							</option>
 						<?php endforeach; ?>
@@ -253,7 +253,7 @@ class Sort {
 	}
 
 
-	public function scripts_styles() {
+	public function scripts_styles(): void {
 
 		if ( ! $this->is_valid_screen() || ! current_user_can( 'edit_others_posts' ) ) {
 			return;
@@ -267,7 +267,7 @@ class Sort {
 	}
 
 
-	private function is_valid_screen() {
+	private function is_valid_screen(): bool {
 
 		$screen = get_current_screen();
 
@@ -292,7 +292,7 @@ class Sort {
 	}
 
 
-	public function update_order() {
+	public function update_order(): void {
 
 		if ( ! isset( $_POST['type'], $_POST['data'] ) ) {
 			wp_die( '', 403 );
@@ -312,7 +312,7 @@ class Sort {
 	}
 
 
-	public function update_posts_order( $data ) {
+	public function update_posts_order( array $data ): void {
 
 		global $wpdb;
 
@@ -342,7 +342,7 @@ class Sort {
 	}
 
 
-	public function update_tags_order( $data ) {
+	public function update_tags_order( array $data ): void {
 
 		global $wpdb;
 
@@ -357,7 +357,7 @@ class Sort {
 	}
 
 
-	public function set_posts_order( $query ) {
+	public function set_posts_order( WP_Query $query ): void {
 
 		if ( $query->get( 'orderby' ) || $query->is_search() ) {
 			return;
@@ -373,7 +373,7 @@ class Sort {
 	}
 
 
-	public function set_terms_order( $pieces, $taxonomies, $args ) {
+	public function set_terms_order( array $pieces, array $taxonomies, array $args ): array {
 
 		if ( ! ( is_admin() && isset( $_GET['orderby'] ) ) && ! ( isset( $args['ignore_term_order'] ) && true === $args['ignore_term_order'] ) ) {
 			$pieces['orderby'] = 'ORDER BY t.term_order ASC,  t.term_id';
