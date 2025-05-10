@@ -8,4 +8,5 @@
 .wordpress-org export-ignore
 composer.* export-ignore
 phpcs.xml export-ignore
+phpstan.neon export-ignore
 update-data.json export-ignore
