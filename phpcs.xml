@@ -22,6 +22,8 @@
 	<file>.</file>
 	<!-- Exclude the Composer Vendor directory. -->
 	<exclude-pattern>vendor</exclude-pattern>
+	<!-- Exclude the Tester Cache directory. -->
+	<exclude-pattern>.cache</exclude-pattern>
 
 	<!-- Include PHP cross-version compatibility. -->
 	<config name="testVersion" value="7.4-" />
