@@ -345,11 +345,10 @@ class Sort {
 		unset( $filters['page'] );
 
 		/** @var array<string, string[]> $data */
-		$data    = array_merge( $items, $orders );
-		$filters = array_filter( $filters );
-		$orders  = $data['orders'];
+		$data   = array_merge( $items, $orders );
+		$orders = $data['orders'];
 
-		if ( empty( $filters ) || empty( array_filter( $orders ) ) ) {
+		if ( array() === array_filter( $filters ) || array() === array_filter( $orders ) ) {
 			$orders = array_keys( $data['items'] );
 		}
 

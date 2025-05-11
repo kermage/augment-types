@@ -70,11 +70,11 @@ class Excerpt {
 
 	}
 
-	public function excerpt_editor( ?WP_Post $post ): void {
+	public function excerpt_editor( WP_Post $post ): void {
 
 		$excerpt = '';
 
-		if ( $post && $post->post_excerpt ) {
+		if ( $post->post_excerpt ) {
 			$excerpt = $post->post_excerpt;
 			$excerpt = html_entity_decode( $excerpt );
 			$excerpt = wp_kses_decode_entities( $excerpt );

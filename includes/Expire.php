@@ -110,7 +110,7 @@ class Expire {
 		if ( isset( $_POST['at-expiration'] ) ) {
 			$expiration = '';
 
-			if ( ! empty( array_filter( $_POST['at-expiration'] ) ) ) {
+			if ( array() !== array_filter( $_POST['at-expiration'] ) ) {
 				if ( empty( $_POST['at-expiration']['date'] ) ) {
 					$_POST['at-expiration']['date'] = wp_date( 'Y-m-d' );
 				}

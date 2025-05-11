@@ -226,7 +226,7 @@ class Archive {
 
 	public function set_status( ?WP_Query $query ): void {
 
-		if ( is_admin() || ! $query ) {
+		if ( is_admin() || ! $query instanceof WP_Query ) {
 			return;
 		}
 
@@ -258,7 +258,7 @@ class Archive {
 			return $is_bad;
 		}
 
-		if ( 'archive' === $slug && ! $post_parent ) {
+		if ( 'archive' === $slug && ( null === $post_parent || 0 === $post_parent ) ) {
 			return true;
 		}
 
