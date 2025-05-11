@@ -207,6 +207,11 @@ class Archive {
 	}
 
 
+	/**
+	 * @param array<string, string> $states
+	 *
+	 * @return array<string, string>
+	 */
 	public function post_states( array $states, WP_Post $post ): array {
 
 		if ( ! in_array( $post->post_type, $this->enabled_types(), true ) ) {

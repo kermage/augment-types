@@ -83,6 +83,7 @@ class Sort {
 	}
 
 
+	/** @param array<string, string> $params */
 	private function page( array $params ): void {
 
 		add_submenu_page(
@@ -203,6 +204,7 @@ class Sort {
 	}
 
 
+	/** @param \WP_Taxonomy[] $taxonomies */
 	private function filters( string $type, array $taxonomies ): void {
 
 		$statuses = get_post_statuses();
@@ -399,6 +401,13 @@ class Sort {
 	}
 
 
+	/**
+	 * @param array<string, string> $pieces
+	 * @param string[] $taxonomies
+	 * @param array<string, mixed> $args
+	 *
+	 * @return array<string, mixed>
+	 */
 	public function set_terms_order( array $pieces, array $taxonomies, array $args ): array {
 
 		if ( ! ( is_admin() && isset( $_GET['orderby'] ) ) && ! ( isset( $args['ignore_term_order'] ) && true === $args['ignore_term_order'] ) ) {

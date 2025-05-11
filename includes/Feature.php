@@ -67,6 +67,11 @@ class Feature {
 	}
 
 
+	/**
+	 * @param array<string, string> $columns
+	 *
+	 * @return array<string, string>
+	 */
 	public function header( array $columns ): array {
 
 		$columns['at-feature'] = __( 'Featured Image', 'augment-types' );

@@ -16,6 +16,7 @@ use AugmentTypes\Sort;
 class AugmentTypes {
 
 	private static ?self $instance = null;
+	/** @var array<string, mixed> */
 	private static array $data;
 
 
@@ -149,6 +150,11 @@ class AugmentTypes {
 	}
 
 
+	/**
+	 * @param string[] $links
+	 *
+	 * @return string[]
+	 */
 	public function settings_link( array $links ): array {
 
 		$settings = sprintf(

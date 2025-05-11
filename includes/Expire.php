@@ -157,6 +157,11 @@ class Expire {
 	}
 
 
+	/**
+	 * @param array<string, string> $columns
+	 *
+	 * @return array<string, string>
+	 */
 	public function column_header( array $columns, string $post_type = 'page' ): array {
 
 		if ( ! in_array( $post_type, $this->enabled_types(), true ) ) {
