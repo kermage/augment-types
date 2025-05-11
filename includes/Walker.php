@@ -8,6 +8,7 @@
 namespace AugmentTypes;
 
 use Walker as CoreWalker;
+use WP_Post;
 
 class Walker extends CoreWalker {
 
@@ -44,9 +45,14 @@ class Walker extends CoreWalker {
 			$data_object->post_title = sprintf( __( '#%d (no title)' ), $data_object->ID );
 		}
 
-		$p_title = $indent . $data_object->post_title;
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( get_post( $data_object->ID ), false );
+		$p_title  = $indent . $data_object->post_title;
+		$p_object = get_post( $data_object->ID );
+
+		if ( $p_object instanceof WP_Post ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$p_title .= isset( $_GET['post_status'] ) ? '' : _post_states( $p_object, false );
+		}
+
 		$ev_tmpl  = '<a href="%s" target="_blank">%s</a>';
 		$template = '<li id="post-%1$s" class="at-sort-row" data-order="%2$s">
 			<span class="at-sort-column">%3$s</span>
