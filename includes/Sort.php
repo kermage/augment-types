@@ -106,8 +106,13 @@ class Sort {
 	public function create(): void {
 
 		$screen = get_current_screen();
-		$type   = $screen->post_type ? $screen->post_type : 'post';
-		$limit  = min( ini_get( 'max_input_vars' ), array_sum( (array) wp_count_posts( $type ) ) );
+
+		if ( null === $screen ) {
+			return;
+		}
+
+		$type  = $screen->post_type ? $screen->post_type : 'post';
+		$limit = min( ini_get( 'max_input_vars' ), array_sum( (array) wp_count_posts( $type ) ) );
 
 		$args = array(
 			'post_type'      => $type,
@@ -122,6 +127,11 @@ class Sort {
 		}
 
 		$post_type = get_post_type_object( $type );
+
+		if ( null === $post_type ) {
+			return;
+		}
+
 		/** @var \WP_Taxonomy[] $taxonomies */
 		$taxonomies = get_object_taxonomies( $type, 'objects' );
 
@@ -276,7 +286,11 @@ class Sort {
 
 		$screen = get_current_screen();
 
-		if ( null !== $screen && strpos( $screen->id, '_page_at-sort_' ) !== false ) {
+		if ( null === $screen ) {
+			return false;
+		}
+
+		if ( strpos( $screen->id, '_page_at-sort_' ) !== false ) {
 			return true;
 		}
 

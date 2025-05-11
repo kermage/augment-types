@@ -382,11 +382,15 @@ class Archive {
 
 		$screen = get_current_screen();
 
+		if ( ! $screen ) {
+			return false;
+		}
+
 		if ( ! in_array( $screen->post_type, $this->enabled_types(), true ) ) {
 			return false;
 		}
 
-		return null !== $screen && in_array( $screen->base, array( 'edit', 'post' ), true );
+		return in_array( $screen->base, array( 'edit', 'post' ), true );
 
 	}
 
