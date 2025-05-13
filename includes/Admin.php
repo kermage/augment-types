@@ -34,7 +34,10 @@ class Admin {
 
 	public const EXCLUDED_TYPES = array(
 		'acf-field-group',
+		'acf-taxonomy',
+		'acf-post-type',
 		'elementor_library',
+		'e-floating-buttons',
 	);
 
 
