@@ -1,13 +1,13 @@
 {
-	"new_version"    : "1.22.0",
+	"new_version"    : "2.0.0",
 	"homepage"       : "https://github.com/kermage/augment-types",
 	"download_link"  : "https://downloads.wordpress.org/plugin/augment-types.zip",
-	"last_updated"   : "2025-04-16",
+	"last_updated"   : "2025-05-13",
 	"author"         : "Gene Alyson Fortunado Torcende",
 	"author_profile" : "https://genealysontorcende.wordpress.com/",
-	"requires"       : "4.6.0",
+	"requires"       : "5.9",
 	"tested"         : "6.8.99",
-	"requires_php"   : "5.6",
+	"requires_php"   : "7.4",
 	"donate_link"    : "https://www.paypal.me/GAFT",
 	"upgrade_notice" : "Please do the update now to seamlessly use the official WordPress Plugin Directory version",
 	"sections"        : {

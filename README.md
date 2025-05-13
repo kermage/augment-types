@@ -1,8 +1,8 @@
 # Augment Types
 
-Stable tag: 1.22.0  
+Stable tag: 2.0.0  
 Tested up to: 6.8.99  
-Requires at least: 4.6  
+Requires at least: 5.9  
 Requires PHP: 7.4  
 License: GPLv3  
 Tags: order/sort, archive, featured image, excerpts, expiration  
