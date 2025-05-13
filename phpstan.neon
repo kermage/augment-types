@@ -13,8 +13,7 @@ parameters:
   reportUnmatchedIgnoredErrors: false
   ignoreErrors:
     - '#Constant HOUR_IN_SECONDS not found#'
-    -
-      message: '#no value type specified in iterable type array#'
+    - message: '#no value type specified in iterable type array#'
       path: includes/Walker.php
     - message: '#Access to an undefined property object::\$#'
       path: includes/Walker.php
