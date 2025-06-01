@@ -109,6 +109,11 @@ class Admin {
 			this.checked = mode === 'all';
 		} );
 	} );
+	jQuery( '[id^=augment-types_][id$=_enabled]' ).each( function() {
+		jQuery( this ).find( 'label' ).each( function() {
+			jQuery( this ).html( jQuery( this ).html().replace( /###([^#]+)###/, '<code>$1</code>' ) );
+		} );
+	} );
 </script>
 		<?php
 
@@ -149,7 +154,7 @@ class Admin {
 		$keys  = array();
 
 		foreach ( $options as $option ) {
-			$types[ $option->name ] = sprintf( '%s (%s)', $option->label, $option->name );
+			$types[ $option->name ] = sprintf( '%s ###%s###', $option->label, $option->name );
 
 			$keys[] = $option->name;
 		}
