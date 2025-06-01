@@ -145,14 +145,21 @@ class Admin {
 	 */
 	protected function checklist_field( array $options ): array {
 
-		$types = array_column( $options, 'label', 'name' );
+		$types = array();
+		$keys  = array();
+
+		foreach ( $options as $option ) {
+			$types[ $option->name ] = sprintf( '%s (%s)', $option->label, $option->name );
+
+			$keys[] = $option->name;
+		}
 
 		return array(
 			'enabled' => array(
 				'type'     => 'checklist',
 				'options'  => $types,
 				'multiple' => true,
-				'default'  => array_keys( $types ),
+				'default'  => $keys,
 			),
 			'toggles' => array(
 				'type'    => 'html',
